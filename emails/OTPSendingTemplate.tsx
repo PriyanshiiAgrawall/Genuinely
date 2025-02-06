@@ -13,12 +13,12 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-interface GenuineFeedbackEmailProps {
+export interface OtpEmailSendingProps {
     otp: string;
-    username: string;
+    email: string;
 }
 
-export default function GenuineFeedbackEmail({ otp, username }: GenuineFeedbackEmailProps) {
+export default function OtpSendingEmailTemplate({ otp, email }: OtpEmailSendingProps) {
     return (
         <Html>
             <Head />
@@ -30,7 +30,7 @@ export default function GenuineFeedbackEmail({ otp, username }: GenuineFeedbackE
                             <Img src="#" width="75" height="45" alt="Genuine Feedback Logo" />
                         </Section>
                         <Section style={upperSection}>
-                            <Heading style={h1}>Hello, {username}!</Heading>
+                            <Heading style={h1}>Hello, {email}!</Heading>
                             <Text style={mainText}>
                                 Thank you for signing up for <strong>Genuinely</strong>. To complete your registration,
                                 please enter the following verification code:
@@ -109,3 +109,4 @@ const validityText = { ...text, margin: '0px', textAlign: 'center' as const };
 const verificationSection = { display: 'flex', alignItems: 'center', justifyContent: 'center' };
 const mainText = { ...text, marginBottom: '14px' };
 const cautionText = { ...text, margin: '0px' };
+

@@ -1,6 +1,6 @@
 import mongoose, { Document } from "mongoose";
 
-interface TestimonialInterface extends Document {
+export interface TestimonialInterface extends Document {
     userName: string;
     userAvatar: string;
     userIntro: string;

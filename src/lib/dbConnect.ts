@@ -6,30 +6,38 @@ type connectionType = {
 const connection: connectionType = {
     isConnected: null,
 }
-//void means i dont care what data is being returned
+
+mongoose.connection.on("disconnected", () => {
+    console.log("Mongoose connection lost. Resetting...");
+    connection.isConnected = null;
+});
+
 async function dbConnect(): Promise<void> {
-    //check if alredy connected
+    // Check if already connected
     if (connection.isConnected !== null) {
-        console.log("db is already connected");
-        return;
+        if (mongoose.connection.readyState === 1) {
+            console.log("DB is already connected");
+            return;
+        } else {
+            console.log("DB connection lost. Attempting to reconnect...");
+            connection.isConnected = null;
+        }
     }
+
     try {
-        const db = await mongoose.connect(process.env.MONGODB_URI || "", {
-            // useNewUrlParser: true,
-            // useUnifiedTopology: true,
-            //in mongoose 6+ we do not need them they are deafult behaviour
-        })
+        const db = await mongoose.connect(process.env.MONGODB_URI || "");
 
-        connection.isConnected = db.connection.readyState;
-
-        console.log("DB connected succesfully");
-    }
-    catch (err) {
-
-        console.error("db connection failed", err);
+        // Only set isConnected if the connection was successful
+        if (db.connection.readyState === 1) {
+            connection.isConnected = db.connection.readyState;
+            console.log("DB connected successfully");
+        } else {
+            console.log("DB connection attempt failed");
+            connection.isConnected = null;
+        }
+    } catch (err) {
+        console.error("DB connection failed", err);
         process.exit(1);
-
-
     }
 }
 
