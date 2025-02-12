@@ -24,6 +24,8 @@ interface UserInterface extends Document {
     name: string,
     profilePic: string,
     email: string,
+    latestOtp: number,
+    password: string,
     isVerified: boolean,
     isNewUser: boolean,
     subscriptionTier: SubscriptionTier,
@@ -47,6 +49,15 @@ export const UserSchema = new mongoose.Schema<UserInterface>({
         unique: true,
         trim: true,
         index: true,
+    },
+    password: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    latestOtp: {
+        type: Number,
+        required: true,
     },
     isVerified: {
         type: Boolean,
