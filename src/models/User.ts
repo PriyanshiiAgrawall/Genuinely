@@ -4,7 +4,7 @@ enum SubscriptionTier {
     FREE = "Free",
     LIFETIME = "Lifetime",
 }
-interface OAuthAccountInterface {
+export interface OAuthAccountInterface {
     provider: string,
     providerAccountId: string
 
@@ -22,12 +22,13 @@ const OAuthAccountSchema = new mongoose.Schema<OAuthAccountInterface>({
 });
 interface UserInterface extends Document {
     name: string,
-    profilePic: string,
+    image: string,
     email: string,
     latestOtp: number,
     password: string,
     isVerified: boolean,
     isNewUser: boolean,
+    isAcceptingMessages: boolean,
     subscriptionTier: SubscriptionTier,
     subscriptionEndDate: Date | null,
     oauthAccounts: OAuthAccountInterface[],
@@ -40,7 +41,7 @@ export const UserSchema = new mongoose.Schema<UserInterface>({
         trim: true,
         required: true,
     },
-    profilePic: {
+    image: {
         type: String,
     },
     email: {
@@ -55,6 +56,11 @@ export const UserSchema = new mongoose.Schema<UserInterface>({
         required: true,
         trim: true,
     },
+    isAcceptingMessages: {
+        type: Boolean,
+        required: true,
+        default: true,
+    },
     latestOtp: {
         type: Number,
         required: true,
@@ -68,6 +74,7 @@ export const UserSchema = new mongoose.Schema<UserInterface>({
         default: false,
     },
     subscriptionTier: {
+        type: String,
         enum: Object.values(SubscriptionTier),
         default: SubscriptionTier.FREE,
     },
@@ -89,6 +96,6 @@ export const UserSchema = new mongoose.Schema<UserInterface>({
 
 
 
-const User = mongoose.model<UserInterface>('User', UserSchema);
+const User = (mongoose.models.User as mongoose.Model<UserInterface>) || mongoose.model<UserInterface>('User', UserSchema);
 
 export default User;

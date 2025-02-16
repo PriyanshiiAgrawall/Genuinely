@@ -8,7 +8,7 @@ import dbConnect from "@/lib/dbConnect";
 export async function POST(req: Request) {
     await dbConnect();
     try {
-        const { name, email, password, profilePic } = await req.json();
+        const { name, email, password, image } = await req.json();
         const userFromDb = await User.findOne({ email });
 
         if (userFromDb?.isVerified) {
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
             name,
             email,
             password: hashedPass,
-            profilePic: profilePic || "https://example.com/default-profile.png",
+            image: image || "https://example.com/default-profile.png",
             latestOtp: Number(otp),
             isVerified: false,
             isNewUser: true,
@@ -44,6 +44,7 @@ export async function POST(req: Request) {
             subscriptionEndDate: null,
             oauthAccounts: [],
             spaces: [],
+            isAcceptingMessages: true,
         });
 
         await newUser.save();

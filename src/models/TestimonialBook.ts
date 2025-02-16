@@ -32,7 +32,7 @@ const TestimonialBookSchema = new mongoose.Schema<TestimonialBookInterface>({
     },
 });
 
-const TestimonialBook = mongoose.models?.TestimonialBook || mongoose.model<TestimonialBookInterface>("LoveGallery",
+const TestimonialBook = mongoose.models?.TestimonialBook as mongoose.Model<TestimonialBookInterface> || mongoose.model<TestimonialBookInterface>("LoveGallery",
     TestimonialBookSchema);
 
 

@@ -41,5 +41,5 @@ const spaceSchema = new mongoose.Schema<spaceInterface>({
 
 })
 
-const Space = mongoose.models?.Space || mongoose.model<spaceInterface>("Space", spaceSchema);
+const Space = mongoose.models?.Space as mongoose.Model<spaceInterface> || mongoose.model<spaceInterface>("Space", spaceSchema);
 export default Space;

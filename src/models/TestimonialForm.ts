@@ -40,6 +40,7 @@ const TestimonialFormSchema = new mongoose.Schema<TestimonialFormInterface>({
 
 });
 
-const TestimonialForm = mongoose.models?.TestimonialForm || mongoose.model<TestimonialFormInterface>('TestimonialForm', TestimonialFormSchema);
+const TestimonialForm = mongoose.models?.TestimonialForm as mongoose.Model<TestimonialFormInterface
+> || mongoose.model<TestimonialFormInterface>('TestimonialForm', TestimonialFormSchema);
 
 export default TestimonialForm;
