@@ -38,7 +38,7 @@ export async function POST(req: Request) {
             })
         }
         //.exec -> performance optimization
-        const userInDb = await User.findById(userId).exec();
+        const userInDb = await User.findById(userId).select("-password -latestOtp -otpExpiryDate").exec();
         if (!userInDb) {
             return NextResponse.json({
                 message: "User not found",
