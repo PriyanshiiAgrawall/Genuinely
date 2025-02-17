@@ -14,11 +14,12 @@ import {
 import * as React from 'react';
 
 export interface OtpEmailSendingProps {
-    otp: string;
+    name: string,
+    otp: number;
     email: string;
 }
 
-export default function OtpSendingEmailTemplate({ otp, email }: OtpEmailSendingProps) {
+export default function OtpSendingEmailTemplate({ name, otp, email }: OtpEmailSendingProps) {
     return (
         <Html>
             <Head />
@@ -30,7 +31,7 @@ export default function OtpSendingEmailTemplate({ otp, email }: OtpEmailSendingP
                             <Img src="#" width="75" height="45" alt="Genuine Feedback Logo" />
                         </Section>
                         <Section style={upperSection}>
-                            <Heading style={h1}>Hello, {email}!</Heading>
+                            <Heading style={h1}>Hello, {name}!</Heading>
                             <Text style={mainText}>
                                 Thank you for signing up for <strong>Genuinely</strong>. To complete your registration,
                                 please enter the following verification code:

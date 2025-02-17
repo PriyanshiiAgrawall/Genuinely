@@ -1,7 +1,7 @@
 import mongoose, { Document } from "mongoose";
 
 export interface TestimonialInterface extends Document {
-    userName: string;
+    userNameOfTestimonialGiver: string;
     userAvatar: string;
     userIntro: string;
     message: string;
@@ -11,7 +11,7 @@ export interface TestimonialInterface extends Document {
 }
 
 const TestimonialSchema = new mongoose.Schema<TestimonialInterface>({
-    userName: {
+    userNameOfTestimonialGiver: {
         type: String,
         default: "Anonymous",
         max: 50,

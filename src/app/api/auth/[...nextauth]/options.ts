@@ -72,7 +72,7 @@ export const authOptions: NextAuthOptions = {
                 token.email = user.email,
                     token.name = user.name,
                     token.image = user.image,
-                    token.isAcceptingMessages = user.isAcceptingMessages,
+                    token.isAcceptingTestimonials = user.isAcceptingTestimonials,
                     token.isVerified = user.isVerified,
                     token.subscriptionTier = user.subscriptionTier
             }
@@ -86,7 +86,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.name = token.name;
                 session.user.image = token.image;
                 session.user.subscriptionTier = token.subscriptionTier;
-                session.user.isAcceptingMessages = token.isAcceptingMessages;
+                session.user.isAcceptingTestimonials = token.isAcceptingTestimonials;
                 session.user.isVerified = token.isVerified;
             }
             return session;
@@ -124,7 +124,7 @@ export const authOptions: NextAuthOptions = {
                         password: "", // No password needed for OAuth users
                         latestOtp: 0,
                         isVerified: true,
-                        isAcceptingMessages: true,
+                        isAcceptingTestimonials: true,
                         isNewUser: true,
                         subscriptionTier: "Free",
                         subscriptionEndDate: null,

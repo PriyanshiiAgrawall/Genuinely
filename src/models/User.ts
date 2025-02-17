@@ -25,10 +25,11 @@ interface UserInterface extends Document {
     image: string,
     email: string,
     latestOtp: number,
+    otpExpiryDate: Date,
     password: string,
     isVerified: boolean,
     isNewUser: boolean,
-    isAcceptingMessages: boolean,
+    isAcceptingTestimonials: boolean,
     subscriptionTier: SubscriptionTier,
     subscriptionEndDate: Date | null,
     oauthAccounts: OAuthAccountInterface[],
@@ -56,13 +57,17 @@ export const UserSchema = new mongoose.Schema<UserInterface>({
         required: true,
         trim: true,
     },
-    isAcceptingMessages: {
+    isAcceptingTestimonials: {
         type: Boolean,
         required: true,
         default: true,
     },
     latestOtp: {
         type: Number,
+        required: true,
+    },
+    otpExpiryDate: {
+        type: Date,
         required: true,
     },
     isVerified: {
@@ -92,7 +97,13 @@ export const UserSchema = new mongoose.Schema<UserInterface>({
 
 
 },
-    { timestamps: true });
+    { timestamps: true, strict: false }//strict Allow schema changes dynamically 
+);
+
+//for dynamic schema changes in devlopment removed old catched schema
+if (mongoose.models.User) {
+    delete mongoose.models.User;
+}
 
 
 
