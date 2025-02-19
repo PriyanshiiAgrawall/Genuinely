@@ -5,6 +5,8 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import bcrypt from "bcryptjs";
+import { generateUniqueName } from "@/helpers/customUniqueNameGenerator";
+import crypto from "crypto";
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -30,7 +32,9 @@ export const authOptions: NextAuthOptions = {
                     if (!email || !password) {
                         throw new Error("Email and Password are required");
                     }
-                    const userInDb = await User.findOne({ email: email });
+                    const userInDb = await User.findOne({
+                        $or: [{ email: email }, { name: email }]
+                    });
                     if (!userInDb) {
                         throw new Error("You have not yet signed up please sign up first")
                     }
@@ -60,15 +64,22 @@ export const authOptions: NextAuthOptions = {
 
     ],
     pages: {
-        signIn: "/sign-in"
+        signIn: "/sign-in",
+        newUser: "/sign-up"
     },
     session: {
-        strategy: "jwt", //(database or jwt)
+        strategy: "jwt",//(database or jwt)
+        maxAge: 3 * 24 * 60 * 60,
+        updateAge: 24 * 60 * 60,
+    },
+    jwt: {
+        maxAge: 3 * 24 * 60 * 60,
     },
     callbacks: {
         async jwt({ token, user }) {
+            console.log("JWT CALLBACK:", { token, user });
             if (user) {
-                token.id = user._id.toString();
+                token.id = user._id?.toString();
                 token.email = user.email,
                     token.name = user.name,
                     token.image = user.image,
@@ -80,8 +91,9 @@ export const authOptions: NextAuthOptions = {
             return token;
         },
         async session({ session, user, token }) {
+            console.log("here are session callback", session, user, token)
             if (session.user) {
-                session.user.id = token.id;
+                session.user.id = token.sub || token.id;
                 session.user.email = token.email;
                 session.user.name = token.name;
                 session.user.image = token.image;
@@ -90,8 +102,11 @@ export const authOptions: NextAuthOptions = {
                 session.user.isVerified = token.isVerified;
             }
             return session;
+        }, async redirect({ url, baseUrl }) {
+            return `${baseUrl}/dashboard`;
         },
         signIn: async ({ user, account }) => {
+            console.log("SIGN IN CALLBACK TRIGGERED:", { user, account });
             await dbConnect();
 
             const { email, name, image } = user;
@@ -117,17 +132,32 @@ export const authOptions: NextAuthOptions = {
 
                 } else {
                     // Create a new user with the OAuth account
+                    let uniqueName = generateUniqueName();
+                    uniqueName.replaceAll(" ", "_");
+                    uniqueName = uniqueName + '1';
+                    let nameExists = await User.findOne({ name: uniqueName });
+                    let count = 1;
+                    while (nameExists) {
+                        uniqueName = `${generateUniqueName()}_${count}`;
+                        uniqueName.replaceAll(" ", "_"); // Add a number if the name exists
+                        nameExists = await User.findOne({ name: uniqueName });
+                        count++;
+                    }
+                    count = 1;
+                    const randomPassword = crypto.randomBytes(16).toString("hex"); // Random 32-character hex string
+
                     existingUser = new User({
                         email,
-                        name: name || "New User",
+                        name: uniqueName,
                         image,
-                        password: "", // No password needed for OAuth users
+                        password: randomPassword, // No password needed for OAuth users so putting random password so that mongoose validation do not fail as password is required entry
                         latestOtp: 0,
                         isVerified: true,
                         isAcceptingTestimonials: true,
                         isNewUser: true,
                         subscriptionTier: "Free",
                         subscriptionEndDate: null,
+                        otpExpiryDate: new Date(0),
                         oauthAccounts: [{ provider, providerAccountId }],
                     });
                     await existingUser.save();

@@ -101,12 +101,12 @@ export const UserSchema = new mongoose.Schema<UserInterface>({
 );
 
 //for dynamic schema changes in devlopment removed old catched schema
-if (mongoose.models.User) {
+if (mongoose.models?.User) {
     delete mongoose.models.User;
 }
 
 
 
-const User = (mongoose.models.User as mongoose.Model<UserInterface>) || mongoose.model<UserInterface>('User', UserSchema);
+const User = (mongoose.models?.User as mongoose.Model<UserInterface>) || mongoose.model<UserInterface>('User', UserSchema);
 
 export default User;

@@ -6,7 +6,7 @@ import { z } from "zod";
 export const uniqueNameZod = z.string()
     .min(2, "Unique Name must have at least 2 characters")
     .max(15, "Unique Name must have a maximum of 15 characters")
-    .regex(/^(?=.*\d)[a-zA-Z0-9]+$/, "Unique Name must contain at least one number and no special characters");
+    .regex(/^(?=.*\d)[a-zA-Z0-9_]+$/, "Unique Name must contain at least one number and no special characters other than underscore");
 
 export async function GET(request: Request) {
     await dbConnect();

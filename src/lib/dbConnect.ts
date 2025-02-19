@@ -7,7 +7,7 @@ const connection: connectionType = {
     isConnected: null,
 }
 
-mongoose.connection.on("disconnected", () => {
+mongoose.connection?.on("disconnected", () => {
     console.log("Mongoose connection lost. Resetting...");
     connection.isConnected = null;
 });
