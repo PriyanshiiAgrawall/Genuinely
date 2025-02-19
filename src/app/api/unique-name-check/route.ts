@@ -45,7 +45,7 @@ export async function GET(request: Request) {
 
 
         return NextResponse.json({
-            message: "Unique Name is available",
+            message: "This unique name is available",
             success: true,
         }, {
             status: 200,

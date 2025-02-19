@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useDebounceCallback } from 'usehooks-ts'
 import { useToast } from "@/hooks/use-toast";
+//this is imported in 2 ways from react router and from react navigation
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -12,8 +13,22 @@ import { uniqueNameZod } from "@/app/api/unique-name-check/route";
 import { ApiResponse } from "@/types/ApiResponse";
 import { signIn, signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
-//this is imported in 2 ways from react router and from react navigation
 export const signUpSchemaZod = z.object({
     name: uniqueNameZod,
     email: z.string().email("Invalid Email Format"),
@@ -31,7 +46,7 @@ export default function SignUpPage() {
     const { toast } = useToast();
     const router = useRouter();
 
-    const forrm = useForm<z.infer<typeof signUpSchemaZod>>({
+    const form = useForm<z.infer<typeof signUpSchemaZod>>({
         resolver: zodResolver(signUpSchemaZod),
         defaultValues: {
             name: "",
@@ -68,12 +83,12 @@ export default function SignUpPage() {
     async function onSubmit(data: z.infer<typeof signUpSchemaZod>) {
         setIsSubmitting(true);
         try {
-            const response = await axios.post<ApiResponse>(`/api/sign-up`, data);
+            const response = await axios.post<ApiResponse>(`/api/signup`, data);
             toast({
                 title: 'Success',
                 description: response.data.message
             })
-            router.replace(`/api/verify/${uniqueName}`);
+            router.replace(`/verify/${uniqueName}`);
         }
         catch (err) {
             console.error("Error in Sign up of user", err);
@@ -86,32 +101,168 @@ export default function SignUpPage() {
             })
 
 
+        } finally {
+            setIsSubmitting(false);
         }
 
     }
 
     async function googleSignUpHandler() {
-        signIn("google", { callbackUrl: "/dashboard" });
+        setIsSubmitting(true)
+        try {
+            signIn("google", { callbackUrl: "/dashboard" });
+        }
+        catch (err) {
+            console.error("Google SignUp Failed", err);
+
+            toast({
+                title: "Google Signup Failed",
+                description: err instanceof Error ? err.message : String(err),
+                variant: "destructive",
+            })
+        } finally {
+            setIsSubmitting(false);
+        }
+
 
     }
-    function signOutHandler() {
-        signOut();
-    }
-    function githubSignUpHandler() {
-        signIn("github", { callbackUrl: "/dashboard" });
+    async function githubSignUpHandler() {
+        setIsSubmitting(true)
+        try {
+            signIn("github", { callbackUrl: "/dashboard" });
+        }
+        catch (err) {
+            console.error("Google SignUp Failed", err);
+
+            toast({
+                title: "Google Signup Failed",
+                description: err instanceof Error ? err.message : String(err),
+                variant: "destructive",
+            })
+        } finally {
+            setIsSubmitting(false);
+        }
+
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <button onClick={googleSignUpHandler}>
-                signup with Google
-            </button>
-            <button onClick={githubSignUpHandler}>
-                signup with github
-            </button>
-            <button onClick={signOutHandler}>
-                signout
-            </button>
+
+        <div className="flex justify-center items-center min-h-screen bg-[#000421] py-12 overflow-hidden">
+            <div className="w-full max-w-xl lg:w-1/2 xl:w-3/5 p-10 space-y-8 bg-[#F9FAFB] rounded-2xl shadow-2xl overflow-y-auto">
+                <div className="text-center">
+                    <h1 className="text-4xl font-extrabold tracking-tight text-richblack-900 lg:text-5xl mb-4">
+                        Genuinely{` :)`} Genuine Testimonial Universe
+                    </h1>
+                    <p className="text-lg text-richblack-700 mb-6">Sign up to get your wall of lovely testimonials.</p>
+                </div>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                        <FormField
+                            name="name"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-richblack-900">Unique Name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Unique name" {...field}
+                                            className="border-richblack-300 focus:border-[#272E3F] focus:ring-[#272E3F]"
+                                            onChange={(e: any) => {
+                                                field.onChange(e)
+                                                debounced(e.target.value)
+                                            }}
+                                        />
+                                    </FormControl>
+                                    <FormDescription className="text-sm text-blue-500">
+                                        {uniqueNameCheckingLoader && <Loader2 className="animate-spin text-[#000421]" />}
+                                        {uniqueName && <span className={`text-sm ${uniqueNameMessage === "This unique name is available" ? 'text-[#000421]' : 'text-red-500'}`}>{uniqueNameMessage}</span>}
+
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            name="email"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-richblack-900">Email</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Email" {...field}
+                                            className="border-richblack-300 focus:border-[#272E3F] focus:ring-[#272E3F]"
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            name="password"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-richblack-900">Password</FormLabel>
+                                    <FormControl>
+                                        <Input type="password" placeholder="Password" {...field}
+                                            className="border-richblack-300 focus:border-[#272E3F] focus:ring-[#272E3F]"
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                        <Button type="submit" disabled={isSubmitting} className="w-full bg-[#272E3F] hover:bg-[#1e2433] text-white rounded-lg py-3">
+                            {isSubmitting ? (<><Loader2 className="mr-2 h-5 w-5 animate-spin text-[#000421]" /> Please Wait...</>) : ('Signup With Credentials')}
+                        </Button>
+                    </form>
+                </Form>
+                <hr></hr>
+                <div className="space-y-4">
+                    <Button disabled={isSubmitting} onClick={googleSignUpHandler}
+                        className="w-full bg-[#272E3F] hover:bg-[#1e2433] text-white rounded-lg py-3">
+                        {isSubmitting ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin text-[#000421]" /> Please Wait...
+                            </>
+                        ) : (
+                            <>
+                                <FcGoogle className="mr-2 h-5 w-5" /> Signup With Google
+                            </>
+                        )}
+                    </Button>
+                    <Button disabled={isSubmitting} onClick={githubSignUpHandler}
+                        className="w-full bg-[#272E3F] hover:bg-[#1e2433] text-white rounded-lg py-3">
+                        {isSubmitting ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin text-[#000421]" /> Please Wait...
+                            </>
+                        ) : (
+                            <>
+                                <FaGithub className="mr-2 h-5 w-5" /> Signup With Github
+                            </>
+                        )}
+                    </Button>
+                </div>
+                <div className="text-center mt-6">
+                    <p className="text-richblack-600">
+                        Already a member?{' '}
+                        <Link href="/sign-in" className="text-blue-600 hover:text-blue-800 font-semibold">
+                            Sign in
+                        </Link>
+                    </p>
+                </div>
+            </div>
         </div>
+
+        // #272E3F
+        // <div className="flex items-center justify-center min-h-screen">
+        // <button onClick={googleSignUpHandler}>
+        //     signup with Google
+        // </button>
+        // <button onClick={githubSignUpHandler}>
+        //     signup with github
+        // </button>
+        //     <button onClick={signOutHandler}>
+        //         signout
+        //     </button>
+        // </div>
     );
 }

@@ -4,6 +4,7 @@ import otpGenerator from "otp-generator";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import signupOtpEmailSending from "@/helpers/signupOtpEmailSending";
+import { exampleAvatar, generateCustomAvatar } from "@/helpers/avatar-generator";
 
 
 export async function POST(req: Request) {
@@ -33,13 +34,18 @@ export async function POST(req: Request) {
 
         const hashedPass = await bcrypt.hash(password, 10);
         const otp = Math.floor(100000 + Math.random() * 900000);
+
+        const base64Avatar = `data:image/svg+xml;base64,${Buffer.from(generateCustomAvatar(email || name)).toString("base64")}`;
+
+
         // await signupOtpEmailSending({ name, otp, email });
+
 
         const newUser = new User({
             name,
             email,
             password: hashedPass,
-            image: "https://example.com/default-profile.png",
+            image: base64Avatar || exampleAvatar,
             latestOtp: Number(otp),
             otpExpiryDate: new Date(Date.now() + 10 * 60 * 1000),
             isVerified: false,
