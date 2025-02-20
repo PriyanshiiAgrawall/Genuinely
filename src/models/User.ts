@@ -12,7 +12,7 @@ export interface OAuthAccountInterface {
 const OAuthAccountSchema = new mongoose.Schema<OAuthAccountInterface>({
     provider: {
         type: String,
-        enum: ['google', 'github'],
+        enum: ["google", "github", "credentials"],
         required: true,
     },
     providerAccountId: {
