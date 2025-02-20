@@ -20,7 +20,7 @@ const OAuthAccountSchema = new mongoose.Schema<OAuthAccountInterface>({
         required: true,
     }
 });
-interface UserInterface extends Document {
+export interface UserInterface extends Document {
     name: string,
     image: string,
     email: string,

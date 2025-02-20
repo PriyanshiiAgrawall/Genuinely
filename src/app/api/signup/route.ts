@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import User from "@/models/User";
+import User, { UserInterface } from "@/models/User";
 import otpGenerator from "otp-generator";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     await dbConnect();
     try {
         const { name, email, password } = await req.json();
-        const userFromDb = await User.findOne({ email });
+        const userFromDb: UserInterface | null = await User.findOne({ email });
 
         if (userFromDb?.isVerified) {
             return NextResponse.json(
@@ -21,15 +21,17 @@ export async function POST(req: Request) {
         }
 
         if (userFromDb) {
+            const id = userFromDb._id;
             const hashedPass = await bcrypt.hash(password, 10);
             const otp = Math.floor(100000 + Math.random() * 900000);
-
             console.log(otp);
             userFromDb.latestOtp = Number(otp);
+            userFromDb.otpExpiryDate = new Date(Date.now() + 10 * 60 * 1000);
             userFromDb.password = hashedPass;
+            userFromDb.name = name;
             await userFromDb.save();
 
-            return NextResponse.json({ message: "OTP sent again. Please verify your account.", success: true, otp }, { status: 200 });
+            return NextResponse.json({ message: "This email has been previously used for signing up, but verification yet has to be done. OTP sent to this email again. Please verify your account to continue, Eitherway we have updated your username and password", success: true, id: id }, { status: 200 });
         }
 
         const hashedPass = await bcrypt.hash(password, 10);
@@ -38,10 +40,18 @@ export async function POST(req: Request) {
         const base64Avatar = `data:image/svg+xml;base64,${Buffer.from(generateCustomAvatar(email || name)).toString("base64")}`;
 
 
-        // await signupOtpEmailSending({ name, otp, email });
+        // const isOtpSend = await signupOtpEmailSending({ name, otp, email });
+        // if (!isOtpSend?.success) {
+        //     return NextResponse.json({
+        //         success: false,
+        //         message: "Error in sending OTP, Please try again",
+        //     }, {
+        //         status: 400,
+        //     })
+        // }
 
 
-        const newUser = new User({
+        const newUser = {
             name,
             email,
             password: hashedPass,
@@ -55,11 +65,17 @@ export async function POST(req: Request) {
             oauthAccounts: [],
             spaces: [],
             isAcceptingTestimonials: true,
-        });
+        };
 
-        await newUser.save();
+        const isCreated = await User.create(newUser);
+        if (!isCreated._id) {
+            return NextResponse.json(
+                { message: "There is some error in signing you up, Please try again ", success: false },
+                { status: 400 }
+            );
+        }
 
-        return NextResponse.json({ message: "User registered successfully. OTP sent.", success: true, otp }, { status: 201 });
+        return NextResponse.json({ message: "User registered successfully. OTP sent.", success: true, id: isCreated._id.toString() }, { status: 201 });
     } catch (err) {
         console.error("Error during user registration:", err);
         return NextResponse.json({ message: "Internal Server Error", success: false }, { status: 500 });

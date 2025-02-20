@@ -84,11 +84,13 @@ export default function SignUpPage() {
         setIsSubmitting(true);
         try {
             const response = await axios.post<ApiResponse>(`/api/signup`, data);
+            console.log(response);
             toast({
                 title: 'Success',
                 description: response.data.message
             })
-            router.replace(`/verify/${uniqueName}`);
+            const id = response.data.id;
+            router.replace(`/verify/${uniqueName}?id=${id}`);
         }
         catch (err) {
             console.error("Error in Sign up of user", err);
@@ -218,27 +220,19 @@ export default function SignUpPage() {
                 <div className="space-y-4">
                     <Button disabled={isSubmitting} onClick={googleSignUpHandler}
                         className="w-full bg-[#272E3F] hover:bg-[#1e2433] text-white rounded-lg py-3">
-                        {isSubmitting ? (
-                            <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin text-[#000421]" /> Please Wait...
-                            </>
-                        ) : (
+                        {
                             <>
                                 <FcGoogle className="mr-2 h-5 w-5" /> Signup With Google
                             </>
-                        )}
+                        }
                     </Button>
                     <Button disabled={isSubmitting} onClick={githubSignUpHandler}
                         className="w-full bg-[#272E3F] hover:bg-[#1e2433] text-white rounded-lg py-3">
-                        {isSubmitting ? (
-                            <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin text-[#000421]" /> Please Wait...
-                            </>
-                        ) : (
+                        {
                             <>
                                 <FaGithub className="mr-2 h-5 w-5" /> Signup With Github
                             </>
-                        )}
+                        }
                     </Button>
                 </div>
                 <div className="text-center mt-6">
@@ -251,18 +245,5 @@ export default function SignUpPage() {
                 </div>
             </div>
         </div>
-
-        // #272E3F
-        // <div className="flex items-center justify-center min-h-screen">
-        // <button onClick={googleSignUpHandler}>
-        //     signup with Google
-        // </button>
-        // <button onClick={githubSignUpHandler}>
-        //     signup with github
-        // </button>
-        //     <button onClick={signOutHandler}>
-        //         signout
-        //     </button>
-        // </div>
     );
 }

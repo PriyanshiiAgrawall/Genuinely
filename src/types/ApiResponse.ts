@@ -6,5 +6,6 @@ export interface ApiResponse {
     message: string,
     isAcceptingTestimonials?: boolean,
     testimonials?: TestimonialInterface[],
+    id?: string,
 
 }
