@@ -2,11 +2,12 @@ import mongoose, { Document } from "mongoose";
 
 export interface TestimonialInterface extends Document {
     userNameOfTestimonialGiver: string;
-    userAvatar: string;
-    userIntro: string;
+    userAvatarOfTestimonialGiver: string;
+    userIntroOfTestimonialGiver: string;
     message: string;
     spaceId: mongoose.Schema.Types.ObjectId;
     createdAt: Date;
+    isLoved: false,
     owner: mongoose.Schema.Types.ObjectId;
 }
 
@@ -17,11 +18,11 @@ const TestimonialSchema = new mongoose.Schema<TestimonialInterface>({
         max: 50,
         min: 3,
     },
-    userAvatar: {
+    userAvatarOfTestimonialGiver: {
         type: String,
         //put default avatar string here 
     },
-    userIntro: {
+    userIntroOfTestimonialGiver: {
         type: String,
         max: 50
     },
@@ -29,6 +30,11 @@ const TestimonialSchema = new mongoose.Schema<TestimonialInterface>({
         type: String,
         max: 500,
         required: true,
+    },
+    isLoved: {
+        type: Boolean,
+        default: false,
+
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,

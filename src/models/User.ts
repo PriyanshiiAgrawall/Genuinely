@@ -1,5 +1,5 @@
 import mongoose, { Document } from "mongoose"
-enum SubscriptionTier {
+export enum SubscriptionTier {
     PRO = "Pro",
     FREE = "Free",
     LIFETIME = "Lifetime",
