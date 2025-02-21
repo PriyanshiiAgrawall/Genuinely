@@ -4,6 +4,9 @@ import { authOptions } from "../auth/[...nextauth]/options";
 import { NextResponse } from "next/server";
 import User from "@/models/User";
 
+
+//http//localhost:3000/api/user
+
 export async function GET(req: Request) {
     await dbConnect();
     try {

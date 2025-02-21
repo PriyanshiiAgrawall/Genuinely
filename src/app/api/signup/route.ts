@@ -6,7 +6,9 @@ import dbConnect from "@/lib/dbConnect";
 import signupOtpEmailSending from "@/helpers/signupOtpEmailSending";
 import { exampleAvatar, generateCustomAvatar } from "@/helpers/avatar-generator";
 
-
+// http//localhost:3000/api/signup
+//body - name,email,password
+//tested
 export async function POST(req: Request) {
     await dbConnect();
     try {
@@ -83,4 +85,3 @@ export async function POST(req: Request) {
 }
 
 
-// http//localhost:3000/api/signup

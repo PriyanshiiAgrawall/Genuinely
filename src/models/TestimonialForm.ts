@@ -1,7 +1,7 @@
 import mongoose, { Document } from "mongoose";
 
 export interface TestimonialFormInterface extends Document {
-    ProjectTitle: string;//kis reason ke liye feedback lena hai
+    projectTitle: string;//kis reason ke liye feedback lena hai
     projectUrl: string; //reson ka proof 
     projectLogo: string;
     placeholder: string;
@@ -17,7 +17,7 @@ const TestimonialFormSchema = new mongoose.Schema<TestimonialFormInterface>({
         required: true,
         index: true,
     },
-    ProjectTitle: {
+    projectTitle: {
         type: String,
         required: true,
     },

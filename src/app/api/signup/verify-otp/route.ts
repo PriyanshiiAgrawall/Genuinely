@@ -1,9 +1,10 @@
 import dbConnect from "@/lib/dbConnect";
 import User from "@/models/User";
-import { Verified } from "lucide-react";
 import { NextResponse } from "next/server";
 
-
+//http//localhost:3000/api/signup/verify-otp
+//body - name,otp,id
+//tested
 export async function POST(request: Request) {
     await dbConnect();
     try {

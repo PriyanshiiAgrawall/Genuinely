@@ -12,7 +12,7 @@ import { uploadOnCloudinary } from "@/lib/cloudinary";
 import mongoose from "mongoose";
 
 
-async function uploadUserAvatarOfTestimonialGiver(file: File): Promise<string> {
+export async function uploadUserAvatarOfTestimonialGiver(file: File): Promise<string> {
     const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
     if (!allowedMimeTypes.includes(file.type)) {
         throw new Error('Invalid image type. Allowed types are JPEG, PNG, and GIF.');

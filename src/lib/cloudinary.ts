@@ -41,3 +41,16 @@ export const deleteFromCloudinary = async (publicId: string) => {
         console.error("Error deleting from Cloudinary:", error);
     }
 }
+
+export async function doesCloudinaryResourceExist(publicId: string): Promise<boolean> {
+    try {
+        await cloudinary.api.resource(publicId);
+        return true; // Resource exists
+    } catch (error: any) {
+        if (error.http_code === 404) {
+            return false; // Resource not found
+        }
+        return false; // For any other error, return false without throwing
+    }
+}
+

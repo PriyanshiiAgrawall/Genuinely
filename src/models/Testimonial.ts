@@ -7,7 +7,7 @@ export interface TestimonialInterface extends Document {
     message: string;
     spaceId: mongoose.Schema.Types.ObjectId;
     createdAt: Date;
-    isLoved: false,
+    isLoved: boolean,
     owner: mongoose.Schema.Types.ObjectId;
 }
 
