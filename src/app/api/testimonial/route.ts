@@ -22,8 +22,10 @@ async function uploadUserAvatarOfTestimonialGiver(file: File): Promise<string> {
     if (file.size > maxSizeInBytes) {
         throw new Error('Image size exceeds 2MB limit.');
     }
-
+    // Outputs raw binary data in ArrayBuffer form
+    //ArrayBuffer is a generic, fixed-length raw binary data buffer. //a binary data file
     const arrayBuffer = await file.arrayBuffer();
+    //Buffer.from(arrayBuffer) converts the browser-friendly ArrayBuffer into a Node.js Buffer, which is essential because many Node.js libraries (like Cloudinary SDK or sharp) require data in Buffer format for processing.
     const buffer = Buffer.from(arrayBuffer);
 
     const cloudinaryResponse = await uploadOnCloudinary(buffer, file.type);
