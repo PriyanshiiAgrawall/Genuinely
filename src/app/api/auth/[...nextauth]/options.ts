@@ -87,7 +87,7 @@ export const authOptions: NextAuthOptions = {
     },
     callbacks: {
         async jwt({ token, user }) {
-            console.log("JWT CALLBACK:", { token, user });
+            // console.log("JWT CALLBACK:", { token, user });
             if (user) {
                 token.id = user._id?.toString();
                 token.email = user.email,
@@ -101,7 +101,7 @@ export const authOptions: NextAuthOptions = {
             return token;
         },
         async session({ session, user, token }) {
-            console.log("here are session callback", session, user, token)
+            // console.log("here are session callback", session, user, token)
             if (session.user) {
                 session.user.id = token.sub || token.id;
                 session.user.email = token.email;
@@ -116,7 +116,7 @@ export const authOptions: NextAuthOptions = {
             return `${baseUrl}/dashboard`;
         },
         signIn: async ({ user, account }) => {
-            console.log("SIGN IN CALLBACK TRIGGERED:", { user, account });
+            // console.log("SIGN IN CALLBACK TRIGGERED:", { user, account });
             await dbConnect();
 
             const { email, name, image } = user;

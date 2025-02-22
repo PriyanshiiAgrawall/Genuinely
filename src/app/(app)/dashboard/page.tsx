@@ -10,6 +10,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Suspense, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { AddSpace } from './components/AddSpace';
+import ShowSpaces from './components/ShowSpaces';
 
 
 // import { ShowSpaces } from './spaces/components/ShowSpaces';
@@ -46,9 +48,10 @@ export default function DashboardPage() {
                     <AccountType />
                 </Suspense>
             </div>
-            {/* <div className='flex-1'>
-                <ShowSpaces subscriptionTier={accountType} />
-            </div> */}
+
+            <div className='flex-1'>
+                <ShowSpaces />
+            </div>
         </div>
 
 

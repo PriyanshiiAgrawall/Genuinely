@@ -77,7 +77,7 @@ export async function GET(request: Request) {
 
 //for creating space for the user
 //http://localhost:3000/api/space 
-
+//name : "" is send in body from frontend
 export async function POST(request: Request) {
     await dbConnect();
     try {
@@ -86,8 +86,10 @@ export async function POST(request: Request) {
             return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
         }
         const body = await request.json();
+        console.log(body);
         const spaceName = body.name;
-        if (spaceName) {
+        console.log(spaceName);
+        if (!spaceName) {
             return NextResponse.json(
                 { message: "Space Name is Required" },
                 { status: 400 }

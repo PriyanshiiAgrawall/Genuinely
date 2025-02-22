@@ -1,7 +1,7 @@
 import mongoose, { Document } from "mongoose"
 
 
-interface spaceInterface extends Document {
+export interface spaceInterface extends Document {
     name: string,
     owner: mongoose.Schema.Types.ObjectId,
     testimonials: mongoose.Schema.Types.ObjectId[],
