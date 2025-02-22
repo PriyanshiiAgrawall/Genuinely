@@ -51,7 +51,6 @@ export async function POST(request: Request) {
             })
 
         }
-
         const formData = await request.json();
         if (!formData || !formData?.message || !formData.spaceId) {
             return NextResponse.json({
