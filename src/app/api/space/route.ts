@@ -11,7 +11,7 @@ import { generateUniqueLink } from "@/lib/generateUniqueLink";
 
 //for fetching all spaces of the user
 ////http://localhost:3000/api/space  -> if no spaceid given then returns all spaces of user
-//http://localhost:3000/api/space?id=dswajhdkhagd -> if spaceid given ythen returns that particular space
+//http://localhost:3000/api/space?id=dswajhdkhagd -> if spaceid given then returns that particular space
 //userid will be taken from token
 export async function GET(request: Request) {
 
@@ -27,7 +27,7 @@ export async function GET(request: Request) {
         const url = new URL(request.url);
         const spaceId = url.searchParams.get("id"); // check if `id` is passed as a query parameter.
         //if spaceId not found then all the spaces of user will be returned
-        //convert string to ovjectid
+        //convert string to objectid
         const userId = new Types.ObjectId(session?.user?.id);
         if (!userId) {
             return NextResponse.json({ message: "Something is wrong with your user session we cant fetch userid" }, { status: 401 });

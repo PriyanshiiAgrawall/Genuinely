@@ -13,6 +13,7 @@ export async function GET(req: Request, params: any) {
     dbConnect();
 
     try {
+        console.log("this got triggered");
         const session = await getServerSession(authOptions);
         if (!session) {
             return NextResponse.json({
