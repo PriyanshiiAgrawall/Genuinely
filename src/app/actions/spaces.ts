@@ -8,6 +8,7 @@ import Testimonial from "@/models/Testimonial";
 import TestimonialBook from "@/models/TestimonialBook";
 import TestimonialForm from "@/models/TestimonialForm";
 import User from "@/models/User";
+import { Types } from "mongoose";
 import { getServerSession } from "next-auth";
 
 export async function getTotalSpaces() {
@@ -55,3 +56,33 @@ export async function deleteSpace(spaceId: string) {
 }
 
 
+export async function makeSpaceOld(spaceId: string) {
+    await dbConnect();
+    try {
+        const session = await getServerSession(authOptions);
+        if (!session || !session?.user?.id) {
+            throw new Error("Unauthorized: Session not found.");
+        }
+
+
+
+        const spaceid = new Types.ObjectId(spaceId);
+
+
+
+        const space = await Space.findById(spaceid);
+
+
+        if (!space) {
+            throw new Error("Space not found.");
+        }
+        space.isNewSpace = false;
+        await space.save();
+
+    }
+    catch (error) {
+        console.error("Error make space old", error);
+        throw error;
+    }
+
+}

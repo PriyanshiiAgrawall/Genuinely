@@ -14,7 +14,7 @@ export interface TestimonialInterface extends Document {
 const TestimonialSchema = new mongoose.Schema<TestimonialInterface>({
     userNameOfTestimonialGiver: {
         type: String,
-        default: "Anonymous",
+        default: "Anonymous User",
         max: 50,
         min: 3,
     },

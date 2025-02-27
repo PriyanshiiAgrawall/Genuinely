@@ -8,6 +8,7 @@ import { authOptions } from "../auth/[...nextauth]/options";
 import Space from "@/models/Space";
 import User from "@/models/User";
 import { generateUniqueLink } from "@/lib/generateUniqueLink";
+import TestimonialForm from "@/models/TestimonialForm";
 
 //for fetching all spaces of the user
 ////http://localhost:3000/api/space  -> if no spaceid given then returns all spaces of user
@@ -145,7 +146,10 @@ export async function POST(request: Request) {
                 { status: 400 }
             );
         }
+        // const createdSpaceId = createdSpace._id;
+        // const createdTestimonialForm = await TestimonialForm.create({
 
+        // })
         return NextResponse.json({ message: "Space created successfully", space: createdSpace });
     } catch (error) {
         return NextResponse.json(

@@ -7,7 +7,8 @@ export interface spaceInterface extends Document {
     testimonials: mongoose.Schema.Types.ObjectId[],
     isNewSpace: boolean,
     uniqueLink: string,
-    createdAt: Date
+    createdAt: Date,
+
 }
 
 
@@ -37,6 +38,10 @@ const spaceSchema = new mongoose.Schema<spaceInterface>({
     createdAt: {
         type: Date,
         default: Date.now,
+    },
+    isNewSpace: {
+        type: Boolean,
+        default: true
     }
 
 })

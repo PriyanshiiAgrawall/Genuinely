@@ -11,25 +11,28 @@ import { MoveLeft } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Unauthorized from "@/app/components/Unauthorized";
-
+import TestimonialCardForm from "./components/TestimonialCardForm";
+import DisplayTestimonials from "./components/DisplayTestimonial";
+// -> testimonials -> testimoniacard
+// import LoveGallery from "@/components/LoveGallery";
 
 
 
 
 export default function UserSpacePage() {
-
     const params = useParams();
     const router = useRouter();
     const { toast } = useToast();
     const uniquename = params.uniquename;
     const spacename = params.spacename;
-    const spaceid = params.spaceid;
+    const spaceid = params.spaceid as string;
     const [unauthorized, setunauthorized] = useState(false);
     const [isNewSpace, setIsNewSpace] = useState(false);
     const [uniqueLink, setUniqueLink] = useState('');
     const [loading, setLoading] = useState(true);
 
     const { data: session, status } = useSession();
+    const [isUpdate, setIsUpdate] = useState(false);
 
     useEffect(() => {
         if (status === "loading") return;
@@ -38,11 +41,21 @@ export default function UserSpacePage() {
 
         async function fetchData() {
             try {
+
                 const response = await axios(`/api/space?spaceId=${spaceid}`);
-                const space = response.data.spaces;
-                console.log(response);
+
+
+                const space = response.data.spaces[0];
+                console.log(space);
+
                 if (response.status === 200) {
+                    console.log(space);
+                    console.log(response.data)
+
                     setIsNewSpace(space.isNewSpace || false);
+                    console.log(space.
+                        uniqueLink
+                    );
                     setUniqueLink(space.uniqueLink || '');
 
                 }
@@ -97,13 +110,23 @@ export default function UserSpacePage() {
             finally {
                 setLoading(false);
             }
-            if (session) {
-                fetchData();
-            }
+
+        }
+
+        if (session) {
+            fetchData();
         }
 
 
     }, [session, status, spaceid]);
+
+    useEffect(() => {
+        if (isNewSpace) {
+            setIsUpdate(false);
+        } else {
+            setIsUpdate(true);
+        }
+    }, [isNewSpace]);
 
     if (status === "loading") return <p>Loading...</p>;
 
@@ -113,15 +136,8 @@ export default function UserSpacePage() {
         return <Unauthorized />;
     }
 
-    if (isNewSpace) {
-        return (
-            <TestimonialCardForm
-                isUpdate={false}
-                spaceId={spaceid}
-                setIsNewSpace={setIsNewSpace}
-            />
-        );
-    }
+
+
 
 
     return (
@@ -148,7 +164,7 @@ export default function UserSpacePage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-2">
-                            <DisplayTestimonials uniqueLink={uniqueLink} params={params} />
+                            <DisplayTestimonials uniqueLink={uniqueLink} spaceid={spaceid} />
                         </CardContent>
                     </Card>
                 </TabsContent>
@@ -162,7 +178,9 @@ export default function UserSpacePage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-2">
-                            <TestimonialCardForm isUpdate={true} spaceId={spaceid} uniqueLink={uniqueLink} />
+
+                            {isUpdate ? <TestimonialCardForm isUpdate={true} spaceId={spaceid ?? ""} uniqueLink={uniqueLink} /> : <TestimonialCardForm isUpdate={false} spaceId={spaceid ?? ""} uniqueLink={uniqueLink} />}
+
                         </CardContent>
                     </Card>
                 </TabsContent>
@@ -170,7 +188,7 @@ export default function UserSpacePage() {
                 <TabsContent value="loveGallery">
                     <Card>
                         <CardContent>
-                            <LoveGallery />
+                            {/* <LoveGallery /> */}
                         </CardContent>
                     </Card>
                 </TabsContent>

@@ -1,0 +1,175 @@
+'use client'
+
+import React, { useEffect, useState, useMemo } from 'react'
+import useSWR from 'swr'
+import { MultipleSkeletonTestimonialCard } from '@/components/ui/skeletons'
+import { EmptyState } from './EmptyState'
+import { RotateCw } from 'lucide-react';
+
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from '@/components/ui/pagination'
+
+import { useSession } from 'next-auth/react'
+import { canCollectTestimonial } from '@/lib/featureAccess'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Terminal } from 'lucide-react'
+import TestimonialCard from './TestimonialCard'
+import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
+
+
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+export default function Testimonials({
+    query,
+    spaceId,
+    uniqueLink,
+}: {
+    query: string
+    spaceId: string
+    uniqueLink: string
+}) {
+    const [subTier, setSubTier] = useState<any>(null)
+    const [canCollect, setCanCollect] = useState(true)
+    const [page, setPage] = useState(1); // Keeps track of the current page
+    const limit = 9 // Number of testimonials per page
+    const router = useRouter();
+    const { data: session, status } = useSession();
+
+    useEffect(() => {
+        if (status === "loading") return;
+        if (!session) {
+            router.push("/login")
+        }// Fetch subscription tier only when session is available
+        else {
+            const subscriptionTier = session?.user?.subscriptionTier;
+            setSubTier(subscriptionTier);
+
+        }
+
+    }, [session, status, router]);
+
+    if (status === "loading") return <p>Loading...</p>;
+
+    //mutate() is used to refresh the fetched data(again getting data from api) without reloading the page.
+    const { data, error, isLoading, mutate } = useSWR(
+        `/api/testimonial?spaceId=${spaceId}&query=${query}&page=${page}&limit=${limit}`,
+        fetcher,
+        {
+            revalidateOnFocus: false,
+            //when user leaves the tab and comes back swr refetches data but false prevents it
+        }
+    )
+
+    // Recalculate testimonial limits based on subscription tier and fetched data
+    useEffect(() => {
+        if (subTier && data) {
+            setCanCollect(canCollectTestimonial(subTier, data?.testimonials?.length))
+        }
+    }, [subTier, data]);
+
+    // Memoize total pages to avoid unnecessary recalculations
+    //Calculates how many pages of testimonials exist.
+
+    const totalPages = useMemo(() => {
+        return Math.ceil((data?.totalTestimonials || 0) / limit)
+    }, [data?.totalTestimonials, limit])
+
+    const handlePageChange = (newPage: number) => {
+        setPage(newPage);
+    }
+
+    //mutate() updates the data without needing to refetch from the server-> Removes a testimonial from the UI instantly when deleted as it is called on current catched data
+
+    const handleDelete = (deletedId: string) => {
+        mutate((currentData: any) => {
+            //This ensures that if currentData is undefined (not yet loaded), the function doesn't cause an error.
+            if (!currentData) {
+                return currentData;
+                //we can also do this 
+                // return { testimonials: [], totalTestimonials: 0 }
+            }
+            const updatedTestimonials = currentData.testimonials.filter(
+                (testimonial: any) => testimonial._id !== deletedId
+            )
+            return {
+                ...currentData,
+                testimonials: updatedTestimonials,
+                total: currentData.totalTestimonials - 1,
+            }
+        }, false)
+    }
+    //The second argument (false) means do NOT re-fetch the data after updating the cache
+
+    const handleRefresh = () => {
+        mutate()// Re-fetch data from the API
+    }
+
+    if (error) return <div className="text-red-500">Failed to load testimonials. Please try again later.</div>
+    if (isLoading) return <MultipleSkeletonTestimonialCard />
+
+    return (
+        <div>
+            {!canCollect && (
+                <Alert className="bg-yellow-50 border-l-4 mb-4 border-yellow-400 text-yellow-700 p-4">
+                    <Terminal className="h-4 w-4 mr-2" />
+                    <div>
+                        <AlertTitle className="font-bold">Heads up!</AlertTitle>
+                        <AlertDescription>
+                            You have reached the limit of testimonials for your current subscription tier. Please upgrade your subscription to collect more testimonials.
+                        </AlertDescription>
+                    </div>
+                </Alert>
+            )}
+            <Button onClick={handleRefresh} className="mb-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md active:translate-y-1"><RotateCw className='inline w-5 h-5 mr-2' /> Refresh</Button>
+
+            {data?.testimonials?.length === 0 && <EmptyState uniqueLink={uniqueLink} />}
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 mx-auto max-w-7xl">
+                {data?.testimonials?.map((testimonial: any) => (
+                    <div key={testimonial._id} className="break-inside-avoid mb-6">
+                        <TestimonialCard onDelete={handleDelete} location="testimonials" testimonial={testimonial} onMutate={mutate} />
+                    </div>
+                ))}
+            </div>
+            {data?.testimonials?.length !== 0 && (
+                <div className="mt-8">
+                    <Pagination>
+                        <PaginationContent>
+                            <PaginationItem>
+                                <PaginationPrevious
+                                    onClick={() => handlePageChange(Math.max(1, page - 1))}
+                                    className={page === 1 ? 'pointer-events-none opacity-50' : ''}
+                                />
+                            </PaginationItem>
+                            {[...Array(totalPages)].map((_, i) => (
+                                <PaginationItem key={i}>
+                                    <PaginationLink
+                                        onClick={() => handlePageChange(i + 1)}
+                                        isActive={page === i + 1}
+                                    >
+                                        {i + 1}
+                                    </PaginationLink>
+                                </PaginationItem>
+                            ))}
+                            <PaginationItem>
+                                <PaginationNext
+                                    onClick={() => handlePageChange(Math.min(totalPages, page + 1))}
+                                    className={page === totalPages ? 'pointer-events-none opacity-50' : ''}
+                                >
+                                </PaginationNext>
+                            </PaginationItem>
+                        </PaginationContent>
+                    </Pagination>
+
+                </div>
+            )}
+        </div>
+    )
+}

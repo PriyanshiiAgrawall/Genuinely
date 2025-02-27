@@ -106,7 +106,7 @@ export async function POST(request: Request) {
         }
 
         const data = {
-            userNameOfTestimonialGiver: formData.userNameOfTestimonialGiver as string || "Anonymous",
+            userNameOfTestimonialGiver: formData.userNameOfTestimonialGiver as string || "Anonymous User",
             userAvatar: cloudinaryURL,
             userIntroOfTestimonialGiver: formData.userIntroOfTestimonialGiver as string || "I am the user of your website",
             message: formData.message as string,
