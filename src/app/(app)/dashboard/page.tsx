@@ -30,27 +30,32 @@ export default function DashboardPage() {
     if (status === "loading") return <p>Loading...</p>;
 
     return (
-        <div className='flex flex-col space-y-8'>
-            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-                <Suspense fallback={<CardSkeleton />}>
-                    <TotalTestimonials />
-                </Suspense>
+        <div>
+            <div className='flex flex-col space-y-8'>
+                <Navbar />
+                <br></br>
+                <br></br>
+                <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                    <Suspense fallback={<CardSkeleton />}>
+                        <TotalTestimonials />
+                    </Suspense>
 
-                <Suspense fallback={<CardSkeleton />}>
-                    <TotalSpaces />
-                </Suspense>
+                    <Suspense fallback={<CardSkeleton />}>
+                        <TotalSpaces />
+                    </Suspense>
 
-                <Suspense fallback={<CardSkeleton />}>
-                    <TotalLoveBooks />
-                </Suspense>
+                    <Suspense fallback={<CardSkeleton />}>
+                        <TotalLoveBooks />
+                    </Suspense>
 
-                <Suspense fallback={<CardSkeleton />}>
-                    <AccountType />
-                </Suspense>
-            </div>
+                    <Suspense fallback={<CardSkeleton />}>
+                        <AccountType />
+                    </Suspense>
+                </div>
 
-            <div className='flex-1'>
-                <ShowSpaces />
+                <div className='flex-1'>
+                    <ShowSpaces />
+                </div>
             </div>
         </div>
 

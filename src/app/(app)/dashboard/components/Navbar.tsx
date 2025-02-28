@@ -39,7 +39,7 @@ export default function Navbar() {
                 <div className="flex justify-center gap-4 items-center h-16">
                     <div className="relative inline-flex items-center">
                         <Link href="/" className="flex-shrink-0">
-                            <Image src='/newbrand1.png' width={200} height={200} alt='ClientWords' />
+                            {/* <Image src='/' width={200} height={200} alt='Genuinely' /> */}
                         </Link>
                     </div>
                 </div>

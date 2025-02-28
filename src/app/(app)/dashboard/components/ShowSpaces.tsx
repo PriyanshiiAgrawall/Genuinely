@@ -16,7 +16,7 @@ import { PlusCircledIcon } from '@radix-ui/react-icons';
 import { useSession } from 'next-auth/react';
 
 const fetcher = (url: string) => axios.get(url).then((res) => {
-    return res.data
+    return res.data;
 });
 
 

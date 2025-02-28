@@ -22,6 +22,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useRouter } from "next/navigation"
+import { TooltipProvider } from "@radix-ui/react-tooltip"
 
 interface TestimonialCardProps {
     location: string
@@ -152,7 +153,7 @@ export default function TestimonialCard({
                 </div>
                 {location === "testimonials" && (
                     <div className="flex items-center space-x-2">
-                        <Tooltip>
+                        <TooltipProvider><Tooltip>
                             <TooltipTrigger asChild>
                                 <Button
                                     variant="ghost"
@@ -175,6 +176,7 @@ export default function TestimonialCard({
                                 {isLoved ? "Remove from Love Gallery" : "Add to Love Gallery"}
                             </TooltipContent>
                         </Tooltip>
+                        </TooltipProvider>
                         <AlertDialog>
                             <AlertDialogTrigger asChild>
                                 <Trash2 className="text-red-500 transform hover:scale-105 transition-all duration-300 cursor-pointer" />

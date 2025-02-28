@@ -121,7 +121,7 @@ export async function POST(request: Request) {
         }
 
         const ownerUniqueName = userInDb.name;
-        const uniqueLink = generateUniqueLink(ownerUniqueName, spaceName);
+        const uniqueLink = generateUniqueLink(spaceName, ownerUniqueName);
 
         const spacePayload = {
             name: spaceName,

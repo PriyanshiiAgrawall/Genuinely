@@ -2,6 +2,7 @@
 "use server";
 
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { deleteFromCloudinary, doesCloudinaryResourceExist } from "@/lib/cloudinary";
 import dbConnect from "@/lib/dbConnect";
 import Space from "@/models/Space";
 import Testimonial from "@/models/Testimonial";
@@ -23,10 +24,6 @@ export async function getTotalSpaces() {
 export async function deleteSpace(spaceId: string) {
 
     await dbConnect();
-
-
-
-
     try {
         const session = await getServerSession(authOptions);
         if (!session || !session?.user?.id) {
@@ -41,13 +38,20 @@ export async function deleteSpace(spaceId: string) {
         // Delete related data
         await Promise.all([
             TestimonialBook.deleteMany({ spaceId }),
-            TestimonialForm.deleteMany({ spaceId }),
             Testimonial.deleteMany({ spaceId }),
             Space.findByIdAndDelete(spaceId),
             User.findByIdAndUpdate(userId, { $pull: { spaces: spaceId } })
         ]);
-
-        await space.deleteOne();
+        const testimonialFormFromDb = await TestimonialForm.findOne({ spaceId: spaceId });
+        const avatar = testimonialFormFromDb?.projectLogo?.split('/').slice(-3).join('/').split('.')[0];
+        if (avatar) {
+            const logoExistInCloudinary = await doesCloudinaryResourceExist(avatar);
+            if (logoExistInCloudinary) {
+                await deleteFromCloudinary(avatar);
+            }
+        }
+        await TestimonialForm.deleteMany({ spaceId }),
+            await space.deleteOne();
 
     } catch (error) {
         console.error("Error deleting space:", error);

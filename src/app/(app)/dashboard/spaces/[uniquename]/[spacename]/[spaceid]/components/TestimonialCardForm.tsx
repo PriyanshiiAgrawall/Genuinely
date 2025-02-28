@@ -252,7 +252,10 @@ function TestimonialCardForm({ isUpdate, spaceId, setIsNewSpace, uniqueLink }: P
                             <AvatarImage src={logoPreview} />
                             <AvatarFallback><FcAddImage size={50} /></AvatarFallback>
                         </Avatar>
-                        <Button variant="outline" onClick={() => document.getElementById('projectLogo')?.click()}>
+                        <Button variant="outline" onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById('projectLogo')?.click()
+                        }}>
                             {isUpdate ? 'Change Logo' : 'Upload Logo'}
                         </Button>
                     </div>

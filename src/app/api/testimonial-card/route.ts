@@ -12,7 +12,7 @@ import TestimonialForm from "@/models/TestimonialForm";
 import { deleteFromCloudinary, doesCloudinaryResourceExist } from "@/lib/cloudinary";
 
 
-function checkFileType(file: File) {
+export function checkFileType(file: File) {
     if (file?.name) {
         const fileType = file.name.split(".").pop();
         if (fileType === "png" || fileType === "jpeg" || fileType === "jpg") return true;

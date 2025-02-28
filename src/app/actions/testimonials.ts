@@ -8,6 +8,8 @@ import Space from "@/models/Space";
 import { Types } from "mongoose";
 import { getServerSession } from "next-auth";
 import { deleteFromCloudinary, doesCloudinaryResourceExist } from "@/lib/cloudinary";
+import TestimonialForm from "@/models/TestimonialForm";
+import User from "@/models/User";
 
 export async function getTotalTestimonials() {
     await dbConnect();
@@ -35,10 +37,11 @@ export async function deleteTestimonial(testimonialId: string, spaceId: string) 
 
         const space = await Space.findById(spaceid);
         const testimonialToBeDeleted = await Testimonial.findById(testimonialid);
-
+        console.log(testimonialId);
         if (!space) {
             throw new Error("Space not found.");
         }
+        console.log(testimonialToBeDeleted?.userAvatarOfTestimonialGiver)
         if (!testimonialToBeDeleted) {
             throw new Error("Testimonial not found.");
         }
@@ -48,6 +51,7 @@ export async function deleteTestimonial(testimonialId: string, spaceId: string) 
         if (logoExistInCloudinary) {
             await deleteFromCloudinary(alredyExistingLogoInDb);
         }
+        await Space.findByIdAndUpdate(spaceId, { $pull: { testimonials: testimonialId } })
         await Testimonial.findByIdAndDelete(testimonialId);
 
 
@@ -66,5 +70,41 @@ export async function deleteTestimonial(testimonialId: string, spaceId: string) 
 
 
 
+export async function findTestimonialCard(uniqueName: string, spaceName: string) {
+    await dbConnect();
+    try {
+        const user = await User.findOne({ name: uniqueName });
 
+        let id: string;
+        id = user?._id?.toString() as string;
+
+        const userId = new Types.ObjectId(id);
+
+        const spaceFromDb = await Space.findOne({
+            owner: userId,
+            name: spaceName,
+
+        })
+        id = spaceFromDb?._id?.toString() as string;
+        const spaceId = new Types.ObjectId(id);
+        const testimonialCard = await TestimonialForm.findOne({
+            spaceId: spaceId,
+        })
+        // console.log(testimonialCard);
+        // const placeholder = testimonialCard?.placeholder;
+        // const promptText = testimonialCard?.promptText;
+        // const testimonialId = testimonialCard?._id;
+
+        // const projectTitle = testimonialCard?.projectTitle;
+        // const projectUrl = testimonialCard?.projectUrl
+        // const projectLogo = testimonialCard?.projectLogo
+
+
+        // return { placeholder, promptText, testimonialId, projectTitle, projectUrl, projectLogo };
+        return JSON.parse(JSON.stringify(testimonialCard));
+
+    } catch (error) {
+        throw error;
+    }
+}
 

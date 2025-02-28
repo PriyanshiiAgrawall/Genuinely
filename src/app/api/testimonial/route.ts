@@ -10,6 +10,8 @@ import User from "@/models/User";
 import { canCollectTestimonial } from "@/lib/featureAccess";
 import { uploadOnCloudinary } from "@/lib/cloudinary";
 import mongoose from "mongoose";
+import { z } from "zod";
+import { checkFileType } from "../testimonial-card/route";
 
 
 export async function uploadUserAvatarOfTestimonialGiver(file: File): Promise<string> {
@@ -35,7 +37,18 @@ export async function uploadUserAvatarOfTestimonialGiver(file: File): Promise<st
 
     return cloudinaryResponse.secure_url;
 }
+const testimonialZod = z.object({
+    message: z.string().min(3, "message mus be atleast of 3 characters"),
+    spaceId: z.string(),
+    userNameOfTestimonialGiver: z.string().optional(),
+    userIntroOfTestimonialGiver: z.string().optional(),
+    userAvatarOfTestimonialGiver: z.any().refine((file: File | string) => {
+        if (!file) return false;
+        if (typeof file === "string") return true;
+        return file instanceof File && file.size < 2000000 && checkFileType(file);
+    }, "Max size is 2MB & only .png, .jpg, .jpeg formats are supported.").optional(),
 
+})
 //http://localhost:3000/testimonial
 //formData will have -> 
 export async function POST(request: Request) {
@@ -51,8 +64,8 @@ export async function POST(request: Request) {
             })
 
         }
-        const formData = await request.json();
-        if (!formData || !formData?.message || !formData.spaceId) {
+        const formData = await request.formData();
+        if (!formData) {
             return NextResponse.json({
                 success: false,
                 message: "space credentials or message is missing",
@@ -60,7 +73,18 @@ export async function POST(request: Request) {
                 status: 401,
             })
         }
-        const spaceInDb = await Space.findById({ _id: formData.spaceId });
+        const formDataObj = Object.fromEntries(formData.entries());
+        const parsedData = testimonialZod.safeParse(formDataObj);
+
+        if (!parsedData) {
+            return NextResponse.json({
+                success: false,
+                message: "parsing issue",
+            }, {
+                status: 401,
+            })
+        }
+        const spaceInDb = await Space.findById({ _id: parsedData?.data?.spaceId });
         if (!spaceInDb) {
             return NextResponse.json({
                 success: false,
@@ -89,28 +113,31 @@ export async function POST(request: Request) {
                 status: 401,
             })
         }
-
         let cloudinaryURL: string;
+        if (typeof (parsedData?.data?.userAvatarOfTestimonialGiver) === "string") {
+            cloudinaryURL = parsedData?.data?.userAvatarOfTestimonialGiver;
+        }
 
-        if (formData.userAvatarOfTestimonialGiver) {
+
+        if (parsedData?.data?.userAvatarOfTestimonialGiver && parsedData?.data?.userAvatarOfTestimonialGiver instanceof File) {
             try {
-                const userAvatar = formData.userAvatarOfTestimonialGiver as File;
+                const userAvatar = parsedData?.data?.userAvatarOfTestimonialGiver as File;
                 cloudinaryURL = await uploadUserAvatarOfTestimonialGiver(userAvatar);
             } catch (err) {
                 return NextResponse.json({ success: false, message: "Issue in uploading userAvtar to cloudinary" }, { status: 400 });
             }
         } else {
-            const base64Avatar = `data:image/svg+xml;base64,${Buffer.from(generateCustomAvatar(formData.message)).toString("base64")}`;
+            const base64Avatar = `data:image/svg+xml;base64,${Buffer.from(generateCustomAvatar(parsedData?.data?.message as string)).toString("base64")}`;
             cloudinaryURL = base64Avatar;
 
         }
 
         const data = {
-            userNameOfTestimonialGiver: formData.userNameOfTestimonialGiver as string || "Anonymous User",
-            userAvatar: cloudinaryURL,
-            userIntroOfTestimonialGiver: formData.userIntroOfTestimonialGiver as string || "I am the user of your website",
-            message: formData.message as string,
-            spaceId: formData.spaceId as string,
+            userNameOfTestimonialGiver: parsedData?.data?.userNameOfTestimonialGiver as string || "Anonymous User",
+            userAvatarOfTestimonialGiver: cloudinaryURL,
+            userIntroOfTestimonialGiver: parsedData?.data?.userIntroOfTestimonialGiver as string || "Hi! I use your app daily",
+            message: parsedData?.data?.message as string,
+            spaceId: parsedData?.data?.spaceId as string,
             createdAt: new Date(Date.now()),
             isLoved: false,
             owner: spaceInDb.owner,

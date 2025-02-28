@@ -13,8 +13,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Unauthorized from "@/app/components/Unauthorized";
 import TestimonialCardForm from "./components/TestimonialCardForm";
 import DisplayTestimonials from "./components/DisplayTestimonial";
-// -> testimonials -> testimoniacard
-// import LoveGallery from "@/components/LoveGallery";
+import LoveGallery from "./components/LoveBook";
+// import LoveGallery from "@/components/LoveGallery"; ->  LoveGalleryCustomizer -> RealTimeLoveGallery
 
 
 
@@ -188,7 +188,7 @@ export default function UserSpacePage() {
                 <TabsContent value="loveGallery">
                     <Card>
                         <CardContent>
-                            {/* <LoveGallery /> */}
+                            <LoveGallery spaceId={spaceid} />
                         </CardContent>
                     </Card>
                 </TabsContent>
