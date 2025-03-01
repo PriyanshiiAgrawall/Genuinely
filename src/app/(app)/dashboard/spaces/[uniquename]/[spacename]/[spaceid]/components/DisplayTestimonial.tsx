@@ -5,9 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import Search from "@/components/ui/search";
 import Testimonials from "./Testimonials";
 interface Props {
-
     spaceid: string,
-
     uniqueLink: string
 }
 
@@ -17,9 +15,9 @@ interface Props {
 
 
 export default function DisplayTestimonials({ spaceid, uniqueLink }: Props) {
-    const router = useRouter()
-    const searchParams = useSearchParams()
-    const [query, setQuery] = useState(searchParams.get('query') || '')
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const [query, setQuery] = useState(searchParams.get('query') || '');
     const [debouncedQuery] = useDebounce(query, 300);
 
     const handleSearch = useCallback((newQuery: string) => {
