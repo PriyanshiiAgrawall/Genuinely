@@ -42,8 +42,8 @@ const createSpaceSchema = z.object({
 });
 
 const reservedKeywords = [
-    'admin', 'clientwords', 'clienword', 'dashboard', 'profile', 'settings', 'login', 'signup', 'api', 'space', 'spaces', 'user', 'users',
-    'system', 'help', 'support', 'about', 'terms', 'privacy', 'home', 'localhost', 'test', 'signin'
+    'admin', 'genuinely', 'genuine', 'dashboard', 'profile', 'settings', 'login', 'signup', 'api', 'space', 'spaces', 'user', 'users',
+    'system', 'help', 'support', 'about', 'terms', 'privacy', 'home', 'localhost', 'test', 'signin', 'feedback', 'testimonial', 'testimonials', 'pricing'
 ];
 //props destructuring
 export function AddSpace({ addSpace, subscriptionTier }: { subscriptionTier: any, addSpace: (newSpace: any) => void }) {
