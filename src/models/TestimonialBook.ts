@@ -1,6 +1,6 @@
 import mongoose, { Document } from "mongoose";
 
-interface TestimonialBookInterface extends Document {
+export interface TestimonialBookInterface extends Document {
     testimonials: mongoose.Schema.Types.ObjectId[];
     spaceId: mongoose.Schema.Types.ObjectId;
     owner: mongoose.Schema.Types.ObjectId;

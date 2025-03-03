@@ -90,3 +90,26 @@ export async function makeSpaceOld(spaceId: string) {
     }
 
 }
+
+
+
+export async function getSpaceOwner(spaceId: string) {
+    await dbConnect();
+    try {
+
+        const spaceid = new Types.ObjectId(spaceId);
+        const space = await Space.findById(spaceid).lean();
+        if (!space) {
+            throw new Error("Space not found.");
+        }
+        return space.owner.toString();
+
+
+    }
+    catch (error) {
+        console.error("Error getting space owner", error);
+        throw error;
+    }
+
+}
+

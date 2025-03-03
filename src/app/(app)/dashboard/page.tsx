@@ -26,7 +26,10 @@ export default function DashboardPage() {
     const { toast } = useToast();
     useEffect(() => {
         if (status === "loading") return;
-        if (!session) router.push("/sign-in");
+        if (!session) {
+            console.log("Redirection from dashboard page")
+            router.push("/sign-in");
+        }
     }, [session, status, router]);
 
     const [updateNeeded, setUpdateNeeded] = useState(false);

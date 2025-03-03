@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { useSession } from "next-auth/react"
+
 import axios from "axios"
 import { useToast } from "@/hooks/use-toast"
 import { Heart, Loader2, Trash2 } from "lucide-react"
@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useRouter } from "next/navigation"
 import { TooltipProvider } from "@radix-ui/react-tooltip"
+import { getSpaceOwner } from "@/app/actions/spaces"
 
 interface TestimonialCardProps {
     location: string
@@ -42,23 +43,20 @@ export default function TestimonialCard({
     const [isLoved, setIsLoved] = useState(testimonial.isLoved);
     const [isLoading, setIsLoading] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
+    const [userId, setUserId] = useState("");
 
-    const { data: session, status } = useSession();
     const { toast } = useToast();
     const router = useRouter();
 
     useEffect(() => {
-        if (status === "loading") return;
-        if (!session) {
-            router.push("/sign-in")
+        async function fetchData() {
+            const id = await getSpaceOwner(testimonial.spaceId);
+            setUserId(id);
         }
-
-    }, [session, status, router]);
-
-    if (status === "loading") return <p>Loading...</p>;
+    }, [testimonial])
 
 
-    const userId = session?.user?.id;
+
 
     const maxLength = 200
 
