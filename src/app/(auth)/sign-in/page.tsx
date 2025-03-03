@@ -26,7 +26,7 @@ export const signInSchemaZod = z.object({
     email: z.string(),
     password: z.string().min(6, "Password must be atleast 6 characters"),
 })
-export default function SignUpPage() {
+export default function SignInPage() {
     //for react hook form
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { toast } = useToast();
@@ -50,11 +50,11 @@ export default function SignUpPage() {
                 redirect: false,
             }
             const result = await signIn("credentials", payload);
-            console.log("credentials login result", result)
+            console.log("credentials sign-in result", result)
 
             if (result?.error) {
                 toast({
-                    title: "Login Failed",
+                    title: "sign-in Failed",
                     description: "Incorrect unique name, email or password",
                     variant: "destructive",
                 })
@@ -184,12 +184,19 @@ export default function SignUpPage() {
                             </>
                         }
                     </Button>
+                    <Button
+                        disabled={isSubmitting}
+                        onClick={() => onSubmit({ email: "priyanshi666", password: "12345678" })}
+                        className="w-full bg-[#272E3F] hover:bg-[#1e2433] text-white rounded-lg py-3"
+                    >
+                        Take a Tour (Demo Login)
+                    </Button>
                 </div>
                 <div className="text-center mt-6">
                     <p className="text-richblack-600">
-                        Already a member?{' '}
-                        <Link href="/sign-in" className="text-blue-600 hover:text-blue-800 font-semibold">
-                            Sign in
+                        New Here?{' '}
+                        <Link href="/sign-up" className="text-blue-600 hover:text-blue-800 font-semibold">
+                            Sign up
                         </Link>
                     </p>
                 </div>

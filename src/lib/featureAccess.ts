@@ -7,7 +7,7 @@ interface FeatureLimits {
 }
 
 const testimonialLimits: FeatureLimits = {
-    [SubscriptionTier.FREE]: 10,
+    [SubscriptionTier.FREE]: 50,
     [SubscriptionTier.PRO]: Infinity,
     [SubscriptionTier.LIFETIME]: Infinity,
 };

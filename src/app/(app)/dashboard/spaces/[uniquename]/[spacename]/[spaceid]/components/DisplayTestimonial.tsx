@@ -17,7 +17,8 @@ interface Props {
 export default function DisplayTestimonials({ spaceid, uniqueLink }: Props) {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [query, setQuery] = useState(searchParams.get('query') || '');
+    const q = searchParams.get('query');
+    const [query, setQuery] = useState(q === undefined ? '' : q || '');
     const [debouncedQuery] = useDebounce(query, 300);
 
     const handleSearch = useCallback((newQuery: string) => {

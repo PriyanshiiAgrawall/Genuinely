@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { initializePaddle, Paddle, Environments } from '@paddle/paddle-js';
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useToast } from "@/hooks/use-toast";
 export interface CheckoutProps {
 
     userId: string;
@@ -14,13 +15,14 @@ export interface CheckoutProps {
 
 export default function PaddleCheckout({ userId, email }: CheckoutProps) {
     const router = useRouter();
+    const { toast } = useToast();
     const searchParams = useSearchParams();
     const [paddle, setPaddle] = useState<Paddle>();
     const [loading, setLoading] = useState(false);
     const { data: session, status } = useSession();
     useEffect(() => {
         if (!session) {
-            router.push("/login");
+            router.push("/sign-in");
         }
 
     }, [session, status])
@@ -56,7 +58,13 @@ export default function PaddleCheckout({ userId, email }: CheckoutProps) {
             token: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN!, eventCallback(event) {
                 switch (event.name) {
                     case 'checkout.completed':
-                        updateDb(event.data);
+                        {
+                            updateDb(event.data)
+                            toast({
+                                title: "Subscription Successful",
+                                description: "You might need to sign-in again to see the reflected changes"
+                            })
+                        }
                         break;
                     case 'checkout.closed':
                         router.push('/');
@@ -84,9 +92,10 @@ export default function PaddleCheckout({ userId, email }: CheckoutProps) {
             if (transactionId) {
                 paddle.Checkout.open({
                     settings: {
-                        allowLogout: false,
+                        allowLogout: true,
                     },
                     transactionId,
+
                 });
             } else if (priceId) {
                 paddle.Checkout.open({

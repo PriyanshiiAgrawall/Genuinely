@@ -97,6 +97,8 @@ export default function PricingSection() {
                         <p className="mt-6 text-xl text-gray-400 max-w-2xl mx-auto">
                             Choose the plan that's right for you.
                         </p>
+                        <br></br>
+
                     </div>
                 </motion.div>
 
@@ -109,6 +111,9 @@ export default function PricingSection() {
                     />
                     <span className={`text-sm ${isAnnual ? 'text-gray-200' : 'text-gray-400'}`}>Annually (2 months free)</span>
                 </div>
+                <br></br>
+                <br></br>
+
                 <div className="mb-16 grid gap-8 items-start grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     {plans.map((plan, index) => (
                         <PricingCard key={index} {...plan} isAnnual={isAnnual} />

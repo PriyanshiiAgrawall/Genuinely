@@ -24,7 +24,7 @@ export default function Navbar() {
 
     useEffect(() => {
         if (status === "loading") return;
-        if (!session) { router.push("/login"); }
+        // if (!session) { router.push("/sign-in"); }
     }, [session, status, router]);
 
     if (status === "loading") return <p>Loading...</p>;

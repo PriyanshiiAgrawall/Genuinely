@@ -36,7 +36,7 @@ export function PricingCard({
     const getCheckoutLink = () => {
         //if user chooses free account
         if (buttonText === 'Get Started') {
-            return '/login'
+            return '/sign-in'
         }
         //if user chooses lifetime access
         if (oneTimePrice !== undefined) {
@@ -83,7 +83,7 @@ export function PricingCard({
                                 <TooltipProvider>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
-                                            <span className="text-sm text-gray-300">{feature.text}</span>
+                                            <span className="text-sm">{feature.text}</span>
                                         </TooltipTrigger>
                                         <TooltipContent>
                                             <p>{feature.tooltip}</p>
@@ -91,7 +91,7 @@ export function PricingCard({
                                     </Tooltip>
                                 </TooltipProvider>
                             ) : (
-                                <span className="text-sm text-gray-300">{feature.text}</span>
+                                <span className="text-sm text-[#dbb04c]">{feature.text}</span>
                             )}
                         </li>
                     ))}
@@ -101,7 +101,7 @@ export function PricingCard({
                 <Link
                     href={getCheckoutLink()}
                     className={buttonVariants({
-                        variant: isPro ? 'default' : 'outline',
+                        variant: 'default',
                         size: 'lg',
                         className: 'w-full'
                     })}

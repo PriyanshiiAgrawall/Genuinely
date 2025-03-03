@@ -50,7 +50,7 @@ export default function TestimonialCard({
     useEffect(() => {
         if (status === "loading") return;
         if (!session) {
-            router.push("/login")
+            router.push("/sign-in")
         }
 
     }, [session, status, router]);

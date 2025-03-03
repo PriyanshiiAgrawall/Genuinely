@@ -28,7 +28,7 @@ export default function OtpSendingEmailTemplate({ name, otp, email }: OtpEmailSe
                 <Container style={container}>
                     <Section style={coverSection}>
                         <Section style={imageSection}>
-                            {/* <Img src="null" width="75" height="45" alt="Genuine Feedback Logo" /> */}
+                            <Img src="genuinely-logo.png" width="75" height="45" alt="Genuine Feedback Logo" />
                         </Section>
                         <Section style={upperSection}>
                             <Heading style={h1}>Hello, {name}!</Heading>

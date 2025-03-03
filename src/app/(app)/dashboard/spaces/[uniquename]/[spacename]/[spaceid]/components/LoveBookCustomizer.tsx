@@ -42,8 +42,9 @@ const LoveGalleryCustomizer: React.FC<LoveGalleryCustomizerProps> = ({
                     onChange={(e) => setLayout(e.target.value as 'carousel' | 'grid')}
                     className="p-2 border rounded"
                 >
-                    <option value="grid">Grid</option>
+
                     <option value="carousel">Carousel</option>
+                    <option value="grid">Grid</option>
 
                 </select>
             </div>

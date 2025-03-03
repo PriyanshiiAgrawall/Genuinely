@@ -15,7 +15,7 @@ export default function TotalTestimonials() {
 
     useEffect(() => {
         if (status === "loading") return;
-        if (!session) router.push("/login");
+        if (!session) router.push("/sign-in");
 
         const fetchData = async () => {
             const total = await getTotalTestimonials();

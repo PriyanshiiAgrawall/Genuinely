@@ -30,7 +30,7 @@ export default function ShowSpaces() {
     const { data: session, status, update } = useSession();
 
     useEffect(() => {
-        if (!session && status !== "loading") router.push("/login");
+        if (!session && status !== "loading") router.push("/sign-in");
     }, [session, status, router]);
 
 

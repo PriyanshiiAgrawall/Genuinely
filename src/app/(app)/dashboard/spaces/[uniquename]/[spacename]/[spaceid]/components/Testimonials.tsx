@@ -18,6 +18,8 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import TestimonialCard from './TestimonialCard'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
+import { Description } from '@radix-ui/react-toast'
+import { useToast } from '@/hooks/use-toast'
 
 export default function Testimonials({
     query,
@@ -30,7 +32,7 @@ export default function Testimonials({
 }) {
     const { data: session, status } = useSession()
     const router = useRouter()
-
+    const { toast } = useToast();
     const [testimonials, setTestimonials] = useState<any[]>([])
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(true)
@@ -41,10 +43,10 @@ export default function Testimonials({
     const [subTier, setSubTier] = useState<any>(null)
     const [canCollect, setCanCollect] = useState(true)
 
-    // Redirect to login if no session
+    // Redirect to sign-in if no session
     useEffect(() => {
         if (!session && status !== 'loading') {
-            router.push('/login')
+            router.push('/sign-in')
         } else if (session) {
             setSubTier(session?.user?.subscriptionTier)
         }
@@ -57,6 +59,10 @@ export default function Testimonials({
         setError(false)
 
         try {
+            toast({
+                title: "Testimonial Alert",
+                description: "Refresh the page if you dont see your testimonials",
+            })
             const res = await fetch(`/api/testimonial?spaceId=${spaceId}&query=${query}&page=${page}&limit=${limit}`)
             if (!res.ok) throw new Error('Failed to fetch')
 
@@ -133,7 +139,7 @@ export default function Testimonials({
                         onClick={handleRefresh}
                         className="mb-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md active:translate-y-1"
                     >
-                        <RotateCw className="inline w-5 h-5 mr-2" /> Refresh
+                        <RotateCw className="inline w-5 h-5 mr-2" /> Reload
                     </Button>
 
                     {testimonials.length > 0 ? (
@@ -182,9 +188,12 @@ export default function Testimonials({
                                 </div>
                             )}
                         </>
-                    ) : (
-                        !loading && !error && <EmptyState uniqueLink={uniqueLink} />
-                    )}
+                    ) : (!loading && !error && <EmptyState uniqueLink={uniqueLink} />
+
+                    )
+
+
+                    }
                 </div>
             )}
         </div>

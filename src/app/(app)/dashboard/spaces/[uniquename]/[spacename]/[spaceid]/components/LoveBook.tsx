@@ -13,7 +13,7 @@ interface LoveGalleryProps {
 const LoveGallery: React.FC<LoveGalleryProps> = ({ spaceId }) => {
 
     const [theme, setTheme] = useState<string>('light');
-    const [layout, setLayout] = useState<'carousel' | 'grid'>('grid');
+    const [layout, setLayout] = useState<'carousel' | 'grid'>('carousel');
 
     return (
         <div className='flex flex-col gap-4'>

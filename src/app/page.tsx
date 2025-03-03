@@ -1,101 +1,186 @@
-import Image from "next/image";
+'use client'
+import { motion } from 'framer-motion'
+import { ExternalLink } from 'lucide-react'
+import { useState } from 'react'
+import { MaxWidthWrapper } from '@/components/ui/MaxWidthWrapper'
+import { Switch } from '@/components/ui/switch'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import { Pencil, Share2, Inbox, BarChart } from 'lucide-react'
+import { PricingCard } from '@/lib/payments/PricingCard'
+import { Button } from '@/components/ui/button'
+import { HelpCircle } from 'lucide-react'
+import Link from 'next/link'
 
-export default function Home() {
+import Navbar1 from './components/Navbar1'
+import { FaGithub } from "react-icons/fa";
+import Header from './components/Header'
+import Steps from './components/Steps'
+import Uses from './components/Uses'
+
+interface Feature {
+  text: string
+  included: boolean
+  tooltip?: string
+  commingSoon?: boolean
+}
+
+export interface PlanProps {
+  title: string
+  monthlyPrice?: number
+  annualPrice?: number
+  oneTimePrice?: number
+  features: Feature[]
+  buttonText: string
+  isPro?: boolean
+  monthlyPriceId?: string
+  annualPriceId?: string
+  oneTimePriceId?: string
+}
+
+export default function PricingSection() {
+  const [isAnnual, setIsAnnual] = useState(false)
+  const plans: PlanProps[] = [
+    {
+      title: "Free",
+      monthlyPrice: 0,
+      annualPrice: 0,
+      features: [
+        { text: "Collect up to 50 testimonials", included: true },
+        { text: "1 Space", included: true, tooltip: "A space is a collection of testimonials for a specific product or service" },
+        { text: "Public testimonial form", included: true },
+        { text: "Love Gallery with our branding", included: true },
+      ],
+      buttonText: "Get Started",
+    },
+    {
+      title: "Pro",
+      monthlyPrice: 9,
+      annualPrice: 90,
+      features: [
+        { text: "Collect unlimited testimonials", included: true },
+        { text: "100 Spaces", included: true, tooltip: "A space is a collection of testimonials for a specific product or service" },
+        { text: "Public testimonial form", included: true },
+        { text: "Love Gallery without our branding", included: true },
+      ],
+      buttonText: 'Upgrade Now',
+      isPro: true,
+      monthlyPriceId: 'pri_01jnb6g6z80fh4jkgnr4vgnkhs',
+      annualPriceId: 'pri_01jnbzs38ez7bm2pkahjg6gvf5',
+    },
+    {
+      title: "Lifetime",
+      oneTimePrice: 199,
+      features: [
+        { text: "All Pro features", included: true },
+        { text: "One-time payment", included: true },
+        { text: "Lifetime access", included: true },
+        { text: "Future updates included", included: true },
+      ],
+      buttonText: 'Get Lifetime Access',
+      isPro: true,
+      oneTimePriceId: 'pri_01jnb6mnt2cmgv1z8fmtkta1rn',
+    },
+  ]
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className='bg-[#272E3F]'>
+      <Navbar1 />
+      <br></br>
+      <Header />
+      <Steps />
+      <Uses />
+      <section id="pricing" className="py-20 hero-background">
+        <MaxWidthWrapper>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            <h2 className="text-base text-primary font-semibold tracking-wide uppercase text-[#dbb04c]">Pricing</h2>
+            <p className="mt-2 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+              Simple, Transparent Pricing
+            </p>
+            <p className="mt-4 text-xl text-gray-400 max-w-2xl mx-auto">
+              Choose the plan that's right for you.
+            </p>
+          </motion.div>
+
+          {/* Toggle Switch */}
+          <div className="flex justify-center items-center space-x-4 mb-8">
+            <span className={`text-sm ${!isAnnual ? 'text-gray-200' : 'text-gray-400'}`}>Monthly</span>
+            <Switch checked={isAnnual} onCheckedChange={setIsAnnual} className="data-[state=checked]:bg-[#dbb04c] data-[state=unchecked]:bg-gray-500" />
+            <span className={`text-sm ${isAnnual ? 'text-gray-200' : 'text-gray-400'}`}>Annually (2 months free)</span>
+          </div>
+
+          {/* Pricing Cards */}
+          <div className="mb-16 grid gap-8 items-start grid-cols-1 md:grid-cols-3">
+            {plans.map((plan, index) => (
+              <PricingCard key={index} {...plan} isAnnual={isAnnual} />
+            ))}
+          </div>
+
+          {/* FAQs Section */}
+          <div className="max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-center mb-6 text-gray-200">Frequently Asked Questions</h3>
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1">
+                <AccordionTrigger className='text-[#dbb04c]'> What does genuinely offer?</AccordionTrigger>
+                <AccordionContent className='text-gray-300'>
+                  Real Customer Testimonials  <span className='text-primary'> support@genuinely</span> and we will help you with that.
+                </AccordionContent >
+              </AccordionItem>
+              <AccordionItem value="item-2">
+                <AccordionTrigger className='text-[#dbb04c]'>Is there a long-term contract?</AccordionTrigger>
+                <AccordionContent className='text-gray-300'>
+                  We offer monthly and annual plans, as well as a lifetime access option. If you need a custom plan, please send an email to <span className='text-primary'>support@genuinely</span>.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3">
+                <AccordionTrigger className='text-[#dbb04c]'>Do you offer a free trial?</AccordionTrigger>
+                <AccordionContent className='text-gray-300'>
+                  We don't offer a free trial, but you can start with our free plan and upgrade to Pro or Lifetime at any time.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-4" className='text-[#dbb04c]'>
+                <AccordionTrigger>What happens if my subscription expires?</AccordionTrigger>
+                <AccordionContent className='text-gray-300'>
+                  If your subscription expires, you will be downgraded to the free plan. You can upgrade to Pro at any time. You will not be able to add more testimonials or spaces until you upgrade. This doesn't apply to the Lifetime plan.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-5" className='text-gray-300'>
+                <AccordionTrigger className='text-[#dbb04c]'>What's included in the Lifetime plan?</AccordionTrigger>
+                <AccordionContent>
+                  The Lifetime plan includes all Pro features with a one-time payment. You'll have access to all current and future features without any recurring fees. It's perfect for those who want long-term access without worrying about monthly or annual payments.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+
+          {/* Contact Support */}
+          <div className="text-center mt-12">
+            <p className="text-gray-200 mb-4">This is a SAAS Project!</p>
+            <Button variant="outline">
+              <HelpCircle className="mr-2 inline h-4 w-4" />
+              <a href="mailto:pri1contact1info@gmail.com" className="text-primary hover:underline">
+                Email Support
+              </a>
+            </Button>
+            <Button className="mx-4" variant="outline">
+              <FaGithub className="mr-2 inline h-4 w-4" />
+              <a href="https://github.com/PriyanshiiAgrawall/Genuinely" className="text-primary hover:underline">
+                Github Repository
+              </a>
+            </Button>
+          </div>
+        </MaxWidthWrapper>
+      </section>
     </div>
-  );
+  )
 }

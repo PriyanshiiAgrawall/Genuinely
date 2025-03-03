@@ -234,6 +234,22 @@ export default function SignUpPage() {
                             </>
                         }
                     </Button>
+                    <Button
+                        disabled={isSubmitting}
+                        onClick={async (e) => {
+                            e.preventDefault();
+                            await signIn("credentials", {
+                                email: "priyanshi666",
+                                password: "12345678",
+                                redirect: true,
+                                callbackUrl: "/dashboard",
+                            });
+                        }}
+
+                        className="w-full bg-[#272E3F] hover:bg-[#1e2433] text-white rounded-lg py-3"
+                    >
+                        Sign In With Dummy Data
+                    </Button>
                 </div>
                 <div className="text-center mt-6">
                     <p className="text-richblack-600">

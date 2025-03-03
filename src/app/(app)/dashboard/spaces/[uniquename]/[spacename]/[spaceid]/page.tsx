@@ -36,7 +36,7 @@ export default function UserSpacePage() {
 
     useEffect(() => {
         if (status === "loading") return;
-        if (!session) router.push("/login");
+        if (!session) router.push("/sign-in");
         setLoading(true);
 
         async function fetchData() {

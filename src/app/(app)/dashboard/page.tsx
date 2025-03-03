@@ -7,11 +7,13 @@ import Navbar from './components/Navbar';
 import TotalLoveBooks from './components/ActiveLoveBooks';
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton';
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { AddSpace } from './components/AddSpace';
 import ShowSpaces from './components/ShowSpaces';
+import axios from 'axios';
+import { useToast } from '@/hooks/use-toast';
 
 
 // import { ShowSpaces } from './spaces/components/ShowSpaces';
@@ -19,13 +21,45 @@ import ShowSpaces from './components/ShowSpaces';
 
 export default function DashboardPage() {
 
-    const { data: session, status } = useSession();
+    const { data: session, status, update } = useSession();
     const router = useRouter();
-
+    const { toast } = useToast();
     useEffect(() => {
         if (status === "loading") return;
-        if (!session) router.push("/login");
+        if (!session) router.push("/sign-in");
     }, [session, status, router]);
+
+    const [updateNeeded, setUpdateNeeded] = useState(false);
+
+    useEffect(() => {
+        async function fetch() {
+            const res = await axios.post("/api/update-subscription");
+            console.log(res);
+            console.log(res.data);
+            if (res.data) {
+                setUpdateNeeded(res?.data?.update || false);
+
+            }
+            if (updateNeeded) {
+
+                setUpdateNeeded(false);
+                update();
+                toast({
+                    title: "About Subscription",
+                    description: "If you have subscribed you might have to login again to see the reflected changes"
+                })
+            }
+
+
+
+        }
+        fetch();
+
+    }, [session, status, router, updateNeeded]);
+    console.log(session?.user.subscriptionTier);
+
+
+
 
     if (status === "loading") return <p>Loading...</p>;
 

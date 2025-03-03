@@ -13,7 +13,6 @@ export async function middleware(request: NextRequest) {
         token &&
         (url.pathname === '/sign-in' ||
             url.pathname === '/sign-up' ||
-            url.pathname === '/' ||
             url.pathname.startsWith('/verify')) &&
         url.pathname !== '/dashboard'
     ) {
@@ -33,7 +32,6 @@ export const config = {
         "/sign-in",
         "/sign-up",
         "/dashboard/:path*",
-        "/",
 
     ]
 }

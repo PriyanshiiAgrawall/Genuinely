@@ -42,7 +42,7 @@ const createSpaceSchema = z.object({
 });
 
 const reservedKeywords = [
-    'admin', 'genuinely', 'genuine', 'dashboard', 'profile', 'settings', 'login', 'signup', 'api', 'space', 'spaces', 'user', 'users',
+    'admin', 'genuinely', 'genuine', 'dashboard', 'profile', 'settings', 'sign-in', 'signup', 'api', 'space', 'spaces', 'user', 'users',
     'system', 'help', 'support', 'about', 'terms', 'privacy', 'home', 'localhost', 'test', 'signin', 'feedback', 'testimonial', 'testimonials', 'pricing'
 ];
 //props destructuring
@@ -60,7 +60,7 @@ export function AddSpace({ addSpace, subscriptionTier }: { subscriptionTier: any
 
     useEffect(() => {
         if (status === "loading") return;
-        if (!session) return router.push("/login");
+        if (!session) return router.push("/sign-in");
         getTotalSpaces().then(setSpaceCount).catch(() => toast({
             title: "Error",
             description: "Failed to fetch the total space count.",
