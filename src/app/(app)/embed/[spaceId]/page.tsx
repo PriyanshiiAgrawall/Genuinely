@@ -56,7 +56,7 @@ const EmbedPage = () => {
                 }
 
                 setLovedTestimonials(testimonials as any);
-                console.log(tier);
+                console.log("Tier", tier);
                 console.log(testimonials);
                 console.log(spaceOwner)
 

@@ -98,7 +98,7 @@ export async function getSpaceOwner(spaceId: string) {
     try {
 
         const spaceid = new Types.ObjectId(spaceId);
-        const space = await Space.findById(spaceid).lean();
+        const space = await Space.findById(spaceid);
         if (!space) {
             throw new Error("Space not found.");
         }

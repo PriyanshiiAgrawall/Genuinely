@@ -8,6 +8,7 @@ export interface spaceInterface extends Document {
     isNewSpace: boolean,
     uniqueLink: string,
     createdAt: Date,
+    isAcceptingTestimonials: boolean,
 
 }
 
@@ -42,7 +43,12 @@ const spaceSchema = new mongoose.Schema<spaceInterface>({
     isNewSpace: {
         type: Boolean,
         default: true
-    }
+    },
+    isAcceptingTestimonials: {
+        type: Boolean,
+        required: true,
+        default: true,
+    },
 
 })
 

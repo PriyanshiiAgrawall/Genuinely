@@ -52,7 +52,9 @@ export default function TestimonialCard({
         async function fetchData() {
             const id = await getSpaceOwner(testimonial.spaceId);
             setUserId(id);
+            console.log(id);
         }
+        fetchData();
     }, [testimonial])
 
 
@@ -71,8 +73,9 @@ export default function TestimonialCard({
                 userId: userId,
             })
             setIsLoved(res.data.isLoved);
+            console.log(res.data.isLoved)
             toast({
-                title: `${res.data.isLoved}` ? "Added to Love Gallery" : "Removed from Love Gallery"
+                title: res.data.isLoved ? "Added to Love Gallery" : "Removed from Love Gallery"
             })
 
             if (onMutate) {

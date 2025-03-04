@@ -75,6 +75,7 @@ export function AddSpace({ addSpace, subscriptionTier }: { subscriptionTier: any
         try {
             setLoading(true);
             createSpaceSchema.parse({ name });
+            name.toLowerCase();
             console.log(name)
 
             const { data } = await axios.post('/api/space', { name });
@@ -121,7 +122,7 @@ export function AddSpace({ addSpace, subscriptionTier }: { subscriptionTier: any
 
                         <Input
                             id="name"
-                            placeholder="eg. My New Space"
+                            placeholder="eg. my-new-space"
                             className="col-span-3"
                             value={name}
                             disabled={loading || !can}

@@ -47,6 +47,7 @@ const RealTimePreview: React.FC<RealTimePreviewProps> = ({ spaceId, theme, layou
     return (
         <Card className="h-full p-4 w-full overflow-hidden">
             <h2 className="text-xl font-semibold mb-3">Preview</h2>
+            <p>Like Testimonials to add them to your love gallery</p>
             {loading ? (
                 <div className="flex justify-center items-center h-full">
                     <div className="animate-spin flex size-8 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"></div>

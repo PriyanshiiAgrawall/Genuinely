@@ -65,7 +65,7 @@ export default function VerifyOtpPage() {
                 id: id,
             }
             console.log(payload);
-            const response = await axios.post("/api/verify-otp", payload);
+            const response = await axios.post("/api/signup/verify-otp", payload);
             console.log(response);
 
             toast({

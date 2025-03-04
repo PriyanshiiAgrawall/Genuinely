@@ -29,7 +29,6 @@ export interface UserInterface extends Document {
     password: string,
     isVerified: boolean,
     isNewUser: boolean,
-    isAcceptingTestimonials: boolean,
     subscriptionTier: SubscriptionTier,
     subscriptionEndDate: Date | null,
     oauthAccounts: OAuthAccountInterface[],
@@ -56,11 +55,6 @@ export const UserSchema = new mongoose.Schema<UserInterface>({
         type: String,
         required: true,
         trim: true,
-    },
-    isAcceptingTestimonials: {
-        type: Boolean,
-        required: true,
-        default: true,
     },
     latestOtp: {
         type: Number,

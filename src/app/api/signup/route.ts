@@ -66,7 +66,6 @@ export async function POST(req: Request) {
             subscriptionEndDate: null,
             oauthAccounts: [],
             spaces: [],
-            isAcceptingTestimonials: true,
         };
 
         const isCreated = await User.create(newUser);

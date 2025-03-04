@@ -70,30 +70,7 @@ export default function UserSpacePage() {
                         variant: "destructive",
                     })
                 }
-                // console.log(space);createdAt
-                // : 
-                // "2025-02-22T23:17:03.327Z"
-                // name
-                // : 
-                // "jello"
-                // owner
-                // : 
-                // "67b8a7b4a6ffb08de226f4ad"
-                // testimonials
-                // : 
-                // []
-                // testimonialsCount
-                // : 
-                // 0
-                // uniqueLink
-                // : 
-                // "http://localhost:3000/jello/priyanshi666"
-                // __v
-                // : 
-                // 0
-                // _id
-                // : 
-                // "67ba5aef544e71545bdc54ed"
+
 
 
             }

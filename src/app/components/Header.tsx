@@ -32,7 +32,7 @@ export default function Header() {
                             <Link
                                 href="/sign-in"
                                 className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md 
-                                bg-primary hover:bg-primary/90 md:py-4 md:text-lg md:px-10 bg-[#dbb04c]
+                                hover:bg-primary/90 md:py-4 md:text-lg md:px-10 bg-[#dbb04c]
                              
                                 hover:bg-yellow-500"
 

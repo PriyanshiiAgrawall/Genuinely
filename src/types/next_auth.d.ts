@@ -6,7 +6,6 @@ declare module "next-auth" {
     interface User {
         _id: string,
         isVerified: boolean,
-        isAcceptingTestimonials: boolean,
         subscriptionTier: string,
         image?: string,
 
@@ -15,7 +14,6 @@ declare module "next-auth" {
         user: {
             id: string,
             isVerified: boolean,
-            isAcceptingTestimonials: boolean,
             subscriptionTier: string,
             image?: string,
         } & DefaultSession['user']
@@ -29,7 +27,6 @@ declare module "next-auth/jwt" {
     interface JWT {
         id: string,
         isVerified: boolean,
-        isAcceptingTestimonials: boolean,
         subscriptionTier: string,
         image?: string,
     }

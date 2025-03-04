@@ -22,6 +22,7 @@ import { useToast } from '@/hooks/use-toast';
 export default function DashboardPage() {
 
     const { data: session, status, update } = useSession();
+
     const router = useRouter();
     const { toast } = useToast();
     useEffect(() => {
@@ -30,6 +31,7 @@ export default function DashboardPage() {
             console.log("Redirection from dashboard page")
             router.push("/sign-in");
         }
+        console.log(session);
     }, [session, status, router]);
 
     const [updateNeeded, setUpdateNeeded] = useState(false);

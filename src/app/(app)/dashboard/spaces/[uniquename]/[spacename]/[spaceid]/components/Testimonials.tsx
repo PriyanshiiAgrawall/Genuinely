@@ -20,6 +20,11 @@ import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { Description } from '@radix-ui/react-toast'
 import { useToast } from '@/hooks/use-toast'
+import { Switch } from '@/components/ui/switch'
+import { Tooltip, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { TooltipContent } from '@radix-ui/react-tooltip'
+import { isAccepting, isAcceptingT, toggleAcceptance } from '@/app/actions/account'
+
 
 export default function Testimonials({
     query,
@@ -30,7 +35,7 @@ export default function Testimonials({
     spaceId: string
     uniqueLink: string
 }) {
-    const { data: session, status } = useSession()
+    const { data: session, status, update } = useSession()
     const router = useRouter()
     const { toast } = useToast();
     const [testimonials, setTestimonials] = useState<any[]>([])
@@ -39,9 +44,10 @@ export default function Testimonials({
     const [error, setError] = useState(false)
     const [page, setPage] = useState(1)
     const limit = 9
-
+    const [isAcceptingTestimonials, setIsAcceptingTestimonials] = useState(true);
     const [subTier, setSubTier] = useState<any>(null)
     const [canCollect, setCanCollect] = useState(true)
+    const [toggle, setToggle] = useState(true)
 
     // Redirect to sign-in if no session
     useEffect(() => {
@@ -59,10 +65,10 @@ export default function Testimonials({
         setError(false)
 
         try {
-            toast({
-                title: "Testimonial Alert",
-                description: "Refresh the page if you dont see your testimonials",
-            })
+            // toast({
+            //     title: "Testimonial Alert",
+            //     description: "Refresh the page if you dont see your testimonials",
+            // })
             const res = await fetch(`/api/testimonial?spaceId=${spaceId}&query=${query}&page=${page}&limit=${limit}`)
             if (!res.ok) throw new Error('Failed to fetch')
 
@@ -87,10 +93,20 @@ export default function Testimonials({
     // Fetch data on mount & when page changes
     useEffect(() => {
         if (session?.user?.id) {
-            fetchTestimonials()
+            fetchTestimonials();
         }
     }, [status, session?.user?.id, page])
 
+
+    useEffect(() => {
+        async function data() {
+            const accept = await isAcceptingT(spaceId);
+            console.log(accept);
+            setIsAcceptingTestimonials(accept);
+        }
+
+        data();
+    }, [session, toggle])
     // Check if testimonials can be collected
     useEffect(() => {
         if (subTier) {
@@ -113,7 +129,30 @@ export default function Testimonials({
         setTestimonials((prev) => prev.filter((t) => t._id !== deletedId))
         setTotal((prev) => prev - 1)
     }
+    async function handleSwitchToggle() {
+        setLoading(true);
+        try {
+            setToggle((prev) => !prev);
 
+            const newValue = !isAcceptingTestimonials; // Toggle the value locally
+            setIsAcceptingTestimonials(newValue); // Update state immediately
+
+            await toggleAcceptance(spaceId); // Call API
+
+            toast({
+                title: `You are ${newValue ? "" : "not"} accepting testimonials right now`,
+                variant: `${newValue ? "default" : "destructive"}`
+            });
+
+        } catch (err) {
+            throw err;
+
+        }
+        finally {
+            setLoading(false);
+        }
+
+    }
     return (
         <div>
             {loading ? (
@@ -135,12 +174,35 @@ export default function Testimonials({
                         </Alert>
                     )}
 
-                    <Button
-                        onClick={handleRefresh}
-                        className="mb-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md active:translate-y-1"
-                    >
-                        <RotateCw className="inline w-5 h-5 mr-2" /> Reload
-                    </Button>
+                    <div className="flex justify-between items-center w-full p-4">
+                        {/* Reload Button on the left */}
+                        <Button
+                            onClick={handleRefresh}
+                            className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md active:translate-y-1"
+                        >
+                            <RotateCw className="inline w-5 h-5 mr-2" /> Reload
+                        </Button>
+
+                        {/* Switch with Tooltip on the right */}
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger>
+                                    <div className="flex items-center gap-2">
+                                        <span>Accepting Testimonials</span>
+                                        <div>
+                                            <Switch checked={isAcceptingTestimonials} onCheckedChange={handleSwitchToggle} disabled={loading} />
+                                        </div>
+                                    </div>
+                                </TooltipTrigger>
+                                {!isAcceptingTestimonials && (
+                                    <TooltipContent>
+                                        Hey, you are not accepting testimonials right now. OK?
+                                    </TooltipContent>
+                                )}
+                            </Tooltip>
+                        </TooltipProvider>
+
+                    </div>
 
                     {testimonials.length > 0 ? (
                         <>

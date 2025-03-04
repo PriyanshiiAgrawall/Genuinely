@@ -27,6 +27,7 @@ export const authOptions: NextAuthOptions = {
                 await dbConnect();
                 try {
                     const email = credentials?.email;
+                    console.log(email);
                     const password = credentials?.password;
 
                     if (!email || !password) {
@@ -93,7 +94,6 @@ export const authOptions: NextAuthOptions = {
                 token.email = user.email,
                     token.name = user.name,
                     token.image = user.image,
-                    token.isAcceptingTestimonials = user.isAcceptingTestimonials,
                     token.isVerified = user.isVerified,
                     token.subscriptionTier = user.subscriptionTier
             }
@@ -108,7 +108,6 @@ export const authOptions: NextAuthOptions = {
                 session.user.name = token.name;
                 session.user.image = token.image;
                 session.user.subscriptionTier = token.subscriptionTier;
-                session.user.isAcceptingTestimonials = token.isAcceptingTestimonials;
                 session.user.isVerified = token.isVerified;
             }
             return session;
@@ -163,7 +162,6 @@ export const authOptions: NextAuthOptions = {
                         password: randomPassword, // No password needed for OAuth users so putting random password so that mongoose validation do not fail as password is required entry
                         latestOtp: 0,
                         isVerified: true,
-                        isAcceptingTestimonials: true,
                         isNewUser: true,
                         subscriptionTier: "Free",
                         subscriptionEndDate: null,

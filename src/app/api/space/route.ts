@@ -122,9 +122,9 @@ export async function POST(request: Request) {
 
         const ownerUniqueName = userInDb.name;
         const uniqueLink = generateUniqueLink(spaceName, ownerUniqueName);
-
+        let name = spaceName.toLowerCase();
         const spacePayload = {
-            name: spaceName,
+            name: name,
             owner: userId,
             testimonials: [],
             isNewSpace: true,
