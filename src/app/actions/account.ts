@@ -172,3 +172,15 @@ export async function toggleAcceptance(spaceId: string) {
     }
 };
 
+export async function disconnectOAuth(userId: string, provider: string) {
+    await dbConnect();
+
+    try {
+        await User.findByIdAndUpdate(userId, { $pull: { oauthAccounts: { provider } } });
+
+    } catch (error) {
+        console.error("Error disconnecting OAuth provider:", error);
+        throw error
+
+    }
+}

@@ -1,17 +1,10 @@
 'use client'
 import React from "react";
 import Link from "next/link";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { signOut, useSession } from "next-auth/react";
+
 import { Gem } from "lucide-react";
 import { MaxWidthWrapper } from "@/components/ui/MaxWidthWrapper";
 

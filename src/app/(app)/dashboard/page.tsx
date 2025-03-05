@@ -34,37 +34,7 @@ export default function DashboardPage() {
         console.log(session);
     }, [session, status, router]);
 
-    const [updateNeeded, setUpdateNeeded] = useState(false);
-
-    useEffect(() => {
-        async function fetch() {
-            const res = await axios.post("/api/update-subscription");
-            console.log(res);
-            console.log(res.data);
-            if (res.data) {
-                setUpdateNeeded(res?.data?.update || false);
-
-            }
-            if (updateNeeded) {
-
-                setUpdateNeeded(false);
-                update();
-                toast({
-                    title: "About Subscription",
-                    description: "If you have subscribed you might have to login again to see the reflected changes"
-                })
-            }
-
-
-
-        }
-        fetch();
-
-    }, [session, status, router, updateNeeded]);
     console.log(session?.user.subscriptionTier);
-
-
-
 
     if (status === "loading") return <p>Loading...</p>;
 

@@ -39,7 +39,7 @@ export default function Navbar() {
                 <div className="flex justify-center gap-4 items-center h-16">
                     <div className="relative inline-flex items-center">
                         <Link href="/" className="flex-shrink-0">
-                            {/* <Image src='/' width={200} height={200} alt='Genuinely' /> */}
+                            <Image src="/genuinely-logo.png" className="ml-[-35px]" width={175} height={200} alt='genuinely' />
                         </Link>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ export default function Navbar() {
                 <div className="flex gap-4">
                     {isAccountFree && (
                         <Link href="/#pricing" target="_blank" className="hidden md:flex">
-                            <Button>
+                            <Button className="bg-[#dbb04c]">
                                 Upgrade Your Account
                                 <Gem className="ml-2" size={18} />
                             </Button>

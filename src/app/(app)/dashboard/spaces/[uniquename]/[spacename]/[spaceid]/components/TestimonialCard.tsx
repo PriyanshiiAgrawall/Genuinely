@@ -195,7 +195,7 @@ export default function TestimonialCard({
                                     <AlertDialogAction
                                         disabled={isLoading}
                                         onClick={handleDelete}
-                                        className='bg-red-500 hover:bg-red-600'
+                                        className='bg-red-500 hov er:bg-red-600'
                                     >
                                         {isLoading && (
                                             <Loader2 className="animate-spin w-4 h-4 mr-2" />

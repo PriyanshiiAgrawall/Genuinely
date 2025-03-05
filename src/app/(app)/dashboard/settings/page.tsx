@@ -2,15 +2,13 @@
 import React from 'react';
 import ProfileSettings from './components/ProfileSettings';
 import DeleteAccount from './components/DeleteAccount';
-// import ConnectedAcc from './components/ConnectedAcc';
-
 import { redirect } from 'next/navigation';
-
 import { Button } from '@/components/ui/button';
 import { MoveLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { MaxWidthWrapper } from '@/components/ui/MaxWidthWrapper';
+import AddAccount from './components/AddAccounts';
 
 
 export default function SettingsPage() {
@@ -27,7 +25,7 @@ export default function SettingsPage() {
                 </Link>
             </Button>
             <ProfileSettings />
-            {/* <ConnectedAcc /> */}
+            <AddAccount />
             <DeleteAccount />
         </MaxWidthWrapper>
     );

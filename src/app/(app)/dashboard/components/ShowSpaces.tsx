@@ -82,8 +82,6 @@ export default function ShowSpaces() {
         setSpaceCount((prev) => prev + 1);
     }
 
-
-
     return (
         <div>
             {isLoading ? (
@@ -115,7 +113,7 @@ export default function ShowSpaces() {
                             {spaces.length != 0 && <AddSpace addSpace={addSpace} subscriptionTier={session?.user?.subscriptionTier} />}
                             <div className="grid mt-10 grid-cols-1 md:grid-cols-2 gap-4">
                                 {spaces.map((space) => (
-                                    <Card key={space._id} className="relative">
+                                    <Card key={space._id} className="relative bg-gray-300">
                                         <CardHeader className="pb-2">
                                             <div className="absolute right-4 top-4">
                                                 <AlertDialog>
@@ -163,7 +161,7 @@ export default function ShowSpaces() {
                                         <CardFooter className="p-0">
                                             <Link
                                                 href={`/dashboard/spaces/${session?.user?.name}/${space.name}/${space._id}`}
-                                                className="flex w-full items-center justify-between px-6 py-3 text-sm text-muted-foreground transition-colors hover:bg-muted rounded-md"
+                                                className="flex w-full items-center justify-between px-6 py-3 text-sm text-muted-foreground transition-colors hover:bg-gray-400 rounded-md"
                                             >
                                                 View details
                                                 <ChevronRight className="h-4 w-4" />

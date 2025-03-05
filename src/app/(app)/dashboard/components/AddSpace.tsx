@@ -105,6 +105,7 @@ export function AddSpace({ addSpace, subscriptionTier }: { subscriptionTier: any
                         Create New Space
                         {(session?.user?.subscriptionTier === "Free" || spaceCount >= 1) && <Gem className="ml-2 h-4 w-4" />}
                     </Button>
+
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px] max-w-xs">
                     <DialogHeader>

@@ -27,6 +27,9 @@ export default function AccountType() {
             </CardHeader>
             <CardContent>
                 <div className="text-4xl font-bold">{accountType}</div>
+
+
+                {accountType === "Free" ? (<p>You can create only 1 space with Free account</p>) : accountType === "Pro" ? (<p>You can create 100 spaces with Pro account</p>) : (<p>You can create unending spaces with free account</p>)}
             </CardContent>
         </Card>
     );
