@@ -28,13 +28,13 @@ export default function DashboardPage() {
     useEffect(() => {
         if (status === "loading") return;
         if (!session) {
-            console.log("Redirection from dashboard page")
+
             router.push("/sign-in");
         }
-        console.log(session);
+
     }, [session, status, router]);
 
-    console.log(session?.user.subscriptionTier);
+
 
     if (status === "loading") return <p>Loading...</p>;
 

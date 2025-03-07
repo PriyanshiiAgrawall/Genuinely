@@ -48,16 +48,12 @@ export default function UserSpacePage() {
 
 
                 const space = response.data.spaces[0];
-                console.log(space);
+
 
                 if (response.status === 200) {
-                    console.log(space);
-                    console.log(response.data)
 
                     setIsNewSpace(space.isNewSpace || false);
-                    console.log(space.
-                        uniqueLink
-                    );
+
                     setUniqueLink(space.uniqueLink || '');
 
                 }

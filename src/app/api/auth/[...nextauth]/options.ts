@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
                 await dbConnect();
                 try {
                     const email = credentials?.email;
-                    console.log(email);
+
                     const password = credentials?.password;
 
                     if (!email || !password) {

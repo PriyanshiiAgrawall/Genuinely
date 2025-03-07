@@ -87,9 +87,9 @@ export async function POST(request: Request) {
             return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
         }
         const body = await request.json();
-        console.log(body);
+
         const spaceName = body.name;
-        console.log(spaceName);
+
         if (!spaceName) {
             return NextResponse.json(
                 { message: "Space Name is Required" },

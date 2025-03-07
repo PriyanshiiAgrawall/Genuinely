@@ -23,7 +23,7 @@ export default function AISuggestion({ testimonialCardDataObj }: { testimonialCa
         try {
 
             if (!prompt.trim()) return;
-            console.log(testimonialCardDataObj.projectTitle)
+
             const response = await fetch("/api/ai-suggestions", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -37,7 +37,7 @@ export default function AISuggestion({ testimonialCardDataObj }: { testimonialCa
             setSuggestions([]);
             setSuggestions(formattedSuggestions || []);
 
-            console.log(data);
+
 
 
         } catch (err) {

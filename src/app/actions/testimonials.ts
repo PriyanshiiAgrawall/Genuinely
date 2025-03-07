@@ -37,11 +37,11 @@ export async function deleteTestimonial(testimonialId: string, spaceId: string) 
 
         const space = await Space.findById(spaceid);
         const testimonialToBeDeleted = await Testimonial.findById(testimonialid);
-        console.log(testimonialId);
+
         if (!space) {
             throw new Error("Space not found.");
         }
-        console.log(testimonialToBeDeleted?.userAvatarOfTestimonialGiver)
+
         if (!testimonialToBeDeleted) {
             throw new Error("Testimonial not found.");
         }
@@ -90,14 +90,7 @@ export async function findTestimonialCard(uniqueName: string, spaceName: string)
         const testimonialCard = await TestimonialForm.findOne({
             spaceId: spaceId,
         })
-        // console.log(testimonialCard);
-        // const placeholder = testimonialCard?.placeholder;
-        // const promptText = testimonialCard?.promptText;
-        // const testimonialId = testimonialCard?._id;
 
-        // const projectTitle = testimonialCard?.projectTitle;
-        // const projectUrl = testimonialCard?.projectUrl
-        // const projectLogo = testimonialCard?.projectLogo
 
 
         // return { placeholder, promptText, testimonialId, projectTitle, projectUrl, projectLogo };

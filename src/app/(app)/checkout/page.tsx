@@ -29,7 +29,7 @@ export default function CheckoutPage() {
                 title: "loading",
                 description: "We are checking if you are signed in payments are only possible when signed in"
             })
-            console.log("Redirection from checkout page")
+
             redirect('/sign-in');
         }
     }, [session, status])

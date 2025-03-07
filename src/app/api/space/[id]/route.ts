@@ -13,7 +13,7 @@ export async function GET(req: Request, params: any) {
     dbConnect();
 
     try {
-        console.log("this got triggered");
+
         const session = await getServerSession(authOptions);
         if (!session) {
             return NextResponse.json({
@@ -23,12 +23,12 @@ export async function GET(req: Request, params: any) {
                 status: 400,
             })
         }
-        console.log(session);
+
 
         //extract spaceId from url
-        console.log(params);
+
         const { spaceId } = params.spaceId;
-        console.log("spaceid", spaceId)
+
         if (!spaceId) {
             return NextResponse.json(
                 { success: false, message: "No space ID provided" },

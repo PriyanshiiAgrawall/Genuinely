@@ -65,15 +65,11 @@ export default function Testimonials({
         setError(false)
 
         try {
-            // toast({
-            //     title: "Testimonial Alert",
-            //     description: "Refresh the page if you dont see your testimonials",
-            // })
             const res = await fetch(`/api/testimonial?spaceId=${spaceId}&query=${query}&page=${page}&limit=${limit}`)
             if (!res.ok) throw new Error('Failed to fetch')
 
             const data = await res.json()
-            console.log("Fetched Data:", JSON.stringify(data, null, 2)); // Debugging
+
             if (data?.testimonials?.length > 0) {
                 setTestimonials(data.testimonials); // Set testimonials only if data is received
                 setTotal(data.totalTestimonials || 0);
@@ -104,7 +100,7 @@ export default function Testimonials({
     useEffect(() => {
         async function data() {
             const accept = await isAcceptingT(spaceId);
-            console.log(accept);
+
             setIsAcceptingTestimonials(accept);
         }
 

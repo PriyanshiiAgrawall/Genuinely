@@ -34,9 +34,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: "Testimonial does not exist", isLoved: false }, { status: 404 });
         }
 
-        console.log(testimonialId)
-        console.log(spaceId);
-        console.log(userId)
+
         if (!loveBook) {
             const newLoveBook = await TestimonialBook.create({ spaceId, owner: userId, testimonials: [testimonialId] });
             testimonialInDb.isLoved = true;
@@ -51,7 +49,7 @@ export async function POST(req: Request) {
             );
             await loveBook.save();
             testimonialInDb.isLoved = false;
-            console.log(testimonialInDb.isLoved);
+
             await testimonialInDb.save();
             return NextResponse.json({ message: "Successfully removed testimonial from love book", isLoved: false }, { status: 200 });
         }
@@ -60,7 +58,7 @@ export async function POST(req: Request) {
         await loveBook.save();
         testimonialInDb.isLoved = true;
         await testimonialInDb.save();
-        console.log(testimonialInDb.isLoved);
+
         return NextResponse.json({ message: "Successfully added testimonial to love gallery", isLoved: true }, { status: 200 });
 
 
@@ -83,7 +81,7 @@ export async function GET(req: Request) {
             return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
         }
 
-        console.log("hereeeeeeeeeefhgshfvgsgf")
+
 
         const { searchParams } = new URL(req.url);
         const spaceId = searchParams.get('spaceId');

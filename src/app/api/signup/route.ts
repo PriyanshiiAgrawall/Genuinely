@@ -26,7 +26,7 @@ export async function POST(req: Request) {
             const id = userFromDb._id;
             const hashedPass = await bcrypt.hash(password, 10);
             const otp = Math.floor(100000 + Math.random() * 900000);
-            console.log(otp);
+
             userFromDb.latestOtp = Number(otp);
             userFromDb.otpExpiryDate = new Date(Date.now() + 10 * 60 * 1000);
             userFromDb.password = hashedPass;
@@ -42,15 +42,15 @@ export async function POST(req: Request) {
         const base64Avatar = `data:image/svg+xml;base64,${Buffer.from(generateCustomAvatar(email || name)).toString("base64")}`;
 
 
-        // const isOtpSend = await signupOtpEmailSending({ name, otp, email });
-        // if (!isOtpSend?.success) {
-        //     return NextResponse.json({
-        //         success: false,
-        //         message: "Error in sending OTP, Please try again",
-        //     }, {
-        //         status: 400,
-        //     })
-        // }
+        const isOtpSend = await signupOtpEmailSending({ name, otp, email });
+        if (!isOtpSend?.success) {
+            return NextResponse.json({
+                success: false,
+                message: "Error in sending OTP, Please try again",
+            }, {
+                status: 400,
+            })
+        }
 
 
         const newUser = {

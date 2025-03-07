@@ -50,7 +50,7 @@ export default function SignInPage() {
                 redirect: false,
             }
             const result = await signIn("credentials", payload);
-            console.log("credentials sign-in result", result)
+
 
             if (result?.error) {
                 toast({

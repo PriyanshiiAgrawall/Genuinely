@@ -36,7 +36,7 @@ export default function PaddleCheckout({ userId, email }: CheckoutProps) {
                 throw new Error('Failed to update database');
             }
             const result = response.data;
-            console.log(result);
+
         } catch (error) {
             console.error('Error updating database:', error);
             throw error;

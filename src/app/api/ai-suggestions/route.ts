@@ -20,7 +20,7 @@ async function run(projectName: string, feedbackPrompt: string) {
 }
 export async function POST(req: Request) {
     const { projectName, feedbackPrompt } = await req.json();
-    console.log(projectName, feedbackPrompt)
+
     if (!projectName || !feedbackPrompt) {
         return NextResponse.json({ error: "Missing parameters" }, { status: 400 });
     }

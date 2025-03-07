@@ -76,7 +76,7 @@ export function AddSpace({ addSpace, subscriptionTier }: { subscriptionTier: any
             setLoading(true);
             createSpaceSchema.parse({ name });
             name.toLowerCase();
-            console.log(name)
+
 
             const { data } = await axios.post('/api/space', { name });
             addSpace(data.space);

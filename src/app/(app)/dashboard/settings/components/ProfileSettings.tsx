@@ -48,7 +48,7 @@ export default function ProfileSettings() {
                 setUniqueNameMessage("");
                 try {
                     const response = await axios.get(`/api/unique-name-check?name=${uniqueName}`);
-                    console.log(response);
+
                     setUniqueNameMessage(response.data.message);
                 }
                 catch (err) {
@@ -72,7 +72,7 @@ export default function ProfileSettings() {
             try {
                 const data = await fetch('/api/user').then((res) => res.json())
                 if (session?.user?.id !== data.user._id) return;
-                console.log(data);
+
                 setUniqueName(data.user.name)
                 setEmail(data?.user?.email)
                 setSubscription({

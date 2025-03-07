@@ -39,7 +39,7 @@ const EmbedPage = () => {
             setLoading(true);
             try {
 
-                console.log(spaceId);
+
 
                 const spaceOwner = await getSpaceOwner(spaceId as string);
                 if (!spaceOwner) {
@@ -56,9 +56,7 @@ const EmbedPage = () => {
                 }
 
                 setLovedTestimonials(testimonials as any);
-                console.log("Tier", tier);
-                console.log(testimonials);
-                console.log(spaceOwner)
+
 
 
             }

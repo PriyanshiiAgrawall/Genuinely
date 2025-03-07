@@ -27,7 +27,7 @@ export default function DisplayTestimonials({ spaceid, uniqueLink }: Props) {
 
     useEffect(() => {
         //taking current search params and forming new params with debounced value and page no and then putting them back in url
-        console.log(query);
+
 
         const params = new URLSearchParams(searchParams.toString());
 

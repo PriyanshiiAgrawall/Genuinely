@@ -102,13 +102,13 @@ export async function isAccepting(uniqueName: string, spaceName: string) {
             throw new Error("User not found.");
         }
         const id = user._id;
-        console.log(id);
-        console.log(spaceName);
+
+
         const space = await Space.findOne({ owner: id, name: spaceName }).lean();
-        console.log(space);
+
 
         if (space?.isAcceptingTestimonials) {
-            console.log(space)
+
             return true;
         }
         else {
@@ -154,7 +154,7 @@ export async function toggleAcceptance(spaceId: string) {
     try {
         const id = new Types.ObjectId(spaceId);
         const space = await Space.findById(id) as any;
-        console.log(space);
+
         if (space?.isAcceptingTestimonials) {
             space.isAcceptingTestimonials = false;
         }

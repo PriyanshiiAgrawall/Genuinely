@@ -67,15 +67,13 @@ function TestimonialCardForm({ isUpdate, spaceId, setIsNewSpace, uniqueLink }: P
     const [copied, setCopied] = useState(false);
 
     // if data is returned from this call then update is needed a card is alredy present in db otherwise new card will be saved 
-    console.log(isUpdate)
+
     const { data } = useSWR(
         isUpdate ? `/api/testimonial-card?spaceId=${spaceId}` : null,
         fetcher,
         { revalidateOnFocus: false }
     );
-    if (data) {
-        console.log(data);
-    }
+
 
     const testimonialForm = data?.testimonialForm;
 
@@ -123,7 +121,7 @@ function TestimonialCardForm({ isUpdate, spaceId, setIsNewSpace, uniqueLink }: P
 
     const onSubmit = async (formData: any) => {
         //for backend api we need spaceId and spaceName to be send in formdata hence appending that
-        console.log("hereeeee")
+
         const form = new FormData();
         Object.entries(formData).forEach(([key, value]) => {
             if (value) {
@@ -141,7 +139,7 @@ function TestimonialCardForm({ isUpdate, spaceId, setIsNewSpace, uniqueLink }: P
 
         try {
             if (isUpdate) {
-                console.log("update vala")
+
                 await axios.put('/api/testimonial-card', form, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
@@ -176,7 +174,7 @@ function TestimonialCardForm({ isUpdate, spaceId, setIsNewSpace, uniqueLink }: P
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.files)
+
         const file = e.target.files?.[0];
         if (file) {
             try {

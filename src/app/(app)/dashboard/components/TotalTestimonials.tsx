@@ -9,7 +9,7 @@ import { getTotalTestimonials } from "@/app/actions/testimonials";
 
 export default function TotalTestimonials() {
     const { data: session, status } = useSession();
-    console.log("here", session)
+
     const router = useRouter();
     const [totalTestimonials, setTotalTestimonials] = useState<number>(0);
 

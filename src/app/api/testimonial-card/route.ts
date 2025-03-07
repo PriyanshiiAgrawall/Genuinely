@@ -163,9 +163,9 @@ export async function PUT(req: Request) {
         if (!userInDb) {
             return NextResponse.json({ success: false, message: "Unable to find the user" }, { status: 400 });
         }
-        console.log(parsedData?.data?.spaceId);
+
         const spaceId = new Types.ObjectId(parsedData?.data?.spaceId);
-        console.log(spaceId);
+
         const spaceFromDb = await Space.findById(spaceId);
         if (!spaceFromDb) {
             return NextResponse.json({ success: false, message: "Unable to find the space" }, { status: 400 });
@@ -248,9 +248,9 @@ export async function GET(req: Request) {
         if (!spaceId) {
             return NextResponse.json({ success: false, message: "Space Id is required" }, { status: 400 });
         }
-        console.log(spaceId)
+
         const spaceObjectId = new Types.ObjectId(spaceId);
-        console.log(spaceObjectId);
+
         const spaceFromDb = await Space.findById(spaceObjectId);
         if (!spaceFromDb) {
             return NextResponse.json({ success: false, message: "Unable to find the space" }, { status: 400 });

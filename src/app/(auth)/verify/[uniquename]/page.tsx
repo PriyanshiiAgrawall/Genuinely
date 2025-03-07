@@ -36,7 +36,7 @@ export const otpSchemaZod = z.object({
 export default function VerifyOtpPage() {
     const router = useRouter();
     const params = useParams<{ uniquename: string }>();
-    console.log(params);
+
     const searchParams = useSearchParams();
     const { toast } = useToast();
     const id = searchParams.get("id");
@@ -64,9 +64,9 @@ export default function VerifyOtpPage() {
                 otp: data.otp,
                 id: id,
             }
-            console.log(payload);
+
             const response = await axios.post("/api/signup/verify-otp", payload);
-            console.log(response);
+
 
             toast({
                 title: "Verification Successfull",

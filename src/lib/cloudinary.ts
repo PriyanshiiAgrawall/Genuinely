@@ -15,7 +15,7 @@ function generateSignature(params: Record<string, string>) {
         .map((key) => `${key}=${params[key]}`)
         .join("&");
 
-    console.log("String to sign:", sortedParams + apiSecret); // Debug log
+
 
     // Step 2: Generate SHA-1 hash for Cloudinary
     return crypto.createHash("sha1").update(`${sortedParams}${apiSecret}`).digest("hex");
@@ -43,7 +43,7 @@ export const uploadOnCloudinary = async (fileBuffer: Buffer, fileType: string) =
         const fileStr = `data:image/webp;base64,${processedImage.toString('base64')}`;
 
         let timestamp = Math.floor(Date.now() / 1000);
-        console.log("triggerdegdwjvdvwdvdv")
+
         const params = {
             timestamp: timestamp.toString(),
             folder: "testimonials/logoandavatar",
@@ -53,7 +53,7 @@ export const uploadOnCloudinary = async (fileBuffer: Buffer, fileType: string) =
         timestamp = timestamp, toString();
         const signature = generateSignature(params);
         console.log("Generated Signature:", signature);
-        console.log("triggerdegdwjvdvwdvdv")
+
         const response = await cloudinary.uploader.upload(fileStr, {
 
             folder: "testimonials/logoandavatar",
@@ -62,7 +62,7 @@ export const uploadOnCloudinary = async (fileBuffer: Buffer, fileType: string) =
             timestamp: timestamp,
             signature,
         });
-        console.log("triggerdegdwjvdvwdvdv")
+
         //response will have url for http url and public_id for unique path to image in cloudinary
         return response;
     } catch (error) {

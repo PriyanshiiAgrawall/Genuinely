@@ -62,7 +62,7 @@ export default function SignUpPage() {
                 setUniqueNameMessage("");
                 try {
                     const response = await axios.get(`/api/unique-name-check?name=${uniqueName}`);
-                    console.log(response);
+
                     setUniqueNameMessage(response.data.message);
 
                 }
@@ -84,7 +84,7 @@ export default function SignUpPage() {
         setIsSubmitting(true);
         try {
             const response = await axios.post<ApiResponse>(`/api/signup`, data);
-            console.log(response);
+
             toast({
                 title: 'Success',
                 description: response.data.message

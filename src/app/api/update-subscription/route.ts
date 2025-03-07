@@ -10,10 +10,10 @@ export async function POST(req: Request) {
         if (!userId || !eventData) {
             return NextResponse.json({ message: "Invalid request" }, { status: 400 });
         }
-        console.log(eventData);
-        console.log(eventData?.items[0].product)
-        console.log(eventData?.items[0].product.name)
-        console.log(eventData?.items[0].billing_cycle)
+        // console.log(eventData);
+        // console.log(eventData?.items[0].product)
+        // console.log(eventData?.items[0].product.name)
+        // console.log(eventData?.items[0].billing_cycle)
 
         let session = await getServerSession(authOptions);
         const sessionUser = session?.user?.id;

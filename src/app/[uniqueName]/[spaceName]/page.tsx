@@ -37,7 +37,7 @@ export function SubmissionPage() {
             try {
                 const accepting = await isAccepting(uniqueName, spaceName);
                 setIsAcceptingTestimonials(accepting);
-                console.log(accepting)
+
             } catch (error) {
                 console.error("Error fetching accepting status", error);
             }
@@ -59,7 +59,7 @@ export function SubmissionPage() {
         _id: testimonialCard._id?.toString(),
         spaceId: testimonialCard.spaceId?.toString()
     };
-    console.log(isAcceptingTestimonials);
+
     return (isAcceptingTestimonials ? (
         <div className="">
             <TestimonialSubmitForm testimonialCardData={testimonialCardDataObj} />

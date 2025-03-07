@@ -19,7 +19,7 @@ export async function GET(request: Request) {
         //    uniqueName: uniqueName
         // }
         const checkedUniqueName = uniqueNameZod.safeParse(uniqueName);
-        console.log(checkedUniqueName);
+
         if (!checkedUniqueName.success) {
             const errors = checkedUniqueName.error.format();
             //errors will have all the errors that zod might have faced throughout the project 
