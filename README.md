@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Testimonials Collection Platform  
 
-## Getting Started
+A powerful SAAS platform for businesses and daily miscellaneous projects to collect, manage, and showcase testimonials with various features like authentication, customizable testimonial forms, embeddable galleries, and subscription-based plans.  
 
-First, run the development server:
+## 🚀 Features  
+
+### 🔑 Authentication  
+- **NextAuth.js** for secure sign-in/sign-up. 
+- Sign in with **Google, GitHub, or credentials**.  
+- **OTP-based authentication** using Resend for email verification.  
+- Unique usernames are generated in **real-time** for users signing up via Google/GitHub using **`unique-names-generator`**.  
+- For OTP sign-ups, users **choose their own username**, which is validated for uniqueness at **real-time**.
+- **Passwords are stored securely** with bcryptjs encryption.  
+
+### 💰 Subscription Plans (Paddle Integration)  
+- **Free, Pro, and Lifetime** subscription plans.  
+- Managed using **Paddle** for payments.  
+
+### 📂 Spaces & Testimonials Management  
+- Users can **create spaces** for different projects.  
+- **Unique space link** for each space where customers can submit testimonials.  
+- Businesses can **toggle acceptance of new testimonials** on/off.  
+- **Custom testimonial form** with Project Title, Project URL, Project Logo, Custom Prompt Text, Placeholder Text using **React Hook Form**
+
+### 📝 Testimonials Page  
+- View all collected testimonials.  
+- **Search** desired testimonials 
+- **Pagination** for easier navigation.  
+- **Like testimonials** to save them in the "Love Gallery".  
+- **Delete testimonials** when needed.  
+
+### ❤️ Love Gallery & Embedding  
+- Collection of **favorite testimonials** in a dedicated gallery.  
+- **Preview feature** to see how testimonials appear before embedding in your own website.  
+- **Embed testimonials on external websites** using different themes and layout like light/dark, grid/carousel. 
+
+### 🖼️ Avatar & Profile Management  
+- Customers can upload a **custom avatar** when submitting testimonials.  
+- If no avatar is uploaded, a random one is generated using packages like-  
+  - **`animal-avatar-generator`**  
+  - **`jdenticon`**  
+- Testimonial **project logos** and **users-avatars** are saved in **Cloudinary**.  
+
+### ⚡ Real-Time & Performance Enhancements  
+- Debounced **username availability check** every **3 seconds** using `useDebouncedCallback`.  
+- **Optimized API calls** for fast and seamless experience.  
+
+## 🛠️ Tech Stack  
+
+-**Language:** Typescript
+- **Frontend:** Next.js, Tailwind CSS, ShadCN  
+- **Backend:** Next.js API routes, MongoDB, Mongoose  
+- **Authentication:** NextAuth.js (Google, GitHub, Credentials)  
+- **Email & OTP:** Resend  
+- **Payments:** Paddle  
+- **File Uploads:** Cloudinary  
+- **State Management & Hooks:** SWR, usehooks-ts
+- **Validation:** React Hook Form, Zod  
+- **Animations:** Framer Motion  
+
+ 
+## Configuration and Setup
+
+To run this project locally:
+
+1. Clone the repository or download it as a zip file.
+2. Install all the dependencies.
+3. Create a `.env` file in the root directory and provide the required configuration details given in .env.sample
+4. Run commands given below and the project will start running on 3000 port.
+
+### Commands to Run the Project
+
+Run the following commands in your terminal:
 
 ```bash
+# Navigate to the root directory
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

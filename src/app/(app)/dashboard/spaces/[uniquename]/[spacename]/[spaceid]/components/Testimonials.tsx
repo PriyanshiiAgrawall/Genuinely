@@ -74,14 +74,16 @@ export default function Testimonials({
 
             const data = await res.json()
             console.log("Fetched Data:", JSON.stringify(data, null, 2)); // Debugging
-
-            if (!data || !data.testimonials) {
+            if (data?.testimonials?.length > 0) {
+                setTestimonials(data.testimonials); // Set testimonials only if data is received
+                setTotal(data.totalTestimonials || 0);
+            }
+            else {
                 setTestimonials([])
                 setTotal(0)
-                return
+
             }
-            setTestimonials([...data.testimonials]);
-            setTotal(data.totalTestimonials || 0);
+
         } catch (err) {
             console.error('Error fetching testimonials:', err)
             setError(true)
@@ -92,10 +94,11 @@ export default function Testimonials({
 
     // Fetch data on mount & when page changes
     useEffect(() => {
-        if (session?.user?.id) {
+        if (status === "authenticated" && session?.user?.id) {
             fetchTestimonials();
         }
-    }, [status, session?.user?.id, page])
+    }, [status, session?.user?.id, page]);
+
 
 
     useEffect(() => {
@@ -180,7 +183,7 @@ export default function Testimonials({
                             onClick={handleRefresh}
                             className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md active:translate-y-1"
                         >
-                            <RotateCw className="inline w-5 h-5 mr-2" /> Reload
+                            <RotateCw className="inline w-5 h-5 mr-2" /> Search
                         </Button>
 
                         {/* Switch with Tooltip on the right */}

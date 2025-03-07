@@ -128,10 +128,10 @@ export default function PricingSection() {
 
           {/* FAQs Section */}
           <div className="max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-center mb-6 text-gray-200">Frequently Asked Questions</h3>
+            <h3 className="text-2xl font-bold text-center mb-6 text-gray-200">About This Project</h3>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
-                <AccordionTrigger className='text-[#dbb04c]'> What does genuinely offer?</AccordionTrigger>
+                <AccordionTrigger className='text-[#dbb04c]'> What does Genuinely offer?</AccordionTrigger>
                 <AccordionContent className='text-gray-300'>
                   Real Customer Testimonials  <span className='text-primary'> support@genuinely</span> and we will help you with that.
                 </AccordionContent >

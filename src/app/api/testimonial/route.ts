@@ -175,7 +175,10 @@ export async function GET(request: Request) {
         }
         const { searchParams } = new URL(request.url);
         const spaceId = searchParams.get('spaceId');
-        const query = searchParams.get('query') || '';
+        let query = searchParams.get('query') || '';
+        if (query === undefined) {
+            query = "";
+        }
         const page = parseInt(searchParams.get('page') || '1', 10);
         const limit = parseInt(searchParams.get('limit') || '9', 10);
         const spaceInDb = await Space.findById({ _id: spaceId });

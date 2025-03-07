@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-
 import axios from "axios"
 import { useToast } from "@/hooks/use-toast"
 import { Heart, Loader2, Trash2 } from "lucide-react"
@@ -56,9 +55,6 @@ export default function TestimonialCard({
         }
         fetchData();
     }, [testimonial])
-
-
-
 
     const maxLength = 200
 
@@ -156,23 +152,13 @@ export default function TestimonialCard({
                     <div className="flex items-center space-x-2">
                         <TooltipProvider><Tooltip>
                             <TooltipTrigger asChild>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    onClick={handleCreateLoveGallery}
-                                    disabled={isLoading}
-                                >
-                                    <Heart
-                                        className={`${isLoved
-                                            ? "fill-red-500 text-red-500"
-                                            : "text-gray-400"
-                                            } hover:text-red-500`}
-                                    />
-                                    <span className="sr-only">
-                                        {isLoved ? "Remove from" : "Add to"} Love Gallery
-                                    </span>
-                                </Button>
+                                <div className="cursor-pointer">
+                                    <Button variant="ghost" size="icon" onClick={handleCreateLoveGallery} disabled={isLoading}>
+                                        <Heart className={`${isLoved ? "fill-red-500 text-red-500" : "text-gray-400"} hover:text-red-500`} />
+                                    </Button>
+                                </div>
                             </TooltipTrigger>
+
                             <TooltipContent>
                                 {isLoved ? "Remove from Love Gallery" : "Add to Love Gallery"}
                             </TooltipContent>
@@ -195,7 +181,7 @@ export default function TestimonialCard({
                                     <AlertDialogAction
                                         disabled={isLoading}
                                         onClick={handleDelete}
-                                        className='bg-red-500 hov er:bg-red-600'
+                                        className='bg-red-500 hover:bg-red-600'
                                     >
                                         {isLoading && (
                                             <Loader2 className="animate-spin w-4 h-4 mr-2" />

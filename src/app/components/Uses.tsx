@@ -93,11 +93,10 @@ const Uses = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8, duration: 0.8 }}
                     className="mt-16 text-center"
+                ><Link
+                    href="/sign-in"
+                    className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-[#dbb04c] hover:bg-yellow-400 md:py-4 md:text-lg md:px-10 transition-colors duration-300"
                 >
-                    <Link
-                        href="/login"
-                        className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-[#dbb04c] hover:bg-yellow-400 md:py-4 md:text-lg md:px-10 transition-colors duration-300"
-                    >
                         Start Today
                     </Link>
                 </motion.div>

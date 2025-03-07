@@ -37,7 +37,7 @@ export default function Header() {
                                 hover:bg-yellow-500"
 
                             >
-                                Get started
+                                Get Started
                             </Link>
                         </div>
                         <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">

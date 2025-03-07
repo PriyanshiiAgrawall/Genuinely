@@ -1,9 +1,10 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
-import { useDebounce } from "@uidotdev/usehooks";
+import { useDebounceCallback } from "usehooks-ts"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import Search from "@/components/ui/search";
 import Testimonials from "./Testimonials";
+import { Input } from "@/components/ui/input";
 interface Props {
     spaceid: string,
     uniqueLink: string
@@ -18,30 +19,41 @@ export default function DisplayTestimonials({ spaceid, uniqueLink }: Props) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const q = searchParams.get('query');
-    const [query, setQuery] = useState(q === undefined ? '' : q || '');
-    const [debouncedQuery] = useDebounce(query, 300);
 
-    const handleSearch = useCallback((newQuery: string) => {
-        setQuery(newQuery)
-    }, [])
+    const [query, setQuery] = useState(q ?? '');
+
+    const debounced = useDebounceCallback(setQuery, 500);
+
 
     useEffect(() => {
         //taking current search params and forming new params with debounced value and page no and then putting them back in url
-        const params = new URLSearchParams(searchParams.toString())
-        params.set('query', debouncedQuery)
-        params.set('page', '1') // Reset to first page on new search
-        router.push(`?${params.toString()}`, { scroll: false })
-    }, [debouncedQuery, router, searchParams])
+        console.log(query);
+
+        const params = new URLSearchParams(searchParams.toString());
+
+        if (query?.trim()) {
+            params.set('query', query);
+        } else {
+            params.delete('query'); // Remove query param when empty
+        }
+
+        params.set('page', '1'); // Reset to first page on new search
+        router.push(`?${params.toString()}`, { scroll: false });
+    }, [query, router, searchParams])
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        debounced(e.target.value);
+    };
 
     return (
         <div className="flex flex-col h-screen">
             <div className="p-4">
-                <Search placeholder="Search testimonials by name or message..." onSearch={handleSearch} />
+                <Input placeholder="Search testimonials by name or message..." onChange={handleChange} />
             </div>
 
             <ScrollArea className="flex-grow rounded-md border p-4">
                 <Testimonials
-                    query={debouncedQuery}
+                    query={query}
                     spaceId={spaceid}
                     uniqueLink={uniqueLink}
                 />
