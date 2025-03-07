@@ -36,9 +36,7 @@ A powerful SAAS platform for businesses and daily miscellaneous projects to coll
 
 ### 🖼️ Avatar & Profile Management  
 - Customers can upload a **custom avatar** when submitting testimonials.  
-- If no avatar is uploaded, a random one is generated using packages like-  
-  - **`animal-avatar-generator`**  
-  - **`jdenticon`**  
+- If no avatar is uploaded, a random one is generated using packages like- **`animal-avatar-generator`** and **`jdenticon`**  
 - Testimonial **project logos** and **users-avatars** are saved in **Cloudinary**.  
 
 ### ⚡ Real-Time & Performance Enhancements  
@@ -47,7 +45,7 @@ A powerful SAAS platform for businesses and daily miscellaneous projects to coll
 
 ## 🛠️ Tech Stack  
 
--**Language:** Typescript
+- **Language:** Typescript
 - **Frontend:** Next.js, Tailwind CSS, ShadCN  
 - **Backend:** Next.js API routes, MongoDB, Mongoose  
 - **Authentication:** NextAuth.js (Google, GitHub, Credentials)  
@@ -65,7 +63,7 @@ To run this project locally:
 
 1. Clone the repository or download it as a zip file.
 2. Install all the dependencies.
-3. Create a `.env` file in the root directory and provide the required configuration details given in .env.sample
+3. Create a `.env` file in the root directory and provide the required configuration details given in `.env.sample`
 4. Run commands given below and the project will start running on 3000 port.
 
 ### Commands to Run the Project
@@ -74,8 +72,6 @@ Run the following commands in your terminal:
 
 ```bash
 # Navigate to the root directory
+
 npm install
 npm run dev
-
-
-
