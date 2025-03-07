@@ -21,6 +21,7 @@ A powerful SAAS platform for businesses and daily miscellaneous projects to coll
 - **Unique space link** for each space where customers can submit testimonials.  
 - Businesses can **toggle acceptance of new testimonials** on/off.  
 - **Custom testimonial form** with Project Title, Project URL, Project Logo, Custom Prompt Text, Placeholder Text using **React Hook Form**
+- Spaces can be **deleted easily** at any point of time
 
 ### 📝 Testimonials Page  
 - View all collected testimonials.  
@@ -37,7 +38,8 @@ A powerful SAAS platform for businesses and daily miscellaneous projects to coll
 ### 🖼️ Avatar & Profile Management  
 - Customers can upload a **custom avatar** when submitting testimonials.  
 - If no avatar is uploaded, a random one is generated using packages like- **`animal-avatar-generator`** and **`jdenticon`**  
-- Testimonial **project logos** and **users-avatars** are saved in **Cloudinary**.  
+- Testimonial **project logos** and **users-avatars** are saved in **Cloudinary**.
+- Users can easily delete there accounts,change uniquenames or add **multiple oAuth accounts** while will be displayed on profile settings page.
 
 ### ⚡ Real-Time & Performance Enhancements  
 - Debounced **username availability check** every **3 seconds** using `useDebouncedCallback`.  
