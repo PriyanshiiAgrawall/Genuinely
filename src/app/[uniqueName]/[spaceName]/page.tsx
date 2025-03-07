@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { NotAccepting } from "./components/NotAccepting";
 import { isAccepting } from "@/app/actions/account";
 
+
 export function SubmissionPage() {
     const pathname = usePathname();
     const parts = pathname.split("/").filter(Boolean);
@@ -59,7 +60,17 @@ export function SubmissionPage() {
         spaceId: testimonialCard.spaceId?.toString()
     };
     console.log(isAcceptingTestimonials);
-    return (isAcceptingTestimonials ? <TestimonialSubmitForm testimonialCardData={testimonialCardDataObj} /> : <NotAccepting uniqueName={uniqueName} spaceName={spaceName} testimonialCardData={testimonialCardDataObj} />)
+    return (isAcceptingTestimonials ? (
+        <div className="">
+            <TestimonialSubmitForm testimonialCardData={testimonialCardDataObj} />
+
+
+
+        </div>
+
+
+
+    ) : <NotAccepting uniqueName={uniqueName} spaceName={spaceName} testimonialCardData={testimonialCardDataObj} />)
 }
 
 export default SubmissionPage;

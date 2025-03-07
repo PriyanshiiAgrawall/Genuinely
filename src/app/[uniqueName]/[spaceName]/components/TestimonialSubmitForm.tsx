@@ -17,6 +17,8 @@ import { exampleAvatar } from "@/helpers/avatar-generator";
 import { useToast } from "@/hooks/use-toast";
 import { defaultProjectLogo } from "@/helpers/project-logo-generator";
 import { Thankyou } from "./Thankyou";
+import AISuggestion from "./AISuggestion";
+import Navbar0 from "./Navbar0";
 
 
 function checkFileType(file: File) {
@@ -136,20 +138,13 @@ export const TestimonialSubmitForm = ({ testimonialCardData }: { testimonialCard
     }
 
     return (
-        <>
+        <div className="flex max-h-screen w-full bg-gradient-to-r from-blue-200 to-purple-200 shadow-lg items-center justify-center overflow-hidden">
 
-            <div className="bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg">
-                <div className="fixed p-6 top-0 left-0 w-full z-10">
-                    <div className="relative inline-flex items-center">
-                        <Link href="/" className="flex-shrink-0">
-                            {/* <Image src='' width={200} height={200} alt='Genuinely' /> */}
-                        </Link>
-                    </div>
-                </div>
+            <div className="">
+                {<Navbar0 />}
 
-                <form onSubmit={handleSubmit(onSubmit)} className="p-6 relative flex flex-col items-center justify-center min-h-screen max-h-screen overflow-y-auto bg-gradient-to-br from-blue-50 to-blue-100">
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-300 via-transparent to-blue-300 opacity-40 blur-3xl" />
-
+                <form onSubmit={handleSubmit(onSubmit)} className="p-6 relative flex flex-col items-center justify-center min-h-screen max-h-screen overflow-y-auto">
+                    <div className="absolute" />
                     <div className="relative z-10 flex items-center justify-center gap-4 mb-4">
                         <Avatar className="h-16 w-16">
                             <AvatarImage src={testimonialCardData.projectLogo || defaultProjectLogo} alt="projectLogo" />
@@ -187,6 +182,10 @@ export const TestimonialSubmitForm = ({ testimonialCardData }: { testimonialCard
                     </div>
                 </form>
             </div>
-        </>
+            <div>
+                <AISuggestion testimonialCardDataObj={testimonialCardData} />
+
+            </div>
+        </div>
     );
 };

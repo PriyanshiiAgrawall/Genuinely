@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import Image from 'next/image';
 import { MaxWidthWrapper } from '@/components/ui/MaxWidthWrapper';
+import Navbar0 from './Navbar0';
 
 export function Thankyou({ userName, projectTitle, projectUrl }: { userName: string, projectTitle: string, projectUrl: string }) {
 
@@ -19,16 +20,11 @@ export function Thankyou({ userName, projectTitle, projectUrl }: { userName: str
 
     return (
 
-        <MaxWidthWrapper className='bg-gradient-to-r from-blue-500 to-purple-500'>
+        <div className='bg-gradient-to-r from-blue-500 to-purple-500 w-full min-h-screen min-w-screen overflow-hidden'>
             <div>
                 {/* Header */}
-                <div className="fixed p-6 top-0 left-0 w-full z-10 ">
-                    <div className="relative inline-flex items-center">
-                        <Link href="/" className="flex-shrink-0">
-                            <Image src="/genuinely-logo.png" width={200} height={200} alt="Genuinely" />
-                        </Link>
-
-                    </div>
+                <div className="">
+                    <Navbar0 />
                 </div>
 
                 {/* Main Content */}
@@ -84,7 +80,7 @@ export function Thankyou({ userName, projectTitle, projectUrl }: { userName: str
                     </motion.div>
                 </div>
             </div>
-        </MaxWidthWrapper>
+        </div>
 
     );
 }

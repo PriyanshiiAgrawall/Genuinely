@@ -128,40 +128,82 @@ export default function PricingSection() {
 
           {/* FAQs Section */}
           <div className="max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-center mb-6 text-gray-200">About This Project</h3>
+            <h3 className="text-2xl font-bold text-center mb-6 text-gray-200">
+              About This Project
+            </h3>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
-                <AccordionTrigger className='text-[#dbb04c]'> What does Genuinely offer?</AccordionTrigger>
-                <AccordionContent className='text-gray-300'>
-                  Real Customer Testimonials  <span className='text-primary'> support@genuinely</span> and we will help you with that.
-                </AccordionContent >
+                <AccordionTrigger className="text-[#dbb04c]">
+                  What is Genuinely?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-300">
+                  Genuinely is a <strong>testimonial collection and management platform</strong> that allows businesses to gather, organize, and display customer testimonials effortlessly. Users can create dedicated spaces for different projects, collect testimonials, and embed them in their websites with multiple customization options.
+                </AccordionContent>
               </AccordionItem>
+
               <AccordionItem value="item-2">
-                <AccordionTrigger className='text-[#dbb04c]'>Is there a long-term contract?</AccordionTrigger>
-                <AccordionContent className='text-gray-300'>
-                  We offer monthly and annual plans, as well as a lifetime access option. If you need a custom plan, please send an email to <span className='text-primary'>support@genuinely</span>.
+                <AccordionTrigger className="text-[#dbb04c]">
+                  What features does Genuinely offer?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-300">
+                  - <strong>User Authentication</strong>: Sign up and log in using <strong>Google, GitHub, or email/password</strong> (secured with OTP verification via Resend).<br />
+                  - <strong>Subscription Plans</strong>: Choose between <strong>Free, Pro, and Lifetime</strong> subscription plans powered by Paddle.<br />
+                  - <strong>Testimonial Collection</strong>: Businesses can create testimonial spaces, customize forms with project title, logo, prompt text, and more.<br />
+                  - <strong>Testimonial Management</strong>: Search, paginate, like, and delete testimonials.<br />
+                  - <strong>Embeddable Testimonials</strong>: Generate <strong>unique links and embed codes</strong> with multiple themes (light, dark, grid, carousel).<br />
+                  - <strong>Avatar Customization</strong>: Users can upload avatars or generate them using <strong>animal-avatar-generator</strong> and <strong>jdenticon</strong>.<br />
+                  - <strong>Security</strong>: Passwords are encrypted using <strong>bcryptjs</strong>.<br />- <strong>AI Integration</strong>: For testimonial suggestion using <strong>Gemini</strong>.
                 </AccordionContent>
               </AccordionItem>
+
               <AccordionItem value="item-3">
-                <AccordionTrigger className='text-[#dbb04c]'>Do you offer a free trial?</AccordionTrigger>
-                <AccordionContent className='text-gray-300'>
-                  We don't offer a free trial, but you can start with our free plan and upgrade to Pro or Lifetime at any time.
+                <AccordionTrigger className="text-[#dbb04c]">
+                  What technologies power Genuinely?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-300">
+                  - <strong>Frontend & Backend</strong>: <a href="https://nextjs.org/" className="text-primary">Next.js</a> (App Router, Server Actions).<br />
+                  - <strong>Styling</strong>: <a href="https://tailwindcss.com/" className="text-primary">Tailwind CSS</a>, <a href="https://ui.shadcn.com/" className="text-primary">shadcn/ui</a>.<br />
+                  - <strong>Authentication</strong>: <a href="https://next-auth.js.org/" className="text-primary">NextAuth.js</a> with Google, GitHub, and OTP via <a href="https://resend.com/" className="text-primary">Resend</a>.<br />
+                  - <strong>Database</strong>: <a href="https://www.mongodb.com/" className="text-primary">MongoDB</a> with <a href="https://mongoosejs.com/" className="text-primary">Mongoose</a>.<br />
+                  - <strong>Storage</strong>: <a href="https://cloudinary.com/" className="text-primary">Cloudinary</a> for file storage.<br />
+                  - <strong>AI Assistance</strong>:
+                  <a href="https://gemini.google.com/" className="text-primary">Gemini AI</a> for testimonials suggestions.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-4" className='text-[#dbb04c]'>
-                <AccordionTrigger>What happens if my subscription expires?</AccordionTrigger>
-                <AccordionContent className='text-gray-300'>
-                  If your subscription expires, you will be downgraded to the free plan. You can upgrade to Pro at any time. You will not be able to add more testimonials or spaces until you upgrade. This doesn't apply to the Lifetime plan.
+
+              <AccordionItem value="item-4">
+                <AccordionTrigger className="text-[#dbb04c]">
+                  How does the testimonial embedding work?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-300">
+                  Each space has a <strong>unique submission link</strong> where users can collect testimonials. Testimonials can be displayed on external websites using an <strong>embed code</strong>, available in <strong>multiple layouts</strong> (light, dark, grid, carousel).
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-5" className='text-gray-300'>
-                <AccordionTrigger className='text-[#dbb04c]'>What's included in the Lifetime plan?</AccordionTrigger>
-                <AccordionContent>
-                  The Lifetime plan includes all Pro features with a one-time payment. You'll have access to all current and future features without any recurring fees. It's perfect for those who want long-term access without worrying about monthly or annual payments.
+
+              <AccordionItem value="item-5">
+                <AccordionTrigger className="text-[#dbb04c]">
+                  Can businesses control testimonial collection?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-300">
+                  Yes, businesses can <strong>toggle their space on or off</strong> to enable or disable testimonial collection at any time.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-6">
+                <AccordionTrigger className="text-[#dbb04c]">
+                  What makes Genuinely different from other testimonial tools?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-300">
+                  - <strong>Seamless authentication & security</strong> with NextAuth, Resend, and bcryptjs.<br />
+                  - <strong>Comprehensive testimonial management</strong> with search, pagination, liking, and deletion.<br />
+                  - <strong>Flexible embeddable testimonials</strong> with multiple themes and layouts.<br />
+                  - <strong>Customizable testimonial forms</strong> tailored to each business’s needs.<br />
+                  - <strong>Optimized performance</strong> using real-time hooks and debounced API calls.<br /> - <strong>AI Integration</strong> using gemini AI for suggesting testimonials to users according to promt.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
+
 
           {/* Contact Support */}
           <div className="text-center mt-12">

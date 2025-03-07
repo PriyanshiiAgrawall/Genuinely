@@ -14,7 +14,10 @@ A powerful SAAS platform for businesses and daily miscellaneous projects to coll
 
 ### 💰 Subscription Plans (Paddle Integration)  
 - **Free, Pro, and Lifetime** subscription plans.  
-- Managed using **Paddle** for payments.  
+- Managed using **Paddle** for payments. 
+
+### 💰 AI Testimonials Suggestions (Google Gemini Integration)  
+- Customers can **generate feedback** by giving simple words as prompt.
 
 ### 📂 Spaces & Testimonials Management  
 - Users can **create spaces** for different projects.  

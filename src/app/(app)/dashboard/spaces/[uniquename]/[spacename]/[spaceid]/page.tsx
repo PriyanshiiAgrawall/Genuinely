@@ -14,6 +14,8 @@ import Unauthorized from "@/app/components/Unauthorized";
 import TestimonialCardForm from "./components/TestimonialCardForm";
 import DisplayTestimonials from "./components/DisplayTestimonial";
 import LoveGallery from "./components/LoveBook";
+import Navbar1 from "@/app/components/Navbar1";
+import Navbar from "@/app/(app)/dashboard/components/Navbar";
 // import LoveGallery from "@/components/LoveGallery"; ->  LoveGalleryCustomizer -> RealTimeLoveGallery
 
 
@@ -118,21 +120,20 @@ export default function UserSpacePage() {
 
 
     return (
-        <div>
-            <Button variant="link" className="text-blue-500">
-                <Link href="/dashboard">
-                    <MoveLeft className="h-6 w-6 inline" /> Dashboard
-                </Link>
-            </Button>
+        <div><div className="mb-16">
+            <Navbar />
+        </div>
+            <br></br>
+
 
             <Tabs defaultValue="Testimonials" className="">
                 <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="Testimonials">Testimonials</TabsTrigger>
+                    <TabsTrigger value="Testimonials" className="">Testimonials</TabsTrigger>
                     <TabsTrigger value="Card">Testimonial Form</TabsTrigger>
                     <TabsTrigger value="loveGallery">Love Gallery</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="Testimonials">
+                <TabsContent className="" value="Testimonials">
                     <Card>
                         <CardHeader>
                             <CardTitle>Testimonials Received</CardTitle>

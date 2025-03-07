@@ -239,7 +239,7 @@ export default function SignUpPage() {
                         onClick={async (e) => {
                             e.preventDefault();
                             await signIn("credentials", {
-                                email: "priyanshi666",
+                                email: "priyanshi11",
                                 password: "12345678",
                                 redirect: true,
                                 callbackUrl: "/dashboard",

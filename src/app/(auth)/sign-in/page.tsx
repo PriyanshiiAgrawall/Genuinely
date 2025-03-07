@@ -186,7 +186,7 @@ export default function SignInPage() {
                     </Button>
                     <Button
                         disabled={isSubmitting}
-                        onClick={() => onSubmit({ email: "priyanshi666", password: "12345678" })}
+                        onClick={() => onSubmit({ email: "priyanshi11", password: "12345678" })}
                         className="w-full bg-[#272E3F] hover:bg-[#1e2433] text-white rounded-lg py-3"
                     >
                         Take a Tour (Demo Login)

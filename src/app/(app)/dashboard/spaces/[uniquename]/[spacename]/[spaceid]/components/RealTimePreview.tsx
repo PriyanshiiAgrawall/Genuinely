@@ -54,7 +54,7 @@ const RealTimePreview: React.FC<RealTimePreviewProps> = ({ spaceId, theme, layou
                     <p className="ml-3 text-gray-500">Loading preview</p>
                 </div>
             ) : layout === 'carousel' ? (
-                <div className="h-full max-w-xs md:max-w-4xl">
+                <div className="h-full   xxl:max-w-4xl ">
                     <TestimonialCarousel testimonials={lovetestimonials} theme={theme} />
                 </div>
             ) : (
