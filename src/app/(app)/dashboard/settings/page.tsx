@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { MaxWidthWrapper } from '@/components/ui/MaxWidthWrapper';
 import AddAccount from './components/AddAccounts';
+import Navbar from '../components/Navbar';
 
 
 export default function SettingsPage() {
@@ -19,11 +20,13 @@ export default function SettingsPage() {
     }
     return (
         <MaxWidthWrapper>
-            <Button variant='link' className='text-blue-500'>
+            <div className='mb-20'> <Navbar /></div>
+
+            {/* <Button variant='link' className='text-blue-500'>
                 <Link href="/dashboard">
                     <MoveLeft className="h-6 w-6 inline" /> Dashboard
                 </Link>
-            </Button>
+            </Button> */}
             <ProfileSettings />
             <AddAccount />
             <DeleteAccount />
