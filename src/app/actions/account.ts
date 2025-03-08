@@ -29,9 +29,6 @@ export async function getSubTier(spaceOwner: string) {
 }
 
 
-
-
-
 export async function deleteUser(userId: string) {
     await dbConnect();
     try {
