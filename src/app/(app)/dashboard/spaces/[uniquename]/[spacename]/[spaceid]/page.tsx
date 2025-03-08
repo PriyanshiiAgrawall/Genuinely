@@ -134,7 +134,7 @@ export default function UserSpacePage() {
                         <CardHeader>
                             <CardTitle>Testimonials Received</CardTitle>
                             <CardDescription>
-                                These are the testimonials received for this space. If you don't see any please reload the page
+                                These are the testimonials received for this space. If you don&apos;t see any please reload the page
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-2">

@@ -91,11 +91,11 @@ export const authOptions: NextAuthOptions = {
             // console.log("JWT CALLBACK:", { token, user });
             if (user) {
                 token.id = user._id?.toString();
-                token.email = user.email,
-                    token.name = user.name,
-                    token.image = user.image,
-                    token.isVerified = user.isVerified,
-                    token.subscriptionTier = user.subscriptionTier
+                token.email = user.email;
+                token.name = user.name;
+                token.image = user.image;
+                token.isVerified = user.isVerified;
+                token.subscriptionTier = user.subscriptionTier;
             }
 
             return token;

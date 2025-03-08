@@ -20,8 +20,6 @@ export default function AccountType() {
         if (!session) router.push("/sign-in");
     }, [session, status, router]);
 
-    if (status === "loading") return <p>Loading...</p>;
-
 
     useEffect(() => {
         async function fetchData() {
@@ -37,7 +35,7 @@ export default function AccountType() {
         }
         fetchData();
     }, [session, status])
-
+    if (status === "loading") return <p>Loading...</p>;
 
     return (
         <Card>
