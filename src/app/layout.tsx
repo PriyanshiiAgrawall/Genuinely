@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Genuinely",
+  title: "Genuinely:Genuine Testimonial",
   description: "Genuine Testimonial Collection",
 };
 
