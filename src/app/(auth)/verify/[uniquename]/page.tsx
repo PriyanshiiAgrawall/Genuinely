@@ -25,12 +25,9 @@ import { useToast } from "@/hooks/use-toast"
 import axios, { AxiosError } from "axios"
 import { ApiResponse } from "@/types/ApiResponse"
 import { useState } from "react"
+import { otpSchemaZod } from "@/lib/schemas"
 
-export const otpSchemaZod = z.object({
-    otp: z.string().min(6, {
-        message: "Your one-time password must be 6 characters.",
-    })
-})
+
 
 
 export default function VerifyOtpPage() {

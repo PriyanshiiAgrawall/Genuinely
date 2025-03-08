@@ -18,34 +18,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { defaultProjectLogo } from '@/helpers/project-logo-generator';
 import { exampleAvatar } from '@/helpers/avatar-generator';
 import { makeSpaceOld } from '@/app/actions/spaces';
-
-function checkFileType(file: File) {
-    if (file?.name) {
-        const fileType = file.name.split(".").pop();
-        if (fileType === "png" || fileType === "jpeg" || fileType === "jpg") return true;
-    }
-    return false;
-}
-
-
-const avatarSchema = z
-    .any()
-    .refine((file) => file instanceof File, "Invalid file type.")
-    .refine((file) => file.size < 2000000, "File size must be under 2MB.");
-
-
-const testimonialCardSchemaZod = z.object({
-    projectTitle: z.string(),
-    projectUrl: z.string(),
-    promptText: z.string(),
-    placeholder: z.string(),
-    projectLogo: z.any().refine((file: File | string) => {
-        if (!file) return false;
-        if (typeof file === "string") return true;
-        return file instanceof File && file.size < 2000000 && checkFileType(file);
-    }, "Max size is 2MB & only .png, .jpg, .jpeg formats are supported.")
-});
-
+import { avatarSchema, testimonialCardSchemaZod } from '@/lib/schemas';
 
 
 //whichever props gets here are validated first

@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { uniqueNameZod } from "@/app/api/unique-name-check/route";
+
 import { ApiResponse } from "@/types/ApiResponse";
 import { signIn, signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
@@ -29,12 +29,9 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import Navbar0 from "@/app/[uniqueName]/[spaceName]/components/Navbar0";
+import { signUpSchemaZod } from "@/lib/schemas";
 
-export const signUpSchemaZod = z.object({
-    name: uniqueNameZod,
-    email: z.string().email("Invalid Email Format"),
-    password: z.string().min(6, "Password must be atleast 6 characters"),
-})
+
 export default function SignUpPage() {
 
     const [uniqueName, setUniqueName] = useState('');
