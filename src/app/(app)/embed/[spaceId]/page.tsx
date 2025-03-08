@@ -29,7 +29,7 @@ const EmbedPage = () => {
     const layout = searchParams.get("layout") || "carousel";
     const limit = parseInt(searchParams.get("limit") || '10', 10);
     const [loading, setLoading] = useState(false);
-    let [subscriptionTier, setSubscriptionTier] = useState("Free")
+    const [subscriptionTier, setSubscriptionTier] = useState("Free")
 
     const [lovedTestimonials, setLovedTestimonials] = useState([]);
 

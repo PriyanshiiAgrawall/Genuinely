@@ -9,8 +9,6 @@ import { useToast } from '@/hooks/use-toast';
 import { disconnectOAuth } from '@/app/actions/account';
 
 
-
-
 export default function AddAccount() {
 
     const { data: session } = useSession();
@@ -40,7 +38,7 @@ export default function AddAccount() {
     const handleDisconnectOAuth = async (provider: string) => {
         setLoading(true);
         try {
-            disconnectOAuth(session?.user?.id as string, provider)
+            await disconnectOAuth(session?.user?.id as string, provider)
             setOauthAccounts((prev) => prev.filter((acc) => acc.provider !== provider));
             toast({
                 title: "Account disconnected successfully",
@@ -82,7 +80,7 @@ export default function AddAccount() {
                                 {loading ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : null}
                                 Disconnect
                             </Button>
-                            <p>You can't disconnect if you have only 1 account connected</p>
+                            <p>You can&apos;t disconnect if you have only 1 account connected</p>
                         </div>
                     ))}
                 </div>

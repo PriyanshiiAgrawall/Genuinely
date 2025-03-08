@@ -75,7 +75,8 @@ export async function POST(req: Request) {
         }
 
         let cloudinaryURL: string;
-        let { projectLogo, projectUrl, projectTitle, placeholder, promptText } = parsedData?.data;
+        let { projectLogo } = parsedData?.data;
+        const { projectTitle } = parsedData?.data;
 
         if (typeof (projectLogo) === "string") {
             projectLogo = null;

@@ -108,7 +108,7 @@ export default function PricingSection() {
               Simple, Transparent Pricing
             </p>
             <p className="mt-4 text-xl text-gray-400 max-w-2xl mx-auto">
-              Choose the plan that's right for you.
+              Choose the plan that&apos;s right for you.
             </p>
           </motion.div>
 

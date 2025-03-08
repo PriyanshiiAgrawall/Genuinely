@@ -95,7 +95,7 @@ export default function PricingSection() {
                             Simple, Transparent Pricing
                         </p>
                         <p className="mt-6 text-xl text-gray-400 max-w-2xl mx-auto">
-                            Choose the plan that's right for you.
+                            Choose the plan that&apos;s right for you.
                         </p>
                         <br></br>
 
@@ -138,19 +138,19 @@ export default function PricingSection() {
                         <AccordionItem value="item-3">
                             <AccordionTrigger>Do you offer a free trial?</AccordionTrigger>
                             <AccordionContent>
-                                We don't offer a free trial, but you can start with our free plan and upgrade to Pro or Lifetime at any time.
+                                We don&apos;t offer a free trial, but you can start with our free plan and upgrade to Pro or Lifetime at any time.
                             </AccordionContent>
                         </AccordionItem>
                         <AccordionItem value="item-4">
                             <AccordionTrigger>What happens if my subscription expires?</AccordionTrigger>
                             <AccordionContent>
-                                If your subscription expires, you will be downgraded to the free plan. You can upgrade to Pro at any time. You will not be able to add more testimonials or spaces until you upgrade. This doesn't apply to the Lifetime plan.
+                                If your subscription expires, you will be downgraded to the free plan. You can upgrade to Pro at any time. You will not be able to add more testimonials or spaces until you upgrade. This doesn&apos;t apply to the Lifetime plan.
                             </AccordionContent>
                         </AccordionItem>
                         <AccordionItem value="item-5">
-                            <AccordionTrigger>What's included in the Lifetime plan?</AccordionTrigger>
+                            <AccordionTrigger>What&apos;s included in the Lifetime plan?</AccordionTrigger>
                             <AccordionContent>
-                                The Lifetime plan includes all Pro features with a one-time payment. You'll have access to all current and future features without any recurring fees. It's perfect for those who want long-term access without worrying about monthly or annual payments.
+                                The Lifetime plan includes all Pro features with a one-time payment. You&apos;ll have access to all current and future features without any recurring fees. It&apos;s perfect for those who want long-term access without worrying about monthly or annual payments.
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>

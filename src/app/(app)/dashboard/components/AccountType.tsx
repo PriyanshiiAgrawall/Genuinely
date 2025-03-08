@@ -13,13 +13,15 @@ export default function AccountType() {
     const { data: session, status } = useSession();
     const router = useRouter();
     const { toast } = useToast();
+    const [accountType, setAccountType] = useState("Free");
+
     useEffect(() => {
         if (status === "loading") return;
         if (!session) router.push("/sign-in");
     }, [session, status, router]);
 
     if (status === "loading") return <p>Loading...</p>;
-    const [accountType, setAccountType] = useState("Free");
+
 
     useEffect(() => {
         async function fetchData() {
@@ -35,6 +37,8 @@ export default function AccountType() {
         }
         fetchData();
     }, [session, status])
+
+
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

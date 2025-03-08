@@ -50,8 +50,8 @@ export async function deleteSpace(spaceId: string) {
                 await deleteFromCloudinary(avatar);
             }
         }
-        await TestimonialForm.deleteMany({ spaceId }),
-            await space.deleteOne();
+        await TestimonialForm.deleteMany({ spaceId });
+        await space.deleteOne();
 
     } catch (error) {
         console.error("Error deleting space:", error);

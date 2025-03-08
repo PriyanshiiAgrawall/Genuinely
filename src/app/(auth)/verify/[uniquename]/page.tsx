@@ -81,7 +81,7 @@ export default function VerifyOtpPage() {
         } catch (err) {
             console.error("Error in Verifying Otp", err);
             const axiosError = err as AxiosError<ApiResponse>;
-            let errorMessage = axiosError.response?.data.message;
+            const errorMessage = axiosError.response?.data.message;
             toast({
                 title: "Otp Verification Failed",
                 description: errorMessage,

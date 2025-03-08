@@ -29,27 +29,27 @@ export default function ShowSpaces() {
 
     const { data: session, status, update } = useSession();
 
+    const { data, isLoading, error, mutate } = useSWR('/api/space', fetcher);
+
     useEffect(() => {
         if (!session && status !== "loading") router.push("/sign-in");
     }, [session, status, router]);
 
-
-    if (status === "loading") {
-        return <p>Loading</p>
-    }
-
-
-    const { data, isLoading, error, mutate } = useSWR('/api/space', fetcher);
-
-    if (error) {
-        return <div>Error loading spaces</div>;
-    }
     useEffect(() => {
         if (data?.spaces) {
             setSpaces(data.spaces);
             setSpaceCount(data.spaces.length)
         }
     }, [data])
+
+
+    if (status === "loading") {
+        return <p>Loading</p>
+    }
+
+    if (error) {
+        return <div>Error loading spaces</div>;
+    }
 
     const handleSpaceDelete = async (spaceId: string) => {
         try {

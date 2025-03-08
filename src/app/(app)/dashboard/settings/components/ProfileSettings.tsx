@@ -167,7 +167,7 @@ export default function ProfileSettings() {
                         value={email ?? ''}
                         disabled
                     />
-                    {email === null && email == "" && <p>If you don't see your email you might have logged in by Github</p>}
+                    {!email && <p>If you don&apos;t see your email you might have logged in by Github</p>}
                 </div>
                 <div className="flex flex-col space-y-2">
                     <Label>Subscription</Label>

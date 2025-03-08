@@ -142,13 +142,12 @@ export const authOptions: NextAuthOptions = {
                 } else {
                     // Create a new user with the OAuth account
                     let uniqueName = generateUniqueName();
-                    uniqueName.replaceAll(" ", "_");
-                    uniqueName = uniqueName + '1';
+                    uniqueName = uniqueName.replaceAll(" ", "_") + '1';
                     let nameExists = await User.findOne({ name: uniqueName });
                     let count = 1;
                     while (nameExists) {
                         uniqueName = `${generateUniqueName()}_${count}`;
-                        uniqueName.replaceAll(" ", "_"); // Add a number if the name exists
+                        uniqueName = uniqueName.replaceAll(" ", "_"); // Add a number if the name exists
                         nameExists = await User.findOne({ name: uniqueName });
                         count++;
                     }

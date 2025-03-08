@@ -85,8 +85,8 @@ export default function PaddleCheckout({ userId, email }: CheckoutProps) {
 
 
     useEffect(() => {
-        let transactionId = searchParams.get('_ptxn');
-        let priceId = searchParams.get('priceId');
+        const transactionId = searchParams.get('_ptxn');
+        const priceId = searchParams.get('priceId');
 
         if (paddle?.Checkout) {
             if (transactionId) {

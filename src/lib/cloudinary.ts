@@ -50,7 +50,7 @@ export const uploadOnCloudinary = async (fileBuffer: Buffer, fileType: string) =
             format: "webp",
 
         };
-        timestamp = timestamp, toString();
+        timestamp = timestamp;
         const signature = generateSignature(params);
         console.log("Generated Signature:", signature);
 
