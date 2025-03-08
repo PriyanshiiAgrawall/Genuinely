@@ -22,11 +22,9 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import Navbar0 from "@/app/[uniqueName]/[spaceName]/components/Navbar0";
+import { signInSchemaZod } from "@/lib/schemas";
 
-export const signInSchemaZod = z.object({
-    email: z.string(),
-    password: z.string().min(6, "Password must be atleast 6 characters"),
-})
+
 export default function SignInPage() {
     //for react hook form
     const [isSubmitting, setIsSubmitting] = useState(false);
