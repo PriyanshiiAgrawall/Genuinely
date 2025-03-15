@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Loader2, Trash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 import {
     AlertDialog,
@@ -25,6 +25,7 @@ export default function DeleteAccount() {
     const handleDeleteAccount = async () => {
         setLoading(true);
         await deleteUser(session?.user?.id as string);
+        await signOut()
         setLoading(false);
     };
 

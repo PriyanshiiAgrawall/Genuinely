@@ -26,22 +26,24 @@ export async function GET(request: Request) {
         }
 
         const url = new URL(request.url);
-        const spaceId = url.searchParams.get("id"); // check if `id` is passed as a query parameter.
+        const spaceId = url.searchParams.get("spaceId"); // check if `id` is passed as a query parameter.
         //if spaceId not found then all the spaces of user will be returned
         //convert string to objectid
+        console.log(spaceId);
         const userId = new Types.ObjectId(session?.user?.id);
         if (!userId) {
             return NextResponse.json({ message: "Something is wrong with your user session we cant fetch userid" }, { status: 401 });
         }
         if (spaceId) {
+            const id = new Types.ObjectId(spaceId);
             // Fetch a specific space by ID
-            const spaceFromDb = await Space.findOne({ _id: spaceId, owner: userId }).exec();
+            const spaceFromDb = await Space.findOne({ _id: id, owner: userId }).exec();
 
             if (!spaceFromDb) {
                 return NextResponse.json({ message: "Either this space does not exist or you are not the owner of it" }, { status: 404 });
             }
-
-            return NextResponse.json({ message: "Successfully fetched space", space: spaceFromDb });
+            console.log(spaceFromDb);
+            return NextResponse.json({ message: "Successfully fetched space", spaces: [spaceFromDb] });
         }
         else {
             // Fetch all spaces for the user

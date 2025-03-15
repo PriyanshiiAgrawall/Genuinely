@@ -28,7 +28,8 @@ export default function OtpSendingEmailTemplate({ name, otp, email }: OtpEmailSe
                 <Container style={container}>
                     <Section style={coverSection}>
                         <Section style={imageSection}>
-                            <Img src="genuinely-logo.png" width="75" height="45" alt="Genuine Feedback Logo" />
+                            <Img src="https://genuinely-testimonials.vercel.app/genuinely-logo.png
+" width="150" height="90" alt="Genuinely Testimonials Logo" style={{ display: "block", margin: "0 auto" }} />
                         </Section>
                         <Section style={upperSection}>
                             <Heading style={h1}>Hello, {name}!</Heading>

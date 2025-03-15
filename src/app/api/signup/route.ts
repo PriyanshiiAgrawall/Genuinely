@@ -25,13 +25,30 @@ export async function POST(req: Request) {
         if (userFromDb) {
             const id = userFromDb._id;
             const hashedPass = await bcrypt.hash(password, 10);
+
             const otp = Math.floor(100000 + Math.random() * 900000);
 
             userFromDb.latestOtp = Number(otp);
+
             userFromDb.otpExpiryDate = new Date(Date.now() + 10 * 60 * 1000);
+
             userFromDb.password = hashedPass;
+
             userFromDb.name = name;
             await userFromDb.save();
+            console.log("hereeeeeeeeeeee")
+            console.log(otp);
+            console.log(email);
+            const otpSend = await signupOtpEmailSending({ name, otp, email });
+            console.log(otpSend);
+            if (!otpSend?.success) {
+                return NextResponse.json({
+                    success: false,
+                    message: "Error in sending OTP, Please try again",
+                }, {
+                    status: 400,
+                })
+            }
 
             return NextResponse.json({ message: "This email has been previously used for signing up, but verification yet has to be done. OTP sent to this email again. Please verify your account to continue, Eitherway we have updated your username and password", success: true, id: id }, { status: 200 });
         }
@@ -41,8 +58,9 @@ export async function POST(req: Request) {
 
         const base64Avatar = `data:image/svg+xml;base64,${Buffer.from(generateCustomAvatar(email || name)).toString("base64")}`;
 
-
         const isOtpSend = await signupOtpEmailSending({ name, otp, email });
+        console.log(isOtpSend);
+        console.log(otp);
         if (!isOtpSend?.success) {
             return NextResponse.json({
                 success: false,

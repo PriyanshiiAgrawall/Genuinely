@@ -33,16 +33,22 @@ export async function deleteUser(userId: string) {
     await dbConnect();
     try {
         const userid = new Types.ObjectId(userId);
-        const user = await User.findById(userid).lean();
+        const user = await User.findById(userid);
+
         if (!user) {
             throw new Error("User not found.");
         }
-        const spaceId = await Space.findOne({ owner: userid }).select('_id').exec();
-        await TestimonialForm.deleteMany({ spaceId });
+
+        const spaces = await Space.find({ owner: userid }).select("_id").exec();
+        const spaceIds = spaces.map(space => space._id);
+
+        if (spaceIds.length > 0) {
+            await TestimonialForm.deleteMany({ spaceId: { $in: spaceIds } });
+        }
         await Space.deleteMany({ owner: userid });
         await TestimonialBook.deleteMany({ owner: userid });
         await User.findByIdAndDelete(userid);
-        signOut();
+        return { success: true, message: "User deleted successfully" };
 
 
     }
