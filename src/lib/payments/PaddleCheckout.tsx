@@ -55,7 +55,7 @@ export default function PaddleCheckout({ userId, email }: CheckoutProps) {
 
         initializePaddle({
             environment: "sandbox",
-            token: process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN!, eventCallback(event) {
+            token: process.env.PADDLE_CLIENT_TOKEN!, eventCallback(event) {
                 switch (event.name) {
                     case 'checkout.completed':
                         {

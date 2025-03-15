@@ -7,7 +7,7 @@ A powerful SAAS platform for businesses and daily miscellaneous projects to coll
 ### 🔑 Authentication  
 - **NextAuth.js** for secure sign-in/sign-up. 
 - Sign in with **Google, GitHub, or credentials**.  
-- **OTP-based authentication** using Resend for email verification.  
+- **OTP-based authentication** using Resend and NodeMailer for email verification.  
 - Unique usernames are generated in **real-time** for users signing up via Google/GitHub using **`unique-names-generator`**.  
 - For OTP sign-ups, users **choose their own username**, which is validated for uniqueness at **real-time**.
 - **Passwords are stored securely** with bcryptjs encryption.  
@@ -54,7 +54,7 @@ A powerful SAAS platform for businesses and daily miscellaneous projects to coll
 - **Frontend:** Next.js, Tailwind CSS, ShadCN  
 - **Backend:** Next.js API routes, MongoDB, Mongoose  
 - **Authentication:** NextAuth.js (Google, GitHub, Credentials)  
-- **Email & OTP:** Resend  
+- **Email & OTP:** Resend and NodeMailer 
 - **Payments:** Paddle  
 - **File Uploads:** Cloudinary  
 - **State Management & Hooks:** SWR, usehooks-ts
