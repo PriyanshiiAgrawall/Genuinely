@@ -46,16 +46,16 @@ export default function UserSpacePage() {
 
                 const response = await axios(`/api/space?spaceId=${spaceid}`);
 
-                console.log(spaceid);
+
                 const space = response.data.spaces[0];
-                console.log(space)
+
 
                 if (response.status === 200) {
 
                     setIsNewSpace(space.isNewSpace || false);
 
                     setUniqueLink(space.uniqueLink || '');
-                    console.log(uniqueLink);
+
 
                 }
                 else {

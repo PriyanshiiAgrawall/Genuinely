@@ -36,11 +36,9 @@ export async function POST(req: Request) {
 
             userFromDb.name = name;
             await userFromDb.save();
-            console.log("hereeeeeeeeeeee")
-            console.log(otp);
-            console.log(email);
+
             const otpSend = await signupOtpEmailSending({ name, otp, email });
-            console.log(otpSend);
+
             if (!otpSend?.success) {
                 return NextResponse.json({
                     success: false,
@@ -59,8 +57,8 @@ export async function POST(req: Request) {
         const base64Avatar = `data:image/svg+xml;base64,${Buffer.from(generateCustomAvatar(email || name)).toString("base64")}`;
 
         const isOtpSend = await signupOtpEmailSending({ name, otp, email });
-        console.log(isOtpSend);
-        console.log(otp);
+
+
         if (!isOtpSend?.success) {
             return NextResponse.json({
                 success: false,

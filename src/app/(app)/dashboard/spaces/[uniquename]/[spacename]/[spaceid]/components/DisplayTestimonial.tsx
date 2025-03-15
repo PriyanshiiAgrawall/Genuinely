@@ -24,7 +24,7 @@ export default function DisplayTestimonials({ spaceid, uniqueLink }: Props) {
 
     const debounced = useDebounceCallback(setQuery, 500);
 
-    console.log(uniqueLink)
+
     useEffect(() => {
         //taking current search params and forming new params with debounced value and page no and then putting them back in url
 

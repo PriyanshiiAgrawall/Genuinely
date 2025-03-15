@@ -52,7 +52,7 @@ export const uploadOnCloudinary = async (fileBuffer: Buffer, fileType: string) =
         };
         timestamp = timestamp;
         const signature = generateSignature(params);
-        console.log("Generated Signature:", signature);
+        // console.log("Generated Signature:", signature);
 
         const response = await cloudinary.uploader.upload(fileStr, {
 

@@ -29,7 +29,7 @@ export async function GET(request: Request) {
         const spaceId = url.searchParams.get("spaceId"); // check if `id` is passed as a query parameter.
         //if spaceId not found then all the spaces of user will be returned
         //convert string to objectid
-        console.log(spaceId);
+
         const userId = new Types.ObjectId(session?.user?.id);
         if (!userId) {
             return NextResponse.json({ message: "Something is wrong with your user session we cant fetch userid" }, { status: 401 });
@@ -42,7 +42,7 @@ export async function GET(request: Request) {
             if (!spaceFromDb) {
                 return NextResponse.json({ message: "Either this space does not exist or you are not the owner of it" }, { status: 404 });
             }
-            console.log(spaceFromDb);
+
             return NextResponse.json({ message: "Successfully fetched space", spaces: [spaceFromDb] });
         }
         else {

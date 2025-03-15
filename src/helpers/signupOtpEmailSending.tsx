@@ -30,7 +30,7 @@ import { OtpEmailSendingProps } from "../../emails/OTPSendingTemplate";
 
 async function signupOtpEmailSending({ name, otp, email }: OtpEmailSendingProps): Promise<ApiResponse> {
     try {
-        console.log("OTP sending initiated");
+
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
