@@ -16,7 +16,8 @@ export async function getTotalTestimonials() {
     const session = await getServerSession(authOptions);
     if (!session) return 0;
     const userId = session.user?.id;
-    const totalTestimonials = await Testimonial.find({ owner: userId }).countDocuments();
+    const userid = new Types.ObjectId(userId);
+    const totalTestimonials = await Testimonial.find({ owner: userid }).countDocuments();
     return totalTestimonials;
 }
 

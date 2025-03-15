@@ -88,9 +88,9 @@ export const authOptions: NextAuthOptions = {
     },
     callbacks: {
         async jwt({ token, user }) {
-            // console.log("JWT CALLBACK:", { token, user });
+            console.log("JWT CALLBACK:", { token, user });
             if (user) {
-                token.id = user._id?.toString();
+                token.id = user._id?.toString() || user.id;
                 token.email = user.email;
                 token.name = user.name;
                 token.image = user.image;
@@ -101,7 +101,7 @@ export const authOptions: NextAuthOptions = {
             return token;
         },
         async session({ session, user, token }) {
-            // console.log("here are session callback", session, user, token)
+            console.log("here are session callback", session, user, token)
             if (session.user) {
                 session.user.id = token.sub || token.id;
                 session.user.email = token.email;
@@ -126,8 +126,11 @@ export const authOptions: NextAuthOptions = {
                 let existingUser = await User.findOne({ email });
 
                 if (existingUser) {
-                    // Check if this OAuth provider is already linked
 
+                    user.id = existingUser._id.toString();
+                    user.subscriptionTier = existingUser.subscriptionTier;
+                    user.isVerified = existingUser.isVerified;
+                    // Check if this OAuth provider is already linked
                     const oauthAccount = existingUser.oauthAccounts.find((acc: OAuthAccountInterface) =>
                         acc.provider === provider && acc.providerAccountId === providerAccountId
                     );
@@ -168,6 +171,9 @@ export const authOptions: NextAuthOptions = {
                         oauthAccounts: [{ provider, providerAccountId }],
                     });
                     await existingUser.save();
+                    user.id = existingUser._id.toString();
+                    user.subscriptionTier = "Free";
+                    user.isVerified = true;
                 }
 
                 return true;

@@ -15,7 +15,8 @@ export async function getTotalLoveBooks() {
     const session = await getServerSession(authOptions);
     if (!session) return 0;
     const userId = session.user?.id;
-    const totalLoveBooks = await TestimonialBook.find({ owner: userId }).countDocuments();
+    const userid = new Types.ObjectId(userId);
+    const totalLoveBooks = await TestimonialBook.find({ owner: userid }).countDocuments();
     return totalLoveBooks;
 }
 

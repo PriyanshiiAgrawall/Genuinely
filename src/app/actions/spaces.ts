@@ -15,6 +15,7 @@ import { getServerSession } from "next-auth";
 export async function getTotalSpaces() {
     await dbConnect();
     const session = await getServerSession(authOptions);
+    console.log(session);
     if (!session) return 0;
     const userId = session.user?.id;
     const totalSpaces = await Space.find({ owner: userId }).countDocuments();
