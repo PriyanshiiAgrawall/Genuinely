@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { signIn } from "next-auth/react";
+import { Eye, EyeOff } from "lucide-react";
 import {
     Form,
     FormControl,
@@ -21,12 +22,14 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import Navbar0 from "@/app/[uniqueName]/[spaceName]/components/Navbar0";
 import { signInSchemaZod } from "@/lib/schemas";
+import Navbar1 from "@/app/components/Navbar1";
 
 
 export default function SignInPage() {
     //for react hook form
+    const [showPassword, setShowPassword] = useState(false);
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { toast } = useToast();
     const router = useRouter();
@@ -118,10 +121,9 @@ export default function SignInPage() {
         }
 
     }
-
     return (
         <div className="w-full">
-            <Navbar0 />
+            <div className="my-10">  <Navbar1 /></div>
 
 
             <div className="flex justify-center items-center min-h-screen bg-[#000421] py-12 overflow-hidden">
@@ -156,13 +158,26 @@ export default function SignInPage() {
                                     <FormItem>
                                         <FormLabel className="text-richblack-900">Password</FormLabel>
                                         <FormControl>
-                                            <Input type="password" placeholder="Password" {...field}
-                                                className="border-richblack-300 focus:border-[#272E3F] focus:ring-[#272E3F]"
-                                            />
+                                            <div className="relative">
+                                                <Input type={showPassword ? "text" : "password"} placeholder="Password" {...field}
+                                                    className="border-richblack-300 focus:border-[#272E3F] focus:ring-[#272E3F]"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowPassword(!showPassword)}
+                                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-black"
+                                                >
+                                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                                </button>
+                                            </div>
                                         </FormControl>
                                     </FormItem>
                                 )}
                             />
+                            <Link href="/reset/get-email" className="text-blue-800 hover:underline text-[13px]">
+                                Forgot Password?
+                            </Link>
+
                             <Button type="submit" disabled={isSubmitting} className="w-full bg-[#272E3F] hover:bg-[#1e2433] text-white rounded-lg py-3">
                                 {isSubmitting ? (<><Loader2 className="mr-2 h-5 w-5 animate-spin text-[#000421]" /> Please Wait...</>) : ('Signin With Credentials')}
                             </Button>

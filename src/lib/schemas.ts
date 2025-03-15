@@ -50,3 +50,13 @@ export const testimonialCardSchemaZod = z.object({
         return file instanceof File && file.size < 2000000 && checkFileType(file);
     }, "Max size is 2MB & only .png, .jpg, .jpeg formats are supported.")
 });
+
+export const emailSchemaZod = z.object({
+    email: z.string().email("Invalid Email"),
+});
+
+export const changePasswordSchemaZod = z.object({
+    password: z.string().min(6, "Password must be atleast 6 characters"),
+    confirmPassword: z.string().min(6, "confirm password must be atleast 6 characters"),
+
+});

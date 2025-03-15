@@ -186,7 +186,15 @@ export default function ProfileSettings() {
                                 Upgrade to Pro
                             </Button>
                         </div>
+
                     )}
+                    <p>Password</p>
+                    <div className="flex space-x-2 mt-2 ">
+                        <Button className="bg-red-400" onClick={() => redirect('/reset/get-email')} disabled={loading}>
+                            Reset Password
+                        </Button>
+                    </div>
+
                 </div>
             </div>
         </Card>

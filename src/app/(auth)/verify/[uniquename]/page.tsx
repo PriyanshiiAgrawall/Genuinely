@@ -26,6 +26,9 @@ import axios, { AxiosError } from "axios"
 import { ApiResponse } from "@/types/ApiResponse"
 import { useState } from "react"
 import { otpSchemaZod } from "@/lib/schemas"
+import Navbar from "@/app/(app)/dashboard/components/Navbar"
+import Navbar1 from "@/app/components/Navbar1"
+import Navbar0 from "@/app/[uniqueName]/[spaceName]/components/Navbar0"
 
 
 
@@ -89,48 +92,51 @@ export default function VerifyOtpPage() {
 
     }
     return (
-        <div className="flex justify-center items-center min-h-screen bg-[#000421] overflow-hidden">
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-xl space-y-8 bg-[#F9FAFB] p-10 rounded-2xl shadow-2xl">
-                    <FormField
-                        control={form.control}
-                        name="otp"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-2xl font-semibold text-[#000421]">One-Time Password</FormLabel>
-                                <FormControl>
-                                    <InputOTP maxLength={6} {...field} className="flex justify-center gap-4">
-                                        <InputOTPGroup>
-                                            {[...Array(6)].map((_, index) => (
-                                                <InputOTPSlot
+        <div>
+            <Navbar0 />
+            <div className="flex justify-center items-center min-h-screen bg-[#000421] overflow-hidden">
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-xl space-y-8 bg-[#F9FAFB] p-10 rounded-2xl shadow-2xl">
+                        <FormField
+                            control={form.control}
+                            name="otp"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-2xl font-semibold text-[#000421]">One-Time Password</FormLabel>
+                                    <FormControl>
+                                        <InputOTP maxLength={6} {...field} className="flex justify-center gap-4">
+                                            <InputOTPGroup>
+                                                {[...Array(6)].map((_, index) => (
+                                                    <InputOTPSlot
 
-                                                    onInput={(e: React.FormEvent<HTMLInputElement>) => {
-                                                        const inputElement = e.target as HTMLInputElement;
-                                                        if (!/^n?o?$/.test(inputElement.value.toLowerCase())) {
-                                                            inputElement.value = "";
-                                                        }
-                                                    }}
-                                                    key={index}
-                                                    index={index}
+                                                        onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                                                            const inputElement = e.target as HTMLInputElement;
+                                                            if (!/^n?o?$/.test(inputElement.value.toLowerCase())) {
+                                                                inputElement.value = "";
+                                                            }
+                                                        }}
+                                                        key={index}
+                                                        index={index}
 
-                                                    className="h-12 w-12 text-xl  border-[#000421] text-[#000421] bg-white shadow-md 
+                                                        className="h-12 w-12 text-xl  border-[#000421] text-[#000421] bg-white shadow-md 
                                                     focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all duration-300"
-                                                />
-                                            ))}
-                                        </InputOTPGroup>
-                                    </InputOTP>
-                                </FormControl>
-                                <FormDescription>
-                                    Please enter the one-time password sent to your email.
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                                                    />
+                                                ))}
+                                            </InputOTPGroup>
+                                        </InputOTP>
+                                    </FormControl>
+                                    <FormDescription>
+                                        Please enter the one-time password sent to your email.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                    <Button type="submit">Submit</Button>
-                </form>
-            </Form>
+                        <Button type="submit">Submit</Button>
+                    </form>
+                </Form>
+            </div>
         </div>
     )
 

@@ -1,7 +1,9 @@
 "use server"
 
 
+import forgotPasswordEmailSending from "@/helpers/forgotPasswordEmailSending";
 import dbConnect from "@/lib/dbConnect";
+import ResetPassword from "@/models/ResetPassword";
 import Space from "@/models/Space";
 import TestimonialBook from "@/models/TestimonialBook";
 import TestimonialForm from "@/models/TestimonialForm";
@@ -185,5 +187,46 @@ export async function disconnectOAuth(userId: string, provider: string) {
         console.error("Error disconnecting OAuth provider:", error);
         throw error
 
+    }
+}
+
+export async function resetPasswordLinkTimeSaveToDb(randomcode: string, randomCodeExpiryDate: Date, name: string) {
+    await dbConnect();
+    try {
+        const user = await User.findOne({ email: name });
+        if (!user) {
+            return null
+        }
+        const reset = await ResetPassword.findOne({ email: name });
+        if (reset) {
+            reset.latestcode = randomcode;
+            reset.codeExpiryDate = randomCodeExpiryDate;
+            await reset.save();
+        } else {
+            const newreset = {
+                email: name,
+                latestcode: randomcode,
+                codeExpiryDate: randomCodeExpiryDate,
+            }
+            await ResetPassword.create(newreset);
+        }
+
+        return user.name;
+
+
+
+    } catch (error) {
+        console.error("Error disconnecting OAuth provider:", error);
+        throw error
+    }
+
+
+}
+
+export async function forgotPasswordEmailSendingServer(payload) {
+    try {
+        await forgotPasswordEmailSending(payload);
+    } catch (err) {
+        throw new err;
     }
 }
