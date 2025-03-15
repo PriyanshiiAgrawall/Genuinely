@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NotAccepting } from "./components/NotAccepting";
 import { isAccepting } from "@/app/actions/account";
+import NoCardExists from "./components/NoCardExists";
 
 
 export function SubmissionPage() {
@@ -50,7 +51,7 @@ export function SubmissionPage() {
 
     // Handle loading state
     if (!testimonialCard) {
-        return <p>Loading...</p>;
+        return <NoCardExists uniqueName={uniqueName} spaceName={spaceName} />;
     }
 
     // Convert _id & spaceId to string if they exist

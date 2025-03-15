@@ -4,14 +4,13 @@ import Image from 'next/image';
 import { MaxWidthWrapper } from '@/components/ui/MaxWidthWrapper';
 import Navbar0 from './Navbar0';
 
-export function NotAccepting({ uniqueName, spaceName, testimonialCardData }: { uniqueName: string, spaceName: string, testimonialCardData: any }) {
-
+export default function NoCardExists({ uniqueName, spaceName }: { uniqueName: string, spaceName: string }) {
     return (
         <div className='bg-gradient-to-r from-blue-500 to-purple-500 w-full min-h-screen min-w-screen overflow-hidden'>
-            {/* Header */}
             <div className="">
                 <Navbar0 />
             </div>
+            {/* Header */}
 
 
             {/* Main Content */}
@@ -33,6 +32,7 @@ export function NotAccepting({ uniqueName, spaceName, testimonialCardData }: { u
                             stroke="currentColor"
                             viewBox="0 0 24 24"
                         >
+
                             <circle cx="12" cy="12" r="9" strokeWidth="2" stroke="currentColor" fill="none" />
                             <line x1="12" y1="8" x2="12" y2="14" strokeWidth="2" stroke="currentColor" />
                             <circle cx="12" cy="17" r="1.2" fill="currentColor" />
@@ -45,7 +45,7 @@ export function NotAccepting({ uniqueName, spaceName, testimonialCardData }: { u
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.5 }}
                     >
-                        Sorry, this project is not accepting feedbacks right now
+                        Ask owner of {spaceName} space to submit testimonial form for this link to work
                     </motion.h1>
 
                     <motion.p
@@ -54,17 +54,16 @@ export function NotAccepting({ uniqueName, spaceName, testimonialCardData }: { u
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.7 }}
                     >
-                        We appreciate your patience. <br /> If this is a mistake, please contact the project head or email
-                        at <a href="mailto:support@genuinely.com" className="text-blue-600 underline">support@genuinely.com</a>.
+                        The owner of <span className="font-bold">{spaceName}</span> needs to submit a testimonial form first.
+                        <br /> If you believe this is an error, please contact them or email us at
+                        <a href="mailto:support@genuinely.com" className="text-blue-600 underline"> support@genuinely.com</a>.
                     </motion.p>
 
                     <motion.button
-                        className="rounded-3xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-2 px-6 hover:shadow-lg transition duration-300 ease-in-out transform outline-dashed"
-                        whileHover={{ scale: 1.08 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => window.open(testimonialCardData.projectUrl, '_blank')}
+                        className="rounded-3xl bg-gradient-to-r from-gray-400 to-gray-500 text-white font-semibold py-2 px-6 cursor-not-allowed opacity-75"
+                        whileHover={{ scale: 1 }}
                     >
-                        Visit {testimonialCardData.projectTitle}
+                        Testimonials Not Available
                     </motion.button>
                 </motion.div>
             </div>
