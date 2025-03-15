@@ -47,9 +47,11 @@ export async function deleteUser(userId: string) {
         if (spaceIds.length > 0) {
             await TestimonialForm.deleteMany({ spaceId: { $in: spaceIds } });
         }
+        await ResetPassword.deleteMany({ email: user.email });
         await Space.deleteMany({ owner: userid });
         await TestimonialBook.deleteMany({ owner: userid });
         await User.findByIdAndDelete(userid);
+
         return { success: true, message: "User deleted successfully" };
 
 
