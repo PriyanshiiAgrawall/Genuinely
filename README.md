@@ -10,7 +10,7 @@ A powerful SAAS platform for businesses and daily miscellaneous projects to coll
 - **OTP-based authentication** using Resend and NodeMailer for email verification.  
 - Unique usernames are generated in **real-time** for users signing up via Google/GitHub using **`unique-names-generator`**.  
 - For OTP sign-ups, users **choose their own username**, which is validated for uniqueness at **real-time**.
-- **Passwords are stored securely** with bcryptjs encryption.  
+- **Passwords are stored securely** with bcryptjs encryption and password updation by sending **unique link via email** is implemented. 
 
 ### 💰 Subscription Plans (Paddle Integration)  
 - **Free, Pro, and Lifetime** subscription plans.  
