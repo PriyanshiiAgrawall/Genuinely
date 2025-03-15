@@ -66,13 +66,16 @@ export async function updateName(userId: string, uniqueName: string) {
     await dbConnect();
     try {
         const userid = new Types.ObjectId(userId);
-        const user = await User.findById(userid).lean();
+        const user = await User.findById(userid)
         if (!user) {
             throw new Error("User not found.");
         }
         const users = await User.find({ name: uniqueName });
         if (users.length > 1) {
-            return false;
+            const verifiedUsers = users.filter(user => user.isVerified);
+            if (verifiedUsers.length > 0) {
+                return false;
+            }
         }
         if (users.length > 0 && (!users[0] || users[0]?._id?.toString() === userId.toString())) {
             //this user has this 
@@ -80,7 +83,10 @@ export async function updateName(userId: string, uniqueName: string) {
         }
         else if (users[0]?._id?.toString() !== userId.toString()) {
             //someone has it already
-            return false;
+            const verifiedUser = users.find(user => user.isVerified);
+            if (verifiedUser && verifiedUser._id.toString() !== userId.toString()) {
+                return false;
+            }
         }
 
 

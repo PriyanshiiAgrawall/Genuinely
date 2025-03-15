@@ -91,6 +91,7 @@ export default function ProfileSettings() {
     const handleSaveName = async () => {
         setLoading(true)
         const updateSuccessful = await updateName(session?.user?.id as string, uniqueName as string)
+        console.log(updateSuccessful);
         if (updateSuccessful) {
 
             toast({

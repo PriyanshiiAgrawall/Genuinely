@@ -21,6 +21,7 @@ import { Loader2 } from "lucide-react";
 import Navbar0 from "@/app/[uniqueName]/[spaceName]/components/Navbar0";
 import { changePasswordSchemaZod } from "@/lib/schemas";
 import axios from "axios";
+import Navbar1 from "@/app/components/Navbar1";
 
 
 export default function PasswordResetPage() {
@@ -88,7 +89,7 @@ export default function PasswordResetPage() {
 
 
     return (
-        <div><Navbar0 />
+        <div><Navbar1 />
             <div className="w-full">
 
                 <div className="flex justify-center items-center min-h-screen bg-[#000421] py-12 overflow-hidden">
