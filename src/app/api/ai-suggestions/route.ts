@@ -5,7 +5,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
 async function run(projectName: string, feedbackPrompt: string) {
     try {
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
         const prompt = `Generate 5 short and polite customer testimonials for a project/topic called "${projectName}" based on this feedback: "${feedbackPrompt}".Some should have project name some not some with constructive criticism some too polite.`
         const result = await model.generateContent(prompt);
         if (!result.response || !result.response.candidates) {
